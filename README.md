@@ -1,11 +1,17 @@
 # Rook
 
-This is the front end of Autograder 2.0
+This is the front end of Autograder 2.0.
 
 ### Development
 This app uses Docker and Docker Compose to make stuff nice and easy. First, download
 Docker desktop onto your computer. It's a React app that communicates to the backend
 with Axios, all running behind an NGINX server/load balancer.
+
+
+I recommend you use Visual Studio Code to work on this (and the backend). You can
+download it <a href="https://code.visualstudio.com" target="_blank">here</a>. Once it's installed,
+the plugins that will be helpful for this repository are Docker, TSLint, and ESLint. Other suggested
+plugins are vscode-icons and Visual Studio Intellicode.
 
 
 To start developing: `docker-compose up --build -d`
@@ -23,3 +29,7 @@ so make sure to make an account.
 4. <a href="https://www.tutorialspoint.com/typescript/index.htm" target="_blank">Typescript tutorial</a>
 5. <a href="https://www.typescriptlang.org/docs/home.html" target="_blank">Typescript docs</a>
 6. <a href="https://github.com/axios/axios" target="_blank">Axios documentation</a>
+
+### License
+This is a closed source project. Collaboration from anyone other than Autograder team members and approved
+guests is not allowed.
