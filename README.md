@@ -19,6 +19,8 @@ To start developing: `docker-compose up --build -d`
 
 To stop developing: `docker-compose down --volumes`
 
+To see the local build once Docker is running, navigate to localhost:3001
+
 We'll be using <a href="hub.docker.com" target="_blank">DockerHub</a> to host images and stuff eventually,
 so make sure to make an account.
 
