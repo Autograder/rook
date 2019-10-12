@@ -17,7 +17,7 @@ plugins are vscode-icons and Visual Studio Intellicode.
 To start developing: `docker-compose up --build -d`
 
 
-To stop developing: `docker-compose down --volumes`
+To stop developing: `docker-compose down --volumes` (to remove everything fully) or `docker-compose stop` (to just stop the image)
 
 To see the local build once Docker is running, navigate to localhost:3001
 
@@ -31,6 +31,7 @@ so make sure to make an account.
 4. <a href="https://www.tutorialspoint.com/typescript/index.htm" target="_blank">Typescript tutorial</a>
 5. <a href="https://www.typescriptlang.org/docs/home.html" target="_blank">Typescript docs</a>
 6. <a href="https://github.com/axios/axios" target="_blank">Axios documentation</a>
+7. <a href="https://mherman.org/blog/dockerizing-a-react-app/#react-router-and-nginx" target="_blank">React Router Stuff</a>
 
 ### License
 This is a closed source project. Collaboration from anyone other than Autograder team members and approved
