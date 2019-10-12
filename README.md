@@ -24,7 +24,7 @@ so make sure to make an account.
 
 ### Useful Links
 1. <a href="https://reactjs.org/tutorial/tutorial.html" target="_blank">React Tutorial</a>
-2. Codeacademy Learn React<a href="https://www.codecademy.com/learn/react-101" target="_blank">Part 1</a> and <a href="https://www.codecademy.com/learn/react-102" target="_blank">Part 2</a>
+2. Codeacademy Learn React <a href="https://www.codecademy.com/learn/react-101" target="_blank">Part 1</a> and <a href="https://www.codecademy.com/learn/react-102" target="_blank">Part 2</a>
 3. <a href="https://reactjs.org/docs/react-api.html" target="_blank">React docs</a>
 4. <a href="https://www.tutorialspoint.com/typescript/index.htm" target="_blank">Typescript tutorial</a>
 5. <a href="https://www.typescriptlang.org/docs/home.html" target="_blank">Typescript docs</a>
