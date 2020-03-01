@@ -28,4 +28,5 @@ Dockerfile.prod
 docker-compose.prod.yml
 nginx/*
 nginx
+*.swp
 
