@@ -1,25 +1,30 @@
 import React from 'react';
-import logo from './logo.svg';
 import './style/App.css';
 
 export default class App extends React.Component {
+  webName = "autograder.";
+  webTitle = (
+    <div className="App-header">
+        <div className="App-header">{this.webName}</div>
+    </div>
+  );
+  loginBox = (
+    <div className="App-login">
+      <form name="login">
+      Username<input type="text" name="userid"/>
+      <br/>
+      Password<input type="password" name="pswrd"/>
+      <br/>
+      <input type="button" value="Login"/>
+      <input type="reset" value="Cancel"/>
+      </form>
+    </div>
+  );
 
   render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            <strong>Future home of Autograder! (Maybe we'll name it Queues though?)</strong>
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >Learn React</a>
-        </header>
-      </div>
-    );
-  }
+    return <div>
+      {this.webTitle}
+      {this.loginBox}
+    </div>
+  };
 }
