@@ -1,0 +1,17 @@
+.title {
+  min-height: 100vh;
+  font-size: 100px;
+  font-weight: bold;
+  color: white;
+  display: inline-block;
+}
+
+.wrapper {
+  text-align: center;
+}
+
+.loginForm {
+  color: white;
+  font-size: 45px;
+  position: fixed;
+}
