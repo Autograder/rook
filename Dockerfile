@@ -1,4 +1,4 @@
-FROM node:12.10
+FROM node:latest
 
 WORKDIR /app
 
@@ -9,3 +9,4 @@ RUN npm install
 RUN npm install react-scripts@3.0.1 -g
 
 CMD ["npm", "start"]
+

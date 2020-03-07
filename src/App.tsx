@@ -1,7 +1,7 @@
 import React from 'react';
 import './style/App.css';
 
-class App extends React.Component {
+export default class App extends React.Component {
   webName = "autograder.";
   webTitle = (
     <div className="App-header">
@@ -27,6 +27,4 @@ class App extends React.Component {
       {this.loginBox}
     </div>
   };
-};
-
-export default App;
+}

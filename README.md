@@ -14,14 +14,19 @@ the plugins that will be helpful for this repository are Docker, TSLint, and ESL
 plugins are vscode-icons and Visual Studio Intellicode.
 
 
-To start developing: `docker-compose up --build -d`
+To start developing: `docker-compose up -d --build`. The `-d` flag makes the
+container run as a daemon, so if you want to see what's happening don't use it.
+It kind of hijacks your terminal, so I'd recommend letting it run in a terminal
+and opening a new window if you need to use your terminal. The code has
+hot-reloading enabled, so you should be able to make a change, save, and if it
+all compiles you'll see the new change in the window.
 
 
 To stop developing: `docker-compose down --volumes` (to remove everything fully) or `docker-compose stop` (to just stop the image)
 
 To see the local build once Docker is running, navigate to localhost:3001
 
-We'll be using <a href="hub.docker.com" target="_blank">DockerHub</a> to host images and stuff eventually,
+We'll be using <a href="https://hub.docker.com" target="_blank">DockerHub</a> to host images and stuff eventually,
 so make sure to make an account.
 
 ### Useful Links
