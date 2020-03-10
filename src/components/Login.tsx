@@ -3,17 +3,46 @@ import TextField from '@material-ui/core/TextField';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
+import Link from '@material-ui/core/Link';
+import Typography from '@material-ui/core/Typography'
 
-const useStyles = makeStyles((theme: Theme) =>
+
+const theme = createMuiTheme({
+  palette: {
+    // Link when unclicked
+    primary: {
+      main: '#ffffff',
+    },
+    text: {
+      // Input box when hovered over
+      primary: '#ffffff',
+      // Text in input box when unclicked
+      secondary: '#ffffff',
+    },
+  },
+  typography: {
+    // Link and Input box text
+    fontFamily: 'Quicksand',
+    fontSize: 16,
+  },
+});
+
+const styles = makeStyles((theme: Theme) =>
   createStyles({
     form: {
       '& > *': {
         margin: theme.spacing(1),
         width: 300,
-        'position' : 'absolute',
+        'position' : 'relative',
         'left' : '50%',
         'margin-left' : '-150px',
-        'padding-bottom' : '100px',
+        'padding-bottom' : '10px',
+      },
+      // Border of Input Boxes when not clicked
+      '& .MuiOutlinedInput-root': {
+        '& fieldset': {
+          borderColor: 'white',
+        },
       },
     },
     title : {
@@ -21,38 +50,28 @@ const useStyles = makeStyles((theme: Theme) =>
       'font-size': '100px',
       'text-align' : 'center',
     },
-    text: {
-      'borderColor' : 'white',
-    }
   }),
 );
 
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: '#f8f8f8',
-    },
-  },
-});
-
 export default function Login() {
-  const classes = useStyles();
+  
+  const classes = styles();
     return (
       <div>
         <h1 className={classes.title}>autograder.</h1>
-        <body>
-          <p>
-            <ThemeProvider theme={theme}>
-            <form className={classes.form} noValidate autoComplete="off">
-              <TextField id="outlined-basic" className={classes.text} color="primary" label="Email" variant="outlined" />
-            </form>
-            <br/><br/><br/><br/>
-            <form className={classes.form} noValidate autoComplete="off">
-              <TextField id="outlined-basic" className={classes.text} color="primary" label="Password" variant="outlined" />
-            </form>
-            </ThemeProvider>
-          </p>
-        </body>
+        <ThemeProvider theme={theme}>
+          <form className={classes.form} noValidate autoComplete="off">
+            <TextField id="outlined-basic" color="primary" label="Email" variant="outlined" />
+          </form>
+          <form className={classes.form} noValidate autoComplete="off">
+            <TextField id="outlined-basic" color="primary" label="Password" type="password" autoComplete="current-password" variant="outlined" />
+          </form>
+          <Typography align='center'>
+            <Link href="instructions"> First Time? </Link>
+            <br/>
+            <Link href="reset"> Forgot Password? </Link>
+          </Typography>
+        </ThemeProvider>
       </div>
     );
 }
