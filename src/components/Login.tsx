@@ -5,6 +5,7 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography'
+import Button from '@material-ui/core/Button';
 
 
 const theme = createMuiTheme({
@@ -50,6 +51,17 @@ const styles = makeStyles((theme: Theme) =>
       'font-size': '100px',
       'text-align' : 'center',
     },
+    button : {
+      color: 'white',
+      'text-align' : 'center',
+      width : 100,
+      'position' : 'relative',
+      'left' : '50%',
+      'margin-left' : '-50px',
+    },
+    wrapper : {
+      'padding-bottom' : '10px',
+    },
   }),
 );
 
@@ -66,6 +78,9 @@ export default function Login() {
           <form className={classes.form} noValidate autoComplete="off">
             <TextField id="outlined-basic" color="primary" label="Password" type="password" autoComplete="current-password" variant="outlined" />
           </form>
+          <div className={classes.wrapper}>
+            <Button variant="outlined" color="primary" className={classes.button}>Login</Button>
+          </div>
           <Typography align='center'>
             <Link href="instructions"> First Time? </Link>
             <br/>
