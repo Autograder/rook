@@ -6,28 +6,65 @@ import { ThemeProvider } from '@material-ui/styles';
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button';
+import api from '../conf';
 
 
-const theme = createMuiTheme({
-  palette: {
-    // Link when unclicked
-    primary: {
-      main: '#ffffff',
-    },
-    text: {
-      // Input box when hovered over
-      primary: '#ffffff',
-      // Text in input box when unclicked
-      secondary: '#ffffff',
-    },
-  },
-  typography: {
-    // Link and Input box text
-    fontFamily: 'Quicksand',
-    fontSize: 16,
-  },
-});
-
+/*
+class Login extends React.Component {
+  constructor(props:any){
+    super(props);
+    this.state={
+    username:'',
+    password:''
+    }
+   }
+   const classes = this.styles(); hellooooooooo
+  render() {
+      return (
+        <div>
+          <h1 className={classes.title}>autograder.</h1>
+          <ThemeProvider theme={theme}>
+            <form className={classes.form} noValidate autoComplete="off">
+              <TextField id="outlined-basic" color="primary" label="Email" variant="outlined" 
+              onChange = {(event,newValue) => this.setState({password:newValue})} />
+            </form>
+            <form className={classes.form} noValidate autoComplete="off">
+              <TextField id="outlined-basic" color="primary" label="Password" type="password" autoComplete="current-password" variant="outlined" 
+              onChange = {(event,newValue) => this.setState({password:newValue})}/>
+            </form>
+            <div className={classes.wrapper}>
+              <Button variant="outlined" color="primary" className={classes.button} onClick={(event:any) => eventHandleLogin(event)}>
+                Login
+              </Button>
+            </div>
+            <Typography align='center'>
+              <Link href="instructions"> First Time? </Link>
+              <br/>
+              <Link href="reset"> Forgot Password? </Link>
+            </Typography>
+          </ThemeProvider>
+        </div>
+    );
+  }
+}
+function eventHandleLogin(param1:any) {
+  api.post('/api/users/login', {
+    email: param1['Email'], 
+    password: param1['Password'],
+    remember: 'false'
+  })  .then (resp=>{
+    console.log("Logged in successfully");
+    // go to their queue page
+    // resp.data['result']['fname'] OR resp.data.result.fname --- resp.data.reason
+  }).catch(err=>{
+    if (err.status === 400) {
+      // we got the status code from server -- users login failed bc bad user name pass comb
+      console.log(err.data.reason);
+    } else {
+      // server error - render pages later
+    }
+  });
+};
 const styles = makeStyles((theme: Theme) =>
   createStyles({
     form: {
@@ -65,28 +102,26 @@ const styles = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function Login() {
-  
-  const classes = styles();
-    return (
-      <div>
-        <h1 className={classes.title}>autograder.</h1>
-        <ThemeProvider theme={theme}>
-          <form className={classes.form} noValidate autoComplete="off">
-            <TextField id="outlined-basic" color="primary" label="Email" variant="outlined" />
-          </form>
-          <form className={classes.form} noValidate autoComplete="off">
-            <TextField id="outlined-basic" color="primary" label="Password" type="password" autoComplete="current-password" variant="outlined" />
-          </form>
-          <div className={classes.wrapper}>
-            <Button variant="outlined" color="primary" className={classes.button}>Login</Button>
-          </div>
-          <Typography align='center'>
-            <Link href="instructions"> First Time? </Link>
-            <br/>
-            <Link href="reset"> Forgot Password? </Link>
-          </Typography>
-        </ThemeProvider>
-      </div>
-    );
-}
+const theme = createMuiTheme({
+    palette: {
+      // Link when unclicked
+      primary: {
+        main: '#ffffff',
+      },
+      text: {
+        // Input box when hovered over
+        primary: '#ffffff',
+        // Text in input box when unclicked
+        secondary: '#ffffff',
+      },
+    },
+    typography: {
+      // Link and Input box text
+      fontFamily: 'Quicksand',
+      fontSize: 16,
+    },
+  }
+);
+
+export default Login;
+*/
