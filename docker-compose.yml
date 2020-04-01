@@ -6,12 +6,12 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    command: bash -c 'npm run start'
     volumes:
       - '.:/app'
       - '/app/node_modules'
     ports:
-      - '3001:3000'
+      - '3001:3001'
     environment:
       - NODE_ENV=development
       - CHOKIDAR_USEPOLLING=true
-
