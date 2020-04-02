@@ -1,6 +1,7 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 
 const theme = createMuiTheme({
+
 	palette: {
 	  // Link when unclicked
 	  primary: {
@@ -20,4 +21,4 @@ const theme = createMuiTheme({
 	},
 });
 
-export default {theme};
+export default { theme } 
