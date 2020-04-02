@@ -12,4 +12,4 @@ export default function Queue() {
             <h1>The Queue</h1>
         </div>
     );
-}
+} 

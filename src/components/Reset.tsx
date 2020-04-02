@@ -11,4 +11,4 @@ export default function Reset() {
             <h5> Hello! This is where instructions to reset your password will be. Should be a mostly static page with a button that will email a new password. </h5>
         </div>
     );
-}
+} 
