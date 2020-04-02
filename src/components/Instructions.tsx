@@ -1,7 +1,11 @@
 import React from 'react';
 import Navbar from './Navbar';
+//import OurTheme from '../style/Theme';
+//import Styles from '../style/InstructionsStyle';
 
 export default function Instructions() {
+    //const theme = OurTheme.theme;
+	//const classes = Styles.useStyles();
     return (
         <div>
             <Navbar/>

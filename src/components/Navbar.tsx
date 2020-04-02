@@ -3,9 +3,9 @@ import { AppBar } from '@material-ui/core';
 import { Toolbar } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
 import { Button } from '@material-ui/core';
+import { ThemeProvider } from '@material-ui/styles';
 import OurTheme from '../style/Theme';
 import Styles from '../style/NavbarStyle';
-import { ThemeProvider } from '@material-ui/styles';
 
 export default function Navbar(props:any) {
 	const theme = OurTheme.theme;

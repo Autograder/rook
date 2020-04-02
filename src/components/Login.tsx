@@ -1,13 +1,11 @@
 import React from 'react';
-import TextField from '@material-ui/core/TextField';
-import { useState } from 'react';
-import { ThemeProvider } from '@material-ui/styles';
-import Link from '@material-ui/core/Link';
-import Typography from '@material-ui/core/Typography'
-import Button from '@material-ui/core/Button';
 import api from '../conf';
+import { TextField, Typography, Button, Link } from '@material-ui/core';
+import { ThemeProvider } from '@material-ui/styles';
+import { useState } from 'react';
 import OurTheme from '../style/Theme';
 import Styles from '../style/LoginStyle';
+
 
 export default function Login(props:any) {
 
