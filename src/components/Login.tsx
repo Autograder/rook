@@ -8,70 +8,70 @@ import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button';
 import api from '../conf';
-
+//import mystyles from '../style/Styles';
 
 export default function Login(props:any) {
-  
-  // Theme to be used by whole app? Should this go here?
-  const theme = createMuiTheme({
+// Theme to be used by whole app? Should this go here?
+const theme = createMuiTheme({
 
-    palette: {
-      // Link when unclicked
-      primary: {
-        main: '#ffffff',
-      },
-      text: {
-        // Input box when hovered over
-        primary: '#ffffff',
-        // Text in input box when unclicked
-        secondary: '#ffffff',
-      },
+  palette: {
+    // Link when unclicked
+    primary: {
+      main: '#ffffff',
     },
-    typography: {
-      // Link and Input box text
-      fontFamily: 'Quicksand',
-      fontSize: 16,
+    text: {
+      // Input box when hovered over
+      primary: '#ffffff',
+      // Text in input box when unclicked
+      secondary: '#ffffff',
     },
-  });
-  
-  // Styles for elements on this page... possibly more? Does this go here?
-  const styles = makeStyles(theme =>
-  createStyles({
-    form: {
-      '& > *': {
-        width: 300,
-        'position' : 'relative',
-        'left' : '50%',
-        'margin-left' : '-150px',
-        'padding-bottom' : '10px',
-      },
-      // Border of Input Boxes when not clicked
-      '& .MuiOutlinedInput-root': {
-        '& fieldset': {
-          borderColor: 'white',
-        },
-      },
-    },
-    title : {
-      color: 'white',
-      'font-size': '100px',
-      'text-align' : 'center',
-    },
-    button : {
-      color: 'white',
-      'text-align' : 'center',
-      width : 100,
+  },
+  typography: {
+    // Link and Input box text
+    fontFamily: 'Quicksand',
+    fontSize: 16,
+  },
+});
+
+// Styles for elements on this page... possibly more? Does this go here?
+const mystyles = makeStyles(theme =>
+createStyles({
+  form: {
+    '& > *': {
+      width: 300,
       'position' : 'relative',
       'left' : '50%',
-      'margin-left' : '-50px',
-    },
-    wrapper : {
+      'margin-left' : '-150px',
       'padding-bottom' : '10px',
     },
-    }),
-    );
+    // Border of Input Boxes when not clicked
+    '& .MuiOutlinedInput-root': {
+      '& fieldset': {
+        borderColor: 'white',
+      },
+    },
+  },
+  title : {
+    color: 'white',
+    'font-size': '100px',
+    'text-align' : 'center',
+  },
+  button : {
+    color: 'white',
+    'text-align' : 'center',
+    width : 100,
+    'position' : 'relative',
+    'left' : '50%',
+    'margin-left' : '-50px',
+  },
+  wrapper : {
+    'padding-bottom' : '10px',
+  },
+  }),
+  );
+
     // Using hooks to instantiate the styles
-    const classes = styles();
+    const classes = mystyles();
 
     // Look into more - to save values from text fields
     const [password, setPass] = useState('');
