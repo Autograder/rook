@@ -3,13 +3,13 @@ import { AppBar } from '@material-ui/core';
 import { Toolbar } from '@material-ui/core';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { Typography } from '@material-ui/core';
-import navbarStyle from '../style/NavbarStyle';
-import Styles from '../style/Theme';
+import Styles from '../style/NavbarStyle';
+import OurTheme from '../style/Theme';
 import { ThemeProvider } from '@material-ui/styles';
 
 export default function Navbar(props:any) {
-	const classes = navbarStyle();
-	const theme = Styles.theme;
+	const classes = Styles.useStyles();
+	const theme = OurTheme.theme;
 	return (
 		<div>
 			<ThemeProvider theme={theme}>
