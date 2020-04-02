@@ -1,20 +1,19 @@
 import React from 'react';
 import { AppBar } from '@material-ui/core';
 import { Toolbar } from '@material-ui/core';
-import { IconButton } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
 import { Button } from '@material-ui/core';
-import Styles from '../style/Styles';
+import OurTheme from '../style/Theme';
+import Styles from '../style/NavbarStyle';
 import { ThemeProvider } from '@material-ui/styles';
 
 export default function Navbar(props:any) {
+	const theme = OurTheme.theme;
 	const classes = Styles.useStyles();
-	const theme = Styles.theme;
 
 	return (
 		<div>
-			<ThemeProvider theme={theme}>
+			<ThemeProvider theme ={theme}>
 				<AppBar position="static">
   					<Toolbar>
     					<Typography variant="h6" className={classes.title}>

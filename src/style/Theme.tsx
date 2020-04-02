@@ -1,4 +1,3 @@
-import { makeStyles } from '@material-ui/core/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
 
 const theme = createMuiTheme({
@@ -22,16 +21,4 @@ const theme = createMuiTheme({
 	},
 });
 
-const useStyles = makeStyles((theme) => ({
-	root: {
-	  flexGrow: 1,
-	},
-	menuButton: {
-	  marginRight: theme.spacing(2),
-	},
-	title: {
-	  flexGrow: 1,
-	},
-}));  
-
-export default { theme, useStyles};
+export default { theme }
