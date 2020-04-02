@@ -2,7 +2,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
 
 const theme = createMuiTheme({
-
 	palette: {
 	  // Link when unclicked
 	  primary: {
@@ -26,12 +25,20 @@ const useStyles = makeStyles((theme) => ({
 	root: {
 	  flexGrow: 1,
 	},
-	menuButton: {
-	  marginRight: theme.spacing(2),
+	appBar: {
+		background: 'transparent',
+		boxShadow:'none',
+		color: "#ffffff"
 	},
 	title: {
 	  flexGrow: 1,
+	  fontSize: 30,
+	  fontWeight: 'bold'
 	},
+	pages: {
+		fontSize: 12,
+		marginRight: theme.spacing(2),
+	}
 }));  
 
-export default { theme, useStyles};
+export default {theme, useStyles};

@@ -1,10 +1,8 @@
 import React from 'react';
 import { AppBar } from '@material-ui/core';
 import { Toolbar } from '@material-ui/core';
-import { IconButton } from '@material-ui/core';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { Typography } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
-import { Button } from '@material-ui/core';
 import Styles from '../style/Styles';
 import { ThemeProvider } from '@material-ui/styles';
 
@@ -15,12 +13,18 @@ export default function Navbar(props:any) {
 	return (
 		<div>
 			<ThemeProvider theme={theme}>
-				<AppBar position="static">
+				<AppBar position="static" className={classes.appBar}>
   					<Toolbar>
     					<Typography variant="h6" className={classes.title}>
       						autograder
    						</Typography>
-    					<Button color="inherit">Login</Button>
+						<Typography variant="h6" className={classes.pages}>
+      						Classes
+   						</Typography>
+						<Typography variant="h6" className={classes.pages}>
+      						Ticket History
+   						</Typography>
+						<ExitToAppIcon></ExitToAppIcon>
   					</Toolbar>
 				</AppBar>
 			</ThemeProvider>
