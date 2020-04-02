@@ -3,8 +3,8 @@ import { AppBar } from '@material-ui/core';
 import { Toolbar } from '@material-ui/core';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { Typography } from '@material-ui/core';
-import navbarStyle from '../style/NavbarStyles';
-import Styles from '../style/Styles';
+import navbarStyle from '../style/NavbarStyle';
+import Styles from '../style/Theme';
 import { ThemeProvider } from '@material-ui/styles';
 
 export default function Navbar(props:any) {
