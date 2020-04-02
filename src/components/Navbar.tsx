@@ -7,7 +7,7 @@ import Styles from '../style/NavbarStyle';
 import OurTheme from '../style/Theme';
 import { ThemeProvider } from '@material-ui/styles';
 
-export default function Navbar(props:any) {
+export default function Navbar(props:string) {
 	const classes = Styles.useStyles();
 	const theme = OurTheme.theme;
 	return (
