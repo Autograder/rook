@@ -13,4 +13,4 @@ const api: AxiosInstance = axios.create({
   baseURL: serverURL
 });
 
-module.exports = api;
+export default api;
