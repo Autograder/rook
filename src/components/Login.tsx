@@ -6,6 +6,29 @@ import { useState } from 'react';
 import OurTheme from '../style/Theme';
 import Styles from '../style/LoginStyle';
 
+// Handling a log in occurence
+function eventHandleLogin(email:any, password:any) {
+  console.log(email);
+  console.log(password);
+  var apiBaseUrl = '/api/users/login';
+  var payload = {
+    "email" : email,
+    "password" : password,
+  };
+  api.post(apiBaseUrl,payload) 
+  .then ( function (response) {
+    console.log(response);
+    if(response.data.code === 200){
+      console.log("Login successfull");
+      // somehow render the queue page here
+    } else if (response.data.code === 400) {
+      console.log("Username password do not match");
+    }
+  })
+  .catch(function (error) {
+    console.log(error);
+    });
+}
 
 export default function Login(props:any) {
 
@@ -42,24 +65,3 @@ export default function Login(props:any) {
     </div>
   );
 }
-
-// Handling a log in occurence
-function eventHandleLogin(email:any, password:any) {
-  console.log(email);
-  console.log(password);
-  api.post('/api/users/login', {
-    email: email, 
-    password: password,
-  })  .then (resp=>{
-    console.log("Logged in successfully");
-    // go to their queue page
-    // resp.data['result']['fname'] OR resp.data.result.fname --- resp.data.reason
-  }).catch(err=>{
-    if (err.status === 400) {
-      // we got the status code from server -- users login failed bc bad user name pass comb
-      console.log("hello");
-    } else {
-      // server error - render pages later
-    }
-  });
-};

@@ -1,8 +1,5 @@
 import React from 'react';
-import { AppBar } from '@material-ui/core';
-import { Toolbar } from '@material-ui/core';
-import { Typography } from '@material-ui/core';
-import { Button } from '@material-ui/core';
+import { AppBar, Toolbar, Typography, Button } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/styles';
 import OurTheme from '../style/Theme';
 import Styles from '../style/NavbarStyle';
