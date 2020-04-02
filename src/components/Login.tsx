@@ -16,18 +16,20 @@ function eventHandleLogin(email:string, password:string) {
     "password" : password,
   };
   api.post(apiBaseUrl,payload) 
-  .then ( function (response) {
-    console.log(response);
-    if(response.data.code === 200){
+    .then ( function (response) {
+      console.log(response);
       console.log("Login successfull");
-      // somehow render the queue page here
-    } else if (response.data.code === 400) {
-      console.log("Username password do not match");
-    }
-  })
-  .catch(function (error) {
-    console.log(error);
-    });
+      // Somehow render the queue page here
+    })
+    .catch(function (error) {
+      if (error.response.data === 400) {
+        // Add alert so they know it was wrong combo
+        console.log("Username password do not match");
+      } else {
+        console.log("Some other error occurred");
+      }
+      console.log(error);
+      });
 }
 
 export default function Login(props:any) {
