@@ -7,11 +7,11 @@ import OurTheme from '../style/Theme';
 import Styles from '../style/LoginStyle';
 
 // Handling a log in occurence
-function eventHandleLogin(email:any, password:any) {
+function eventHandleLogin(email:string, password:string) {
   console.log(email);
   console.log(password);
-  var apiBaseUrl = '/api/users/login';
-  var payload = {
+  let apiBaseUrl : string = '/api/users/login';
+  let payload : object = {
     "email" : email,
     "password" : password,
   };
@@ -31,7 +31,6 @@ function eventHandleLogin(email:any, password:any) {
 }
 
 export default function Login(props:any) {
-
   const classes = Styles.useStyles();
   const theme = OurTheme.theme;
   // Look into more - to save values from text fields
