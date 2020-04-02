@@ -7,7 +7,7 @@ export default function Queue() {
     //const theme = OurTheme.theme;
 	//const classes = Styles.useStyles();
     return (
-        <div>
+        <div> 
             <Navbar/>
             <h1>The Queue</h1>
         </div>
