@@ -22,8 +22,12 @@ export default function Ticket() {
           				id="panel1bh-header"
         			>
 						<ConfirmationNumberIcon className={classes.ticketIcon}/>
-          				<Typography className={classes.title}>Shaeli Yao</Typography>
-						<Typography className={classes.location}>B250-8</Typography>
+						<div className={classes.columnleft}>
+  							<Typography className={classes.title} align="left">Your mom and all her friends </Typography>
+						</div>
+						<div className={classes.columnright}>
+							<Typography className={classes.location} align="right">Hallway</Typography>
+						</div>
         			</ExpansionPanelSummary>
         			
 					<ExpansionPanelDetails>

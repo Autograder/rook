@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles(({ spacing }) => ({
+const useStyles = makeStyles((theme) => ({
 	container: {
 		display: "flex",
 		justifyContent: "center",
@@ -8,9 +8,8 @@ const useStyles = makeStyles(({ spacing }) => ({
 		margin: "1%",
 	},
 	root: {
-		width: "40%",
+		width: "60%",
 		color: "black",
-		borderRadius: spacing(5),
 	},
 	ticketIcon: {
 		display: "inline",
@@ -24,20 +23,20 @@ const useStyles = makeStyles(({ spacing }) => ({
 		verticalAlign: "top",
 		paddingLeft: "4px"
 	},
-	heading: {
-		flexBasis: '33.33%',
-		flexShrink: 0,
-	},
-	name: {
-		color: "black",
-		paddingLeft: "6px"
-	},
 	location: {
-		display: "inline",
 		fontSize: 16,
-		float: "right"
+		color: "black",
+		align: "right",
+		display: "inline",
+		verticalAlign: "top",
+		paddingLeft: "30%"
+	},
+	columnright: {
+		flexBasis: '100px',
+	},
+	columnleft: {
+		flexBasis: '85.0%',
 	}
-
 }));
 
 export default {useStyles};
