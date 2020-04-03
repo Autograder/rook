@@ -10,9 +10,9 @@ const useStyles = makeStyles((theme) => ({
 		color: "#ffffff"
 	},
 	title: {
-	  flexGrow: 1,
-	  fontSize: 30,
-	  fontWeight: 'bold'
+	  	flexGrow: 1,
+	  	fontSize: 30,
+	  	fontWeight: 'bold'
 	},
 	pages: {
 		fontSize: 14,
