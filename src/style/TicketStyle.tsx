@@ -38,6 +38,9 @@ const useStyles = makeStyles((theme) => ({
 	},
 	columnleft: {
 		flexBasis: '85.0%',
+	},
+	body: {
+		display: "block"
 	}
 }));
 

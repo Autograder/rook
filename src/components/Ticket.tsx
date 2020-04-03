@@ -23,10 +23,11 @@ export default function Ticket(props:any) {
 							<Typography className={classes.location} align="right"> {props.location}</Typography>
 						</div>
         			</ExpansionPanelSummary>
-					<ExpansionPanelDetails>
-          				<Typography>
-							  {props.description}
-          				</Typography>
+					<ExpansionPanelDetails className={classes.body}>
+						<Typography><b>Date: </b>{props.date}</Typography>
+						<Typography><b>Time: </b>{props.time}</Typography>
+						<Typography><b>Location: </b>{props.location}</Typography>
+						<Typography><b>Description: </b>{props.description}</Typography>
         			</ExpansionPanelDetails>
       			</ExpansionPanel>
 
