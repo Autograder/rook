@@ -14,18 +14,18 @@ export default function Queue() {
         <div> 
             <ThemeProvider theme={theme}>
                 <Navbar/>
-                <Grid container spacing={10}>
-                    <Grid item xs={4}>
+                <Grid container spacing={8}>
+                    <Grid item xs={3}>
                         <Paper>
 
                         </Paper>
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={6}>
                         <Paper>
 
                         </Paper>
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={3}>
                         <MessageIcon className={classes.icon}/>
                         <Message sender="Sravya Balasa" message="Is there anyone in the lab?"/>
                         <Message sender="Simonne Contreras" message="Yes, please be PATIENT"/>
