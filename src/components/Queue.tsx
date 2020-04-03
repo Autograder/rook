@@ -1,9 +1,11 @@
 import React from 'react';
 import Navbar from './Navbar';
 import Message from './Message';
+import Ticket from './Ticket';
 import { ThemeProvider } from '@material-ui/styles';
-import { Paper, Grid } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import MessageIcon from '@material-ui/icons/Message';
+import AddToQueueIcon from '@material-ui/icons/AddToQueue';
 import OurTheme from '../style/Theme';
 import Styles from '../style/QueueStyle';
 
@@ -16,14 +18,12 @@ export default function Queue() {
                 <Navbar/>
                 <Grid container spacing={8}>
                     <Grid item xs={3}>
-                        <Paper>
 
-                        </Paper>
                     </Grid>
                     <Grid item xs={6}>
-                        <Paper>
-
-                        </Paper>
+                        <AddToQueueIcon className={classes.icon}/>
+                        <Ticket />
+                        <Ticket />
                     </Grid>
                     <Grid item xs={3}>
                         <MessageIcon className={classes.icon}/>
