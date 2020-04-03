@@ -5,15 +5,16 @@ const useStyles = makeStyles(({ spacing }) => ({
 		display: "flex",
 		justifyContent: "center",
 		alignItems: "center",
+		margin: "1%",
 	},
 	root: {
-		width: "60%",
-		borderRadius: spacing(2),
-		float: "left",
+		width: "40%",
+		color: "black",
+		borderRadius: spacing(5),
 	},
 	ticketIcon: {
 		display: "inline",
-		padding: "12px"
+		fill: "black"
 	},
 	title: {
 		fontSize: 16,
@@ -21,11 +22,22 @@ const useStyles = makeStyles(({ spacing }) => ({
 	  	alignItems: "center",
 	  	display: "inline",
 		verticalAlign: "top",
-		padding: "12px"
+		paddingLeft: "4px"
 	},
-	pos: {
-	  marginBottom: 12,
+	heading: {
+		flexBasis: '33.33%',
+		flexShrink: 0,
 	},
+	name: {
+		color: "black",
+		paddingLeft: "6px"
+	},
+	location: {
+		display: "inline",
+		fontSize: 16,
+		float: "right"
+	}
+
 }));
 
 export default {useStyles};
