@@ -16,8 +16,12 @@ export default function Ticket(props:any) {
 				<ExpansionPanel square={false} className={classes.root}>
         			<ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>} aria-controls="panel1bh-content" id="panel1bh-header">
 						<ConfirmationNumberIcon className={classes.ticketIcon}/>
-          				<Typography className={classes.title}>{props.name}</Typography>
-						<Typography className={classes.location}>{props.location}</Typography>
+						<div className={classes.columnleft}>
+  							<Typography className={classes.title} align="left">{props.name}</Typography>
+						</div>
+						<div className={classes.columnright}>
+							<Typography className={classes.location} align="right">{props.location}</Typography>
+						</div>
         			</ExpansionPanelSummary>
 					<ExpansionPanelDetails>
           				<Typography>

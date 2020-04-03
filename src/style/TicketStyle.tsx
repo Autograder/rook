@@ -25,21 +25,20 @@ const useStyles = makeStyles((theme) => ({
 		verticalAlign: "top",
 		paddingLeft: "4px"
 	},
-	heading: {
-		flexBasis: '33.33%',
-		flexShrink: 0,
-	},
-	name: {
-		color: "black",
-		paddingLeft: "6px"
-	},
 	location: {
-		display: "inline-block",
 		fontSize: 16,
-		textAlign: 'right',
-		float: "right"
+		color: "black",
+		align: "right",
+		display: "inline",
+		verticalAlign: "top",
+		paddingLeft: "30%"
+	},
+	columnright: {
+		flexBasis: '100px',
+	},
+	columnleft: {
+		flexBasis: '85.0%',
 	}
-
 }));
 
 export default {useStyles};
