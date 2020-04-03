@@ -11,11 +11,11 @@ const useStyles = makeStyles((theme) => ({
 	},
 	title: {
 	  	flexGrow: 1,
-	  	fontSize: 30,
+	  	fontSize: 40,
 	  	fontWeight: 'bold'
 	},
 	pages: {
-		fontSize: 14,
+		fontSize: 18,
 		marginRight: theme.spacing(2),
 	}
 }));  

@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles(({ spacing }) => ({
+const useStyles = makeStyles((theme) => ({
 	container: {
 		display: "flex",
 		justifyContent: "center",
@@ -8,9 +8,10 @@ const useStyles = makeStyles(({ spacing }) => ({
 		margin: "1%",
 	},
 	root: {
-		width: "90%",
+		width: '90%',
+		margin: theme.spacing(1),
 		color: "black",
-		borderRadius: spacing(5),
+		'border-radius': '15px',
 	},
 	ticketIcon: {
 		display: "inline",

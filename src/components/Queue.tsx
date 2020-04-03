@@ -16,19 +16,21 @@ export default function Queue() {
         <div> 
             <ThemeProvider theme={theme}>
                 <Navbar/>
-                <Grid container spacing={8}>
+                <br/>
+                <Grid container>
                     <Grid item xs={3}>
 
                     </Grid>
                     <Grid item xs={6}>
                         <AddToQueueIcon className={classes.icon}/>
-                        <Ticket />
-                        <Ticket />
+                        <Ticket name="Shaeli Yao" location="B250-6" description="I hate programming"/>
+                        <Ticket name="Tiffany Meng" location="B240-12" description="I have a bad bug"/>
+                        <Ticket name="Anonymous" location="" description="This content is hidden"/>
                     </Grid>
                     <Grid item xs={3}>
                         <MessageIcon className={classes.icon}/>
-                        <Message sender="Sravya Balasa" message="Is there anyone in the lab?"/>
-                        <Message sender="Simonne Contreras" message="Yes, please be PATIENT"/>
+                        <Message sender="Sravya Balasa" message="Is there anyone in the lab?" received={false}/>
+                        <Message sender="Simonne Contreras" message="Yes, please be PATIENT" received={true}/>
                     </Grid>
                 </Grid>
             </ThemeProvider>

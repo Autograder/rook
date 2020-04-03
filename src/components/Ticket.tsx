@@ -6,26 +6,22 @@ import OurTheme from '../style/Theme';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ConfirmationNumberIcon from '@material-ui/icons/ConfirmationNumber';
 
-export default function Ticket() {
+export default function Ticket(props:any) {
 	const classes = Styles.useStyles();
 	const theme = OurTheme.theme;
 
 	return (
 		<div className={classes.container}>
 			<ThemeProvider theme={theme}>
-				<ExpansionPanel className={classes.root}>
-        			<ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>} aria-controls="panel1bh-content"
-          				id="panel1bh-header"
-        			>
+				<ExpansionPanel square={false} className={classes.root}>
+        			<ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>} aria-controls="panel1bh-content" id="panel1bh-header">
 						<ConfirmationNumberIcon className={classes.ticketIcon}/>
-          				<Typography className={classes.title}>Shaeli Yao</Typography>
-						<Typography className={classes.location}>B250-8</Typography>
+          				<Typography className={classes.title}>{props.name}</Typography>
+						<Typography className={classes.location}>{props.location}</Typography>
         			</ExpansionPanelSummary>
-        			
 					<ExpansionPanelDetails>
           				<Typography>
-            				Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat. Aliquam eget
-            				maximus est, id dignissim quam.
+							  {props.description}
           				</Typography>
         			</ExpansionPanelDetails>
       			</ExpansionPanel>
