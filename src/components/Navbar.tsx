@@ -1,6 +1,6 @@
 import React from 'react';
 import { AppBar } from '@material-ui/core';
-import { Toolbar } from '@material-ui/core';
+import { Toolbar, Link } from '@material-ui/core';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { Typography } from '@material-ui/core';
 import Styles from '../style/NavbarStyle';
@@ -24,7 +24,7 @@ export default function Navbar(props:any) {
 						<Typography variant="h6" className={classes.pages}>
       						Ticket History
    						</Typography>
-						<ExitToAppIcon/>
+						<Link href="login"> <ExitToAppIcon/> </Link>
   					</Toolbar>
 				</AppBar>
 			</ThemeProvider>
