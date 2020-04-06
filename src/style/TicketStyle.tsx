@@ -41,7 +41,18 @@ const useStyles = makeStyles((theme) => ({
 	},
 	body: {
 		display: "block"
-	}
+	},
+	buttonDiv: {
+		marginTop: "5%",
+	},
+	button: {
+		backgroundColor: "#2A667B",
+		color: "#ffffff",
+
+		"&:hover": {
+			backgroundColor: "#357f9a"
+		}
+	},
 }));
 
 export default {useStyles};

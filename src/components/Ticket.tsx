@@ -5,6 +5,8 @@ import { ThemeProvider } from '@material-ui/styles';
 import OurTheme from '../style/Theme';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ConfirmationNumberIcon from '@material-ui/icons/ConfirmationNumber';
+import Button from '@material-ui/core/Button';
+import EditIcon from '@material-ui/icons/Edit'; 
 
 export default function Ticket(props:any) {
 	const classes = Styles.useStyles();
@@ -28,6 +30,12 @@ export default function Ticket(props:any) {
 						<Typography><b>Time: </b>{props.time}</Typography>
 						<Typography><b>Location: </b>{props.location}</Typography>
 						<Typography><b>Description: </b>{props.description}</Typography>
+						<div className={classes.buttonDiv}>
+							<Button variant="contained"
+									startIcon={<EditIcon/>}
+									className={classes.button}
+									>Edit</Button>
+						</div>
         			</ExpansionPanelDetails>
       			</ExpansionPanel>
 

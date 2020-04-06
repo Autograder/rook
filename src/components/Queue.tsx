@@ -7,10 +7,27 @@ import { Grid } from '@material-ui/core';
 import MessageIcon from '@material-ui/icons/Message';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';import OurTheme from '../style/Theme';
 import Styles from '../style/QueueStyle';
+import IconButton from '@material-ui/core/IconButton';
+// Adds a new ticket to the queue when "+" is clicked
+function addTicket(myList:any) {
+
+}
 
 export default function Queue() {
     const theme = OurTheme.theme;
-	const classes = Styles.useStyles();
+    const classes = Styles.useStyles();
+    
+    const ticketList = [
+    <Ticket name="Shaeli Yao" location="B250-6"
+    description="I hate programming"
+    time="09:49:29"
+    date="January 24, 2020"/>,
+    <Ticket name="Tiffany Meng" location="B240-12"
+    description="I have a bad bug"
+    time="10:50:30"
+    date="May 15, 2000"/>,
+    <Ticket name="Anonymous" location="" description="This content is hidden"/> ]
+
     return (
         <div> 
             <ThemeProvider theme={theme}>
@@ -21,16 +38,10 @@ export default function Queue() {
 
                     </Grid>
                     <Grid item xs={6}>
-                        <AddCircleOutlineIcon className={classes.icon}/>
-                        <Ticket name="Shaeli Yao" location="B250-6"
-                                                  description="I hate programming"
-                                                  time="09:49:29"
-                                                  date="January 24, 2020"/>
-                        <Ticket name="Tiffany Meng" location="B240-12"
-                                                    description="I have a bad bug"
-                                                    time="10:50:30"
-                                                    date="May 15, 2000"/>
-                        <Ticket name="Anonymous" location="" description="This content is hidden"/>
+                        <IconButton aria-label="delete" onClick={() => addTicket(ticketList)} className={classes.icon}>
+                            <AddCircleOutlineIcon/>
+                        </IconButton>
+                        {ticketList}                                                                         
                     </Grid>
                     <Grid item xs={3}>
                         <MessageIcon className={classes.icon}/>
