@@ -38,7 +38,21 @@ const useStyles = makeStyles((theme) => ({
 	},
 	columnleft: {
 		flexBasis: '85.0%',
-	}
+	},
+	body: {
+		display: "block"
+	},
+	buttonDiv: {
+		marginTop: "5%",
+	},
+	button: {
+		backgroundColor: "#2A667B",
+		color: "#ffffff",
+
+		"&:hover": {
+			backgroundColor: "#357f9a"
+		}
+	},
 }));
 
 export default {useStyles};

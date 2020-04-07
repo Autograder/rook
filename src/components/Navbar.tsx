@@ -22,7 +22,7 @@ export default function Navbar(props:any) {
 						<Typography variant="h6" className={classes.pages}>
       						Ticket History
    						</Typography>
-						<ExitToAppIcon/>
+						<Link href="login"> <ExitToAppIcon/> </Link>
   					</Toolbar>
 				</AppBar>
 			</ThemeProvider>
