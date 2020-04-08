@@ -15,7 +15,7 @@ function eventHandleLogin(email:string, password:string) {
     "email" : email,
     "password" : password,
   };
-  api.post(apiBaseUrl,payload) 
+  api.post(apiBaseUrl,payload)
     .then ( function (response) {
       console.log(response);
       console.log("Login successfull");
