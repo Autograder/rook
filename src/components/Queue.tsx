@@ -1,22 +1,58 @@
 import React, {useState} from 'react';
-import { IconButton, Dialog, DialogContent, DialogTitle, TextField, Button, Checkbox, FormControlLabel } from '@material-ui/core';
+import { IconButton, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Button, Checkbox, FormControlLabel } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/styles';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import Ticket from './Ticket';
 import OurTheme from '../style/Theme';
 import Styles from '../style/QueueStyle';
-import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab';
+//import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab';
 
 export default function Queue() {
     const classes = Styles.useStyles();
+
+    //Fields for Ticket
+    const [description, setDescrip] = useState('');
+    const [location, setLocation] = useState('');
+
+    // Hide from classmates
     const [anonymous, setAnon] = useState(false);
+
+    // I need help with...
+    const [gettingStarted, setGS] = useState(false);
+    const [specifications, setS] = useState(false);
+    const [algorithms, setA] = useState(false);
+    const [progLang, setPL] = useState(false);
+    const [implementation, setImp] = useState(false);
+    const [testing, setT] = useState(false);
+    
+    // Program Issues
+    const [runtimeError, setRE] = useState(false);
+    const [compileError, setCE] = useState(false);
+    const [incorrectBehavior, setIB] = useState(false);
+    const [wrongOutput, setWO] = useState(false);
+    const [infiniteLoop, setIL] = useState(false);
+
+    // Other
+    const [conceptualQuestion, setCQ] = useState(false)
+
     const [open, setOpen] = useState(false);
-    const [formats, setFormats] = React.useState(() => ['bold']);
     const inverseTheme = OurTheme.inverseTheme;
 
-    const toggleAnon = () => {
-        setAnon(!anonymous);
-    }
+    // Boolean Togglers
+    const toggleAnon = () => {setAnon(!anonymous);}
+    const toggleGS = () => {setGS(!gettingStarted);}
+    const toggleS = () => {setS(!specifications);}
+    const toggleA = () => {setA(!algorithms);}
+    const togglePL = () => {setPL(!progLang);}
+    const toggleImp = () => {setImp(!implementation);}
+    const toggleT = () => {setT(!testing);}
+    const toggleRE = () => {setRE(!runtimeError);}
+    const toggleCE = () => {setCE(!compileError);}
+    const toggleIB = () => {setIB(!incorrectBehavior);}
+    const toggleWO = () => {setWO(!wrongOutput);}
+    const toggleIL = () => {setIL(!infiniteLoop);}
+    const toggleCQ = () => {setCQ(!conceptualQuestion);}
+
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -26,8 +62,14 @@ export default function Queue() {
     };
 
     const handleSubmit = () => {
-        
-    }
+        setTicketList(
+            ticketList.concat([
+            <Ticket name="John Doe" location={location}
+            description={description}
+            time="12:50pm"
+            date="April 8, 2020"/>]))
+        handleClose();
+	}
 
     // Existing Queue for the Class
     const [ticketList, setTicketList] = useState(
@@ -36,21 +78,6 @@ export default function Queue() {
         time='12:34pm'
         date='April 1, 2020'/>]
     );
-    
-    const setTL = (name:string, date:string, time:string, description:string) => {
-        setTicketList(
-        ticketList.concat([
-        <Ticket name={name} location={name}
-        description={description}
-        time={time}
-        date={date}/>]))
-    }
-    const [categories, setCategories] = React.useState({
-        RunTimeError: false,
-        CompileError: false,
-        IncorrectBehavior: false,
-        ConceptualQuestion: false,
-    });
 
     return (
         <div>
@@ -61,8 +88,67 @@ export default function Queue() {
                 <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                     <DialogTitle className={classes.form} id="form-dialog-title">Create a Ticket</DialogTitle>
                     <DialogContent>
+                        <FormControlLabel
+                            className={classes.check}
+                            control={<Checkbox className={classes.check} onClick={toggleGS} color="primary" checked={gettingStarted} name="anonymous" />}
+                            label="Getting Started"
+                        />
+                        <FormControlLabel
+                            className={classes.check} label="Specifications"
+                            control={<Checkbox className={classes.check} onClick={toggleS} color="primary" checked={specifications} name="anonymous" />}
+                        />
+                        <FormControlLabel
+                            className={classes.check} label="Algorithms"
+                            control={<Checkbox className={classes.check} onClick={toggleA} color="primary" checked={algorithms} name="anonymous" />}
+                        />
+                        <FormControlLabel
+                            className={classes.check} label="Programming Language"
+                            control={<Checkbox className={classes.check} onClick={togglePL} color="primary" checked={progLang} name="anonymous" />}
+                        />
+                        <FormControlLabel
+                            className={classes.check} label="Implementation"
+                            control={<Checkbox className={classes.check} onClick={toggleImp} color="primary" checked={implementation} name="anonymous" />}
+                        />
+                        <FormControlLabel
+                            className={classes.check} label="Testing"
+                            control={<Checkbox className={classes.check} onClick={toggleT} color="primary" checked={testing} name="anonymous" />}
+                        />
+                        <FormControlLabel
+                            className={classes.check} label="Runtime Error"
+                            control={<Checkbox className={classes.check} onClick={toggleRE} color="primary" checked={runtimeError} name="anonymous" />}
+                        />
+                        <FormControlLabel
+                            className={classes.check} label="Compile Error"
+                            control={<Checkbox className={classes.check} onClick={toggleCE} color="primary" checked={compileError} name="anonymous" />}
+                        />
+                        <FormControlLabel
+                            className={classes.check} label="Incorrect Behavior"
+                            control={<Checkbox className={classes.check} onClick={toggleIB} color="primary" checked={incorrectBehavior} name="anonymous" />}
+                        />
+                        <FormControlLabel
+                            className={classes.check} label="Wrong Output"
+                            control={<Checkbox className={classes.check} onClick={toggleWO} color="primary" checked={wrongOutput} name="anonymous" />}
+                        />
+                        <FormControlLabel
+                            className={classes.check} label="Infinite Loop"
+                            control={<Checkbox className={classes.check} onClick={toggleIL} color="primary" checked={infiniteLoop} name="anonymous" />}
+                        />
+                        <FormControlLabel
+                            className={classes.check} label="Conceptual Question"
+                            control={<Checkbox className={classes.check} onClick={toggleCQ} color="primary" checked={conceptualQuestion} name="anonymous" />}
+                        />
                         <TextField
                             className={classes.text}
+                            onChange = {(e) => setLocation(e.target.value)}
+                            variant="outlined"
+                            id="name"
+                            label="Location"
+                            rows="1"
+                            fullWidth
+                        />
+                        <TextField
+                            className={classes.text}
+                            onChange = {(e) => setDescrip(e.target.value)}
                             variant="outlined"
                             id="name"
                             label="Description"
@@ -70,33 +156,18 @@ export default function Queue() {
                             rows="6"
                             fullWidth
                         />
-
-                        <ToggleButtonGroup value={formats} aria-label="text formatting">
-                            <ToggleButton value="bold" aria-label="bold">
-                            </ToggleButton>
-                            <ToggleButton value="italic" aria-label="italic">
-                            </ToggleButton>
-                            <ToggleButton value="underlined" aria-label="underlined">
-                            </ToggleButton>
-                            <ToggleButton value="color" aria-label="color" disabled>
-                            </ToggleButton>
-                        </ToggleButtonGroup>
-
                         <FormControlLabel
                             className={classes.check}
                             control={<Checkbox className={classes.check} onClick={toggleAnon} color="primary" checked={anonymous} name="anonymous" />}
                             label="Hide from Classmates?"
                         />
-                        <br/>
-                        <Button className={classes.form} onClick={handleClose} color="primary">
-                            Submit
-                        </Button>
                     </DialogContent>
+                    <DialogActions>
+                        <Button className={classes.form} onClick={handleSubmit} color="primary">Submit</Button>
+                    </DialogActions>
                 </Dialog>
             </ThemeProvider>
             {ticketList}  
         </div>
     );
 } 
-
-// setTL("name", "date", "time", "description")

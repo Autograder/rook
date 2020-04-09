@@ -8,10 +8,9 @@ import ConfirmationNumberIcon from '@material-ui/icons/ConfirmationNumber';
 import Button from '@material-ui/core/Button';
 import EditIcon from '@material-ui/icons/Edit'; 
 import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 
 export default function Ticket(props:any) {
@@ -27,7 +26,7 @@ export default function Ticket(props:any) {
 	const [tempDate, setTempDate] = useState(date);
 	const [tempTime, setTempTime] = useState(time);
 	const [tempLocation, setTempLocation] = useState(location);
-	const [tempDescription, setTempDescrip] = useState(props.description);
+	const [tempDescription, setTempDescrip] = useState(description);
 
 	const [open, setOpen] = React.useState(false);
   
@@ -39,7 +38,7 @@ export default function Ticket(props:any) {
 	  setOpen(false);
 	};
 
-	const handleEdit = (location:string, date:string, time:string, description:string) => {
+	const handleEdit = (date:string, time:string, location:string, description:string) => {
 		setDate(date);
 		setTime(time);
 		setLocation(location);
@@ -77,8 +76,8 @@ export default function Ticket(props:any) {
 		  			<DialogTitle id="form-dialog-title" className={classes.dialog}>Edit Ticket</DialogTitle>
 		  			<DialogContent className={classes.dialog}>
 						<TextField autoFocus onChange={(e) => setTempDate(e.target.value)} margin="dense" id="name" label="Date" defaultValue={date} type="email" variant="filled" multiline fullWidth/>
-						<TextField autoFocus onChange={(e) => setTempLocation(e.target.value)} margin="dense" id="name" label="Location" defaultValue={location} type="email" variant="filled" multiline fullWidth/>
 						<TextField autoFocus onChange={(e) => setTempTime(e.target.value)} margin="dense" id="name" label="Time" defaultValue={time} type="email" variant="filled" multiline fullWidth/>
+						<TextField autoFocus onChange={(e) => setTempLocation(e.target.value)} margin="dense" id="name" label="Location" defaultValue={location} type="email" variant="filled" multiline fullWidth/>
 						<TextField autoFocus onChange={(e) => setTempDescrip(e.target.value)} margin="dense" id="name" label="Description" defaultValue={description} type="email" variant="filled" multiline fullWidth/>
 		  			</DialogContent>
 		  			<DialogActions>
