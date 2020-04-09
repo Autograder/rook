@@ -17,6 +17,7 @@ import TextField from '@material-ui/core/TextField';
 export default function Ticket(props:any) {
 	const classes = Styles.useStyles();
 	const theme = OurTheme.theme;
+	const inverseTheme = OurTheme.inverseTheme;
 
 	const [date, setDate] = useState(props.date);
 	const [time, setTime] = useState(props.time);
@@ -70,14 +71,11 @@ export default function Ticket(props:any) {
         			</ExpansionPanelDetails>
       			</ExpansionPanel>
 			</ThemeProvider>
-
-			<Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-		  		<DialogTitle id="form-dialog-title" className={classes.dialog}>Edit Ticket</DialogTitle>
+			
+			<ThemeProvider theme={inverseTheme}>
+				<Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+		  			<DialogTitle id="form-dialog-title" className={classes.dialog}>Edit Ticket</DialogTitle>
 		  			<DialogContent className={classes.dialog}>
-						<DialogContentText className={classes.dialog}>
-			  				To subscribe to this website, please enter your email address here. We will send updates
-			  				occasionally.
-						</DialogContentText>
 						<TextField autoFocus onChange={(e) => setTempDate(e.target.value)} margin="dense" id="name" label="Date" defaultValue={date} type="email" variant="filled" multiline fullWidth/>
 						<TextField autoFocus onChange={(e) => setTempLocation(e.target.value)} margin="dense" id="name" label="Location" defaultValue={location} type="email" variant="filled" multiline fullWidth/>
 						<TextField autoFocus onChange={(e) => setTempTime(e.target.value)} margin="dense" id="name" label="Time" defaultValue={time} type="email" variant="filled" multiline fullWidth/>
@@ -86,7 +84,8 @@ export default function Ticket(props:any) {
 		  			<DialogActions>
 						<Button onClick={() => handleEdit(tempDate, tempTime, tempLocation, tempDescription)} color="secondary">Submit</Button>
 		  			</DialogActions>
-			</Dialog>
+				</Dialog>
+			</ThemeProvider>
 
 		</div>
 	);

@@ -5,11 +5,13 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import Ticket from './Ticket';
 import OurTheme from '../style/Theme';
 import Styles from '../style/QueueStyle';
+import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab';
 
 export default function Queue() {
     const classes = Styles.useStyles();
     const [anonymous, setAnon] = useState(false);
     const [open, setOpen] = useState(false);
+    const [formats, setFormats] = React.useState(() => ['bold']);
     const inverseTheme = OurTheme.inverseTheme;
 
     const toggleAnon = () => {
@@ -68,10 +70,22 @@ export default function Queue() {
                             rows="6"
                             fullWidth
                         />
+
+                        <ToggleButtonGroup value={formats} aria-label="text formatting">
+                            <ToggleButton value="bold" aria-label="bold">
+                            </ToggleButton>
+                            <ToggleButton value="italic" aria-label="italic">
+                            </ToggleButton>
+                            <ToggleButton value="underlined" aria-label="underlined">
+                            </ToggleButton>
+                            <ToggleButton value="color" aria-label="color" disabled>
+                            </ToggleButton>
+                        </ToggleButtonGroup>
+
                         <FormControlLabel
                             className={classes.check}
                             control={<Checkbox className={classes.check} onClick={toggleAnon} color="primary" checked={anonymous} name="anonymous" />}
-                            label="Ask as Anonymous"
+                            label="Hide from Classmates?"
                         />
                         <br/>
                         <Button className={classes.form} onClick={handleClose} color="primary">
