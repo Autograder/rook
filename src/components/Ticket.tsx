@@ -28,14 +28,6 @@ export default function Ticket(props:any) {
 	const [tempLocation, setTempLocation] = useState(location);
 	const [tempDescription, setTempDescrip] = useState(props.description);
 
-	const handleEdit = (location:string, date:string, time:string, description:string) => {
-		setDate(date);
-		setTime(time);
-		setLocation(location);
-		setDescrip(description);
-		handleClose();
-	}
-
 	const [open, setOpen] = React.useState(false);
   
 	const handleClickOpen = () => {
@@ -45,6 +37,14 @@ export default function Ticket(props:any) {
 	const handleClose = () => {
 	  setOpen(false);
 	};
+
+	const handleEdit = (location:string, date:string, time:string, description:string) => {
+		setDate(date);
+		setTime(time);
+		setLocation(location);
+		setDescrip(description);
+		handleClose();
+	}
 
 	return (
 		<div className={classes.container}>
