@@ -9,8 +9,10 @@ import Styles from '../style/QueueStyle';
 
 export default function Queue() {
     const classes = Styles.useStyles();
+    const inverseTheme = OurTheme.inverseTheme;
+    const [open, setOpen] = useState(false);
 
-    //Fields for Ticket
+    // Fields for Ticket
     const [description, setDescrip] = useState('');
     const [location, setLocation] = useState('');
 
@@ -34,9 +36,6 @@ export default function Queue() {
 
     // Other
     const [conceptualQuestion, setCQ] = useState(false)
-
-    const [open, setOpen] = useState(false);
-    const inverseTheme = OurTheme.inverseTheme;
 
     // Boolean Togglers
     const toggleAnon = () => {setAnon(!anonymous);}
