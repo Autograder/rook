@@ -11,7 +11,6 @@ const useStyles = makeStyles((theme) => ({
 		width: '90%',
 		margin: theme.spacing(1),
 		color: "black",
-		'border-radius': '15px',
 	},
 	ticketIcon: {
 		display: "inline",
@@ -53,6 +52,9 @@ const useStyles = makeStyles((theme) => ({
 			backgroundColor: "#357f9a"
 		}
 	},
+	dialog: {
+		color: "black"
+	}
 }));
 
 export default {useStyles};
