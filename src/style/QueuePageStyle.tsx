@@ -8,20 +8,6 @@ const useStyles = makeStyles((theme) => ({
         'left' : '50%',
         'margin-left' : '-50px',
     },
-    form: {
-    // Border of Input Boxes when not clicked
-        '& .MuiOutlinedInput-root': {
-            '& fieldset': {
-                borderColor: 'black',
-            },
-        },
-    },
-    text: {
-        color: 'black',
-    },
-    check: {
-        color: 'black',
-    },
 }));  
 
 export default {useStyles};

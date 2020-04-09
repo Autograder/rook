@@ -1,29 +1,40 @@
-import React , { useState } from 'react';
-import Navbar from './Navbar';
-import Message from './Message';
-import Ticket from './Ticket';
+import React, {useState} from 'react';
+import { IconButton, Dialog, DialogContent, DialogTitle, TextField, Button, Checkbox, FormControlLabel } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/styles';
-import { Grid } from '@material-ui/core';
-import MessageIcon from '@material-ui/icons/Message';
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';import OurTheme from '../style/Theme';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import Ticket from './Ticket';
+import OurTheme from '../style/Theme';
 import Styles from '../style/QueueStyle';
-import IconButton from '@material-ui/core/IconButton';
 
 export default function Queue() {
-    const theme = OurTheme.theme;
     const classes = Styles.useStyles();
-   
-    const [ticketList, setTicketList] = useState([
-        <Ticket name="Shaeli Yao" location="B250-6"
-        description="I hate programming"
-        time="09:49:29"
-        date="January 24, 2020"/>,
-        <Ticket name="Tiffany Meng" location="B240-12"
-        description="I have a bad bug"
-        time="10:50:30"
-        date="May 15, 2000"/>,
-        <Ticket name="Anonymous" location="" description="This content is hidden"/> ]);
+    const [anonymous, setAnon] = useState(false);
+    const [open, setOpen] = useState(false);
+    const inverseTheme = OurTheme.inverseTheme;
 
+    const toggleAnon = () => {
+        setAnon(!anonymous);
+    }
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+    
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    const handleSubmit = () => {
+        
+    }
+
+    // Existing Queue for the Class
+    const [ticketList, setTicketList] = useState(
+        [<Ticket name='Sravya Balasa' location='B250-6'
+        description='I need help with a bug'
+        time='12:34pm'
+        date='April 1, 2020'/>]
+    );
+    
     const setTL = (name:string, date:string, time:string, description:string) => {
         setTicketList(
         ticketList.concat([
@@ -32,29 +43,46 @@ export default function Queue() {
         time={time}
         date={date}/>]))
     }
+    const [categories, setCategories] = React.useState({
+        RunTimeError: false,
+        CompileError: false,
+        IncorrectBehavior: false,
+        ConceptualQuestion: false,
+    });
 
     return (
-        <div> 
-            <ThemeProvider theme={theme}>
-                <Navbar/>
-                <br/>
-                <Grid container>
-                    <Grid item xs={3}>
-
-                    </Grid>
-                    <Grid item xs={6}>
-                        <IconButton aria-label="delete" onClick={() => setTL("name", "date", "time", "description")} className={classes.icon}>
-                            <AddCircleOutlineIcon/>
-                        </IconButton>
-                        {ticketList}                                                                         
-                    </Grid>
-                    <Grid item xs={3}>
-                        <MessageIcon className={classes.icon}/>
-                        <Message sender="Sravya Balasa" message="Is there anyone in the lab?" received={false}/>
-                        <Message sender="Simonne Contreras" message="Yes, please be PATIENT" received={true}/>
-                    </Grid>
-                </Grid>
+        <div>
+            <IconButton aria-label="delete" onClick={() => handleClickOpen()} className={classes.icon}>
+                <AddCircleOutlineIcon/>
+            </IconButton>
+            <ThemeProvider theme={inverseTheme}>
+                <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+                    <DialogTitle className={classes.form} id="form-dialog-title">Create a Ticket</DialogTitle>
+                    <DialogContent>
+                        <TextField
+                            className={classes.text}
+                            variant="outlined"
+                            id="name"
+                            label="Description"
+                            multiline
+                            rows="6"
+                            fullWidth
+                        />
+                        <FormControlLabel
+                            className={classes.check}
+                            control={<Checkbox className={classes.check} onClick={toggleAnon} color="primary" checked={anonymous} name="anonymous" />}
+                            label="Ask as Anonymous"
+                        />
+                        <br/>
+                        <Button className={classes.form} onClick={handleClose} color="primary">
+                            Submit
+                        </Button>
+                    </DialogContent>
+                </Dialog>
             </ThemeProvider>
+            {ticketList}  
         </div>
     );
 } 
+
+// setTL("name", "date", "time", "description")
