@@ -57,6 +57,8 @@ export default function Queue() {
     };
     
     const handleClose = () => {
+        setAnon(false); setGS(false); setS(false); setA(false); setPL(false); setImp(false); setT(false);
+        setRE(false); setCE(false); setIB(false); setWO(false); setIL(false); setCQ(false);
         setOpen(false);
     };
 

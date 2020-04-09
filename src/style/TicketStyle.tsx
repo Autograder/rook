@@ -54,7 +54,13 @@ const useStyles = makeStyles((theme) => ({
 	},
 	dialog: {
 		color: "black"
-	}
+	},
+	text: {
+        color: 'black',
+    },
+    check: {
+        color: 'black',
+    },
 }));
 
 export default {useStyles};
