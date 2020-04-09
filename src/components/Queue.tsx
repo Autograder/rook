@@ -7,6 +7,30 @@ import OurTheme from '../style/Theme';
 import Styles from '../style/QueueStyle';
 //import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab';
 
+function getDay() {
+    var tempDate = new Date();
+    var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+    var day = months[tempDate.getMonth()] + ' ' + tempDate.getDate() + ', ' + tempDate.getFullYear()
+    return day;
+}
+
+function getTime() {
+    var tempTime = new Date();
+    var meridian = '';
+    var hours = tempTime.getHours();
+    if (hours > 11) {
+        meridian = 'pm';
+        if (hours > 12) {
+            hours = hours - 12;
+        }
+    } else {
+        meridian = 'am';
+    }
+    var time = hours + ':' + tempTime.getMinutes() + ' ' + meridian;
+    return time;
+
+}
+
 export default function Queue() {
     const classes = Styles.useStyles();
     const inverseTheme = OurTheme.inverseTheme;
@@ -63,12 +87,12 @@ export default function Queue() {
     const handleSubmit = () => {
         setTicketList(
             ticketList.concat([
-            <Ticket name="John Doe" location={location}
-            description={description}
-            time="12:50pm"
-            date="April 8, 2020"/>]))
+                <Ticket name={"John Doe"} location={location}
+                description={description}
+                time={getTime()}
+                date={getDay()}/>]));
         handleClose();
-	}
+    }
 
     // Existing Queue for the Class
     const [ticketList, setTicketList] = useState(
