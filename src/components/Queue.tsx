@@ -90,7 +90,8 @@ export default function Queue() {
                 <Ticket name={"John Doe"} location={location}
                 description={description}
                 time={getTime()}
-                date={getDay()}/>]));
+                date={getDay()}
+                tags=''/>]));
         handleClose();
     }
 
@@ -99,7 +100,8 @@ export default function Queue() {
         [<Ticket name='Sravya Balasa' location='B250-6'
         description='I need help with a bug'
         time='12:34pm'
-        date='April 1, 2020'/>]
+        date='April 1, 2020'
+        tags=''/>]
     );
 
     return (
