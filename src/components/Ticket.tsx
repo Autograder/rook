@@ -68,12 +68,12 @@ export default function Ticket(props:any) {
 	};
   
 	const handleClose = () => {
+	  setAnon(false); setGS(false); setS(false); setA(false); setPL(false); setImp(false); setT(false);
+      setRE(false); setCE(false); setIB(false); setWO(false); setIL(false); setCQ(false);
 	  setOpen(false);
 	};
 
 	const handleEdit = (location:string, description:string) => {
-		setAnon(false); setGS(false); setS(false); setA(false); setPL(false); setImp(false); setT(false);
-        setRE(false); setCE(false); setIB(false); setWO(false); setIL(false); setCQ(false);
 		setLocation(location);
 		setDescrip(description);
 		handleClose();
