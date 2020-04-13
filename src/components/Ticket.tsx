@@ -1,17 +1,14 @@
 import React, {useState} from 'react';
-import { Typography, ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, Checkbox, FormControlLabel } from '@material-ui/core';
-import Styles from '../style/TicketStyle';
+import { Typography, ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, FormControlLabel } from '@material-ui/core';
+import { Dialog, DialogTitle, DialogActions, DialogContent, Button, TextField, Checkbox } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/styles';
-import OurTheme from '../style/Theme';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ConfirmationNumberIcon from '@material-ui/icons/ConfirmationNumber';
-import Button from '@material-ui/core/Button';
 import EditIcon from '@material-ui/icons/Edit'; 
-import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import TextField from '@material-ui/core/TextField';
+import OurTheme from '../style/Theme';
+import Styles from '../style/TicketStyle';
+
+// Need post request to send checkbox data to database
 
 export default function Ticket(props:any) {
 	const classes = Styles.useStyles();
@@ -20,31 +17,32 @@ export default function Ticket(props:any) {
 
 	const [location, setLocation] = useState(props.location);
 	const [description, setDescrip] = useState(props.description);
+	const [tags, setTags] = useState(props.tags);
 
 	const [tempLocation, setTempLocation] = useState(location);
 	const [tempDescription, setTempDescrip] = useState(description);
-
+	const [tempTags, setTempTags] = useState(tags);
 
     // Hide from classmates
     const [anonymous, setAnon] = useState(false);
 
     // I need help with...
-    const [gettingStarted, setGS] = useState(false);
-    const [specifications, setS] = useState(false);
-    const [algorithms, setA] = useState(false);
-    const [progLang, setPL] = useState(false);
-    const [implementation, setImp] = useState(false);
-    const [testing, setT] = useState(false);
+    const [gettingStarted, setGS] = useState(props.tagArray["gettingStarted"]);
+    const [specifications, setS] = useState(props.tagArray["specifications"]);
+    const [algorithms, setA] = useState(props.tagArray["algorithms"]);
+    const [progLang, setPL] = useState(props.tagArray["progLang"]);
+    const [implementation, setImp] = useState(props.tagArray["implementation"]);
+    const [testing, setT] = useState(props.tagArray["testing"]);
     
     // Program Issues
-    const [runtimeError, setRE] = useState(false);
-    const [compileError, setCE] = useState(false);
-    const [incorrectBehavior, setIB] = useState(false);
-    const [wrongOutput, setWO] = useState(false);
-    const [infiniteLoop, setIL] = useState(false);
+    const [runtimeError, setRE] = useState(props.tagArray["runtimeError"]);
+    const [compileError, setCE] = useState(props.tagArray["compileError"]);
+    const [incorrectBehavior, setIB] = useState(props.tagArray["incorrectBehavior"]);
+    const [wrongOutput, setWO] = useState(props.tagArray["wrongOutput"]);
+    const [infiniteLoop, setIL] = useState(props.tagArray["infiniteLoop"]);
 
     // Other
-    const [conceptualQuestion, setCQ] = useState(false)
+    const [conceptualQuestion, setCQ] = useState(props.tagArray["conceptualQuestion"])
 
     // Boolean Togglers
     const toggleAnon = () => {setAnon(!anonymous);}
@@ -75,7 +73,10 @@ export default function Ticket(props:any) {
 
 	const handleEdit = (location:string, description:string) => {
 		setLocation(location);
-		setDescrip(description);
+        setDescrip(description);
+        console.log("hello");
+        
+
 		handleClose();
 	}
 
@@ -97,6 +98,7 @@ export default function Ticket(props:any) {
 						<Typography><b>Time: </b>{props.time}</Typography>
 						<Typography><b>Location: </b>{location}</Typography>
 						<Typography><b>Description: </b>{description}</Typography>
+						<Typography><b>Tags: </b>{tags}</Typography>
 						<div className={classes.buttonDiv}>
 							<Button variant="contained" startIcon={<EditIcon/>} className={classes.button} onClick={() => handleClickOpen()} >Edit</Button>
 						</div>

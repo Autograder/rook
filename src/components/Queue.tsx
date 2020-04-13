@@ -86,16 +86,47 @@ export default function Queue() {
         setOpen(false);
     };
 
+    const dummy = {
+        gettingStarted : gettingStarted,
+        specifications : specifications,
+        algorithms : algorithms,
+        progLang : progLang,
+        implementation : implementation,
+        testing : testing,
+        runtimeError : runtimeError,
+        compileError : compileError,
+        incorrectBehavior : incorrectBehavior,
+        wrongOutput : wrongOutput,
+        infiniteLoop : infiniteLoop,
+        conceptualQuestion : conceptualQuestion,
+    };
+    
     const handleSubmit = () => {
+
+        const tagArray = {
+            gettingStarted : gettingStarted,
+            specifications : specifications,
+            algorithms : algorithms,
+            progLang : progLang,
+            implementation : implementation,
+            testing : testing,
+            runtimeError : runtimeError,
+            compileError : compileError,
+            incorrectBehavior : incorrectBehavior,
+            wrongOutput : wrongOutput,
+            infiniteLoop : infiniteLoop,
+            conceptualQuestion : conceptualQuestion,
+        };
+
         setTicketList(
             ticketList.concat([
                 <Ticket name={"John Doe"} location={location}
                 description={description}
                 time={getTime()}
                 date={getDay()}
-                tags=''/>]));
+                tagArray={tagArray}/>]));
         handleClose();
-    }
+    };
 
     // Existing Queue for the Class
     const [ticketList, setTicketList] = useState(
@@ -103,7 +134,7 @@ export default function Queue() {
         description='I need help with a bug'
         time='12:34pm'
         date='April 1, 2020'
-        tags=''/>]
+        tagArray={dummy}/>]
     );
 
     return (
