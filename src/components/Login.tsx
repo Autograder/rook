@@ -22,7 +22,7 @@ function eventHandleLogin(email:string, password:string) {
       // Somehow render the queue page here
     })
     .catch(function (error) {
-      if (error.response.data === 400) {
+      if (error.response.status === 400) {
         // Add alert so they know it was wrong combo
         console.log("Username password do not match");
       } else {
