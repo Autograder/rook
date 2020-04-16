@@ -4,7 +4,7 @@ import Login from './components/Login';
 import Instructions from './components/Instructions';
 import Reset from './components/Reset';
 import QueuePage from './components/QueuePage';
-import CourseRequest from './components/CourseRequest';
+import CreateCourse from './components/CreateCourse';
 
 const Routes: React.FC = () => {
   return (
@@ -16,7 +16,7 @@ const Routes: React.FC = () => {
       <Route path="/instructions" exact component={Instructions} />
       <Route path="/reset" exact component={Reset} />
       <Route path="/queue" exact component={QueuePage} />
-      <Route path='/courserequest' exact component={CourseRequest}/>
+      <Route path='/createcourse' exact component={CreateCourse}/>
     </Switch>
   );
 }

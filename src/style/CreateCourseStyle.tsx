@@ -14,7 +14,11 @@ const useStyles = makeStyles((theme) => ({
                 borderColor: 'white',
             },
 		},
-		display: 'inline-block'
+		display: 'inline-block',
+	},
+	formControl: {
+		margin: theme.spacing(1),
+		minWidth: 200,
 	},
 	message: {
         '& > *': {
@@ -34,7 +38,11 @@ const useStyles = makeStyles((theme) => ({
 	},
 	wrapper: {
 		textAlign: 'center',
-
+	},
+	wrapper2: {
+		display: 'inline-block',
+		marginTop: '20px',
+		width: "70%"
 	},
 	title: {
 		color: "white",
@@ -45,6 +53,10 @@ const useStyles = makeStyles((theme) => ({
 		display: 'inline-block',
 		width: '30%',
 		verticalAlign: 'top'
+	},
+	submit: {
+		display: 'inline-block',
+		marginTop: "50px"
 	}
 }));  
 
