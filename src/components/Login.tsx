@@ -4,6 +4,7 @@ import { TextField, Typography, Button, Link } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/styles';
 import { useState } from 'react';
 import OurTheme from '../style/Theme';
+import Hidden from './Hidden';
 import Styles from '../style/LoginStyle';
 import { useHistory } from "react-router-dom";
 import Alert from '@material-ui/lab/Alert';
@@ -86,6 +87,8 @@ export default function Login(props:any) {
           <Link href="instructions"> First Time? </Link>
           <br/>
           <Link href="reset"> Forgot Password? </Link>
+          <br/>
+          <Hidden />
         </Typography>
       </ThemeProvider>
     </div>
