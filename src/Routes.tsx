@@ -6,6 +6,7 @@ import Reset from './components/Reset';
 import QueuePage from './components/QueuePage';
 import StudentPage from './components/StudentPage'
 import CreateCourse from './components/CreateCourse';
+import HallOfFame from './components/HallOfFame';
 
 const Routes: React.FC = () => {
   return (
@@ -19,6 +20,7 @@ const Routes: React.FC = () => {
       <Route path="/queue" exact component={QueuePage} />
       <Route path="/students" exact component={StudentPage} />
       <Route path='/createcourse' exact component={CreateCourse}/>
+      <Route path='/secret/halloffame' exact component={HallOfFame}/>
     </Switch>
   );
 }
