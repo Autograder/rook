@@ -7,6 +7,9 @@ const theme = createMuiTheme({
 	  primary: {
 		main: '#ffffff',
 	  },
+	  secondary: {
+		  main: '#d1dae3',
+	  },
 	  text: {
 		// Input box when hovered over
 		primary: '#ffffff',

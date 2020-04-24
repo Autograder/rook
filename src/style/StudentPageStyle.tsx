@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
         color: 'white',
         paddingLeft: '100px',
     },
-    menu : {
+    dropdown : {
         paddingLeft: '130px',
         paddingBottom: '30px',
         height: '100px',
@@ -29,9 +29,9 @@ const useStyles = makeStyles((theme) => ({
         fill: 'white',
     },
     item : {
-        color: 'black',
+        color: '#464655',
     },
-    root: {
+    buttons: {
         paddingLeft: '120px',
         flexDirection: 'column',
         '& > *': {
@@ -46,10 +46,10 @@ const useStyles = makeStyles((theme) => ({
         paddingRight: '100px',
     },
     cell : {
-        color: 'black',
+        color: '#464655',
     },
     col : {
-        color: 'black',
+        color: '#464655',
         fontWeight: 'bold',
     },
     formControl : {
@@ -59,6 +59,24 @@ const useStyles = makeStyles((theme) => ({
     selectEmpty: {
         marginTop: theme.spacing(2),
     },
+    dialogue: {
+        color: '#464655',
+        paddingLeft: '10px',
+    },
+    floatingLabelFocusStyle: {
+        color: '#464655',
+        paddingLeft: '10px',
+        "&:hover": {
+            borderColor: "#46455",
+        }
+    },
+    input: {
+        color: '#464655',
+        paddingLeft: '10px',
+        paddingBottom: '10px',
+
+        
+    }
 }));
 
 export default { useStyles };

@@ -16,6 +16,12 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import TextField from '@material-ui/core/TextField';
 
 
 function createData( fname: string, lname: string, email: string, status: string, ucext: string) {
@@ -40,6 +46,16 @@ export default function StudentPage() {
     const theme = OurTheme.theme;
     const classes = Styles.useStyles();
     const [sect, setSect] = React.useState('');
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
 
     const handleChange = (event: any) => {
         setSect(event.target.value);
@@ -53,8 +69,8 @@ export default function StudentPage() {
                 <Grid container spacing={3}>
                     <Grid item xs={4}>
                         <h2 className={classes.h2}>INFO</h2>
-                        <div className={classes.menu}>
-                            <FormControl className={classes.formControl}>
+                        <div className={classes.dropdown}>
+                            <FormControl variant="filled" className={classes.formControl}>
                                 <InputLabel id="demo-simple-select-label">Section</InputLabel>
                                 <Select
                                 labelId="demo-simple-select-label"
@@ -72,16 +88,17 @@ export default function StudentPage() {
                                     <MenuItem className={classes.item} value={'A00'}>A00</MenuItem>
                                     <MenuItem className={classes.item} value={'B00'}>B00</MenuItem>
                                     <MenuItem className={classes.item} value={'C00'}>C00</MenuItem>
+                                    <MenuItem className={classes.item} value={'Dropped'}>Dropped</MenuItem>
                                 </Select>
                             </FormControl>
                             <p>Number of Students: 10</p>
                         </div>
 
                         <h2 className={classes.h2}>OPTIONS</h2>
-                        <div className={classes.root}>
-                            <Button variant='contained'>Add Student</Button>
-                            <Button variant='contained'>Update Roster</Button>
-                            <Button variant='contained'>View Enrollment Requests</Button>
+                        <div className={classes.buttons}>
+                            <Button color={'secondary'} variant='contained' onClick={handleClickOpen}>Add Student</Button>
+                            <Button color={'secondary'} variant='contained'>Update Roster</Button>
+                            <Button color={'secondary'} variant='contained'>View Enrollment Requests</Button>
                         </div>
                     </Grid>
 
@@ -90,7 +107,7 @@ export default function StudentPage() {
                             <TableContainer component={Paper}>
                                 <Table className={classes.table} aria-label="simple table">
                                     <TableHead>
-                                        <TableRow style={{background :"#c3d4d9"}}>
+                                        <TableRow style={{background :"#d1dae3"}}>
                                             <TableCell className={classes.col}>First Name</TableCell>
                                             <TableCell className={classes.col} align="right">Last Name</TableCell>
                                             <TableCell className={classes.col} align="right">Email</TableCell>
@@ -100,7 +117,7 @@ export default function StudentPage() {
                                     </TableHead>
                                     <TableBody>
                                         {rows.map((row, index) => (
-                                            <TableRow key={row.fname} style ={ index % 2 ? { background : "#c3d4d9" }:{ background : "white" }}>
+                                            <TableRow key={row.fname} style ={ index % 2 ? { background : "#d1dae3" }:{ background : "white" }}>
                                                 <TableCell className={classes.cell} component="th" scope="row">
                                                     {row.fname}
                                                 </TableCell>
@@ -116,6 +133,59 @@ export default function StudentPage() {
                         </div>
                     </Grid>
                 </Grid>
+
+                <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+                    <DialogTitle id="form-dialog-title" className={classes.dialogue}>Add Student</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText className={classes.dialogue}>
+                            Enter student information.                            
+                        </DialogContentText>
+                        <TextField 
+                        id="outlined-basic"
+                        variant="outlined"
+                        label="first name"
+                        className={classes.input}
+                        InputProps={{
+                            className: classes.floatingLabelFocusStyle,
+                        }}
+                        InputLabelProps={{
+                            className: classes.floatingLabelFocusStyle,
+                        }}
+                    
+                        />
+                        
+                        <TextField 
+                        id="outlined-basic"
+                        variant="outlined"
+                        label="last name"
+                        className={classes.input}
+                        InputProps={{
+                            className: classes.floatingLabelFocusStyle,
+                        }}
+                        InputLabelProps={{
+                            className: classes.floatingLabelFocusStyle,
+                        }}
+                        />
+                        
+                        <TextField 
+                        id="outlined-basic"
+                        variant="outlined"
+                        label="email"
+                        className={classes.input}
+                        InputProps={{
+                            className: classes.floatingLabelFocusStyle,
+                        }}
+                        InputLabelProps={{
+                            className: classes.floatingLabelFocusStyle,
+                        }}
+                        />
+                        
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={handleClose} className={classes.dialogue}>Cancel</Button>
+                        <Button onClick={handleClose} variant="contained" color="secondary">Add Student</Button>
+                    </DialogActions>
+                </Dialog>
 
             </ThemeProvider>
         </div>
