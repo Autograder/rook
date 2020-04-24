@@ -7,6 +7,30 @@ import OurTheme from '../style/Theme';
 import Styles from '../style/QueueStyle';
 //import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab';
 
+function getDay() {
+    var tempDate = new Date();
+    var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+    var day = months[tempDate.getMonth()] + ' ' + tempDate.getDate() + ', ' + tempDate.getFullYear()
+    return day;
+}
+
+function getTime() {
+    var tempTime = new Date();
+    var meridian = '';
+    var hours = tempTime.getHours();
+    if (hours > 11) {
+        meridian = 'pm';
+        if (hours > 12) {
+            hours = hours - 12;
+        }
+    } else {
+        meridian = 'am';
+    }
+    var time = hours + ':' + tempTime.getMinutes() + ' ' + meridian;
+    return time;
+
+}
+
 export default function Queue() {
     const classes = Styles.useStyles();
     const inverseTheme = OurTheme.inverseTheme;
@@ -57,25 +81,60 @@ export default function Queue() {
     };
     
     const handleClose = () => {
+        setAnon(false); setGS(false); setS(false); setA(false); setPL(false); setImp(false); setT(false);
+        setRE(false); setCE(false); setIB(false); setWO(false); setIL(false); setCQ(false);
         setOpen(false);
     };
 
+    const dummy = {
+        gettingStarted : gettingStarted,
+        specifications : specifications,
+        algorithms : algorithms,
+        progLang : progLang,
+        implementation : implementation,
+        testing : testing,
+        runtimeError : runtimeError,
+        compileError : compileError,
+        incorrectBehavior : incorrectBehavior,
+        wrongOutput : wrongOutput,
+        infiniteLoop : infiniteLoop,
+        conceptualQuestion : conceptualQuestion,
+    };
+    
     const handleSubmit = () => {
+
+        const tagArray = {
+            gettingStarted : gettingStarted,
+            specifications : specifications,
+            algorithms : algorithms,
+            progLang : progLang,
+            implementation : implementation,
+            testing : testing,
+            runtimeError : runtimeError,
+            compileError : compileError,
+            incorrectBehavior : incorrectBehavior,
+            wrongOutput : wrongOutput,
+            infiniteLoop : infiniteLoop,
+            conceptualQuestion : conceptualQuestion,
+        };
+
         setTicketList(
             ticketList.concat([
-            <Ticket name="John Doe" location={location}
-            description={description}
-            time="12:50pm"
-            date="April 8, 2020"/>]))
+                <Ticket name={"John Doe"} location={location}
+                description={description}
+                time={getTime()}
+                date={getDay()}
+                tagArray={tagArray}/>]));
         handleClose();
-	}
+    };
 
     // Existing Queue for the Class
     const [ticketList, setTicketList] = useState(
         [<Ticket name='Sravya Balasa' location='B250-6'
         description='I need help with a bug'
         time='12:34pm'
-        date='April 1, 2020'/>]
+        date='April 1, 2020'
+        tagArray={dummy}/>]
     );
 
     return (

@@ -4,44 +4,70 @@ import { TextField, Typography, Button, Link } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/styles';
 import { useState } from 'react';
 import OurTheme from '../style/Theme';
+import Hidden from './Hidden';
 import Styles from '../style/LoginStyle';
-
-// Handling a log in occurence
-function eventHandleLogin(email:string, password:string) {
-  console.log(email);
-  console.log(password);
-  let apiBaseUrl : string = '/api/users/login';
-  let payload : object = {
-    "email" : email,
-    "password" : password,
-  };
-  api.post(apiBaseUrl,payload)
-    .then ( function (response) {
-      console.log(response);
-      console.log("Login successfull");
-      // Somehow render the queue page here
-    })
-    .catch(function (error) {
-      if (error.response.data === 400) {
-        // Add alert so they know it was wrong combo
-        console.log("Username password do not match");
-      } else {
-        console.log("Some other error occurred");
-      }
-      console.log(error);
-      });
-}
+import { useHistory } from "react-router-dom";
+import Alert from '@material-ui/lab/Alert';
+import IconButton from '@material-ui/core/IconButton';
+import Collapse from '@material-ui/core/Collapse';
+import CloseIcon from '@material-ui/icons/Close';
 
 export default function Login(props:any) {
-  const classes = Styles.useStyles();
-  const theme = OurTheme.theme;
-  // Look into more - to save values from text fields
-  const [password, setPass] = useState('');
-  const [email, setEmail] = useState('');
+  let history = useHistory();
+  let classes = Styles.useStyles();
+  let theme = OurTheme.theme;
+  let [password, setPass] = useState('');
+  let [email, setEmail] = useState('');
+  let [open, setOpen] = useState(false);
+
+  // Handling a log in occurence
+  function EventHandleLogin(email:string, password:string) {
+    let apiBaseUrl : string = '/api/users/login';
+    let payload : object = {
+      "email" : email,
+      "password" : password,
+    };
+    
+    api.post(apiBaseUrl,payload)
+      .then ( function (response) {
+        console.log("Login successfull");
+        history.push('/queue');
+      })
+      .catch(function (error) {
+        if (error.response.status === 400) {
+          // Display a notification error banner 
+          console.log("Incorrect email and/or password");
+          setOpen(true);
+        } else {
+          // Reroute to an error page
+          console.log("Server error possibly");
+        }
+        });
+  }
 
   // What is actually being rendered
   return (
     <div>
+      <Collapse in={open}>
+        <Alert
+          action={
+            <IconButton
+              aria-label="close"
+              size="small"
+              color="inherit"
+              onClick={() => {
+                setOpen(false);
+              }}
+            >
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+          }
+          variant="filled"
+          severity="error"
+        >
+          Incorrect email and/or password!
+        </Alert>
+      </Collapse>
       <h1 className={classes.title}>autograder.</h1>
       <ThemeProvider theme={theme}>
         <form className={classes.form} noValidate autoComplete="off">
@@ -53,7 +79,7 @@ export default function Login(props:any) {
           onChange = {(event) => setPass(event.target.value)}/>
         </form>
         <div className={classes.wrapper}>
-          <Button variant="outlined" color="primary" className={classes.button} onClick={(event) => eventHandleLogin(email, password)}>
+          <Button variant="outlined" color="primary" className={classes.button} onClick={(event) => (EventHandleLogin(email, password))}>
             Login
           </Button>
         </div>
@@ -61,6 +87,8 @@ export default function Login(props:any) {
           <Link href="instructions"> First Time? </Link>
           <br/>
           <Link href="reset"> Forgot Password? </Link>
+          <br/>
+          <Hidden />
         </Typography>
       </ThemeProvider>
     </div>

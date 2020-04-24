@@ -1,32 +1,63 @@
 import React, {useState} from 'react';
-import { Typography, ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary } from '@material-ui/core';
-import Styles from '../style/TicketStyle';
+import { Typography, ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, FormControlLabel } from '@material-ui/core';
+import { Dialog, DialogTitle, DialogActions, DialogContent, Button, TextField, Checkbox } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/styles';
-import OurTheme from '../style/Theme';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ConfirmationNumberIcon from '@material-ui/icons/ConfirmationNumber';
-import Button from '@material-ui/core/Button';
 import EditIcon from '@material-ui/icons/Edit'; 
-import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import TextField from '@material-ui/core/TextField';
+import OurTheme from '../style/Theme';
+import Styles from '../style/TicketStyle';
+
+// Need post request to send checkbox data to database
 
 export default function Ticket(props:any) {
 	const classes = Styles.useStyles();
 	const theme = OurTheme.theme;
 	const inverseTheme = OurTheme.inverseTheme;
 
-	const [date, setDate] = useState(props.date);
-	const [time, setTime] = useState(props.time);
 	const [location, setLocation] = useState(props.location);
 	const [description, setDescrip] = useState(props.description);
+	const [tags, setTags] = useState(props.tags);
 
-	const [tempDate, setTempDate] = useState(date);
-	const [tempTime, setTempTime] = useState(time);
 	const [tempLocation, setTempLocation] = useState(location);
 	const [tempDescription, setTempDescrip] = useState(description);
+	const [tempTags, setTempTags] = useState(tags);
+
+    // Hide from classmates
+    const [anonymous, setAnon] = useState(false);
+
+    // I need help with...
+    const [gettingStarted, setGS] = useState(props.tagArray["gettingStarted"]);
+    const [specifications, setS] = useState(props.tagArray["specifications"]);
+    const [algorithms, setA] = useState(props.tagArray["algorithms"]);
+    const [progLang, setPL] = useState(props.tagArray["progLang"]);
+    const [implementation, setImp] = useState(props.tagArray["implementation"]);
+    const [testing, setT] = useState(props.tagArray["testing"]);
+    
+    // Program Issues
+    const [runtimeError, setRE] = useState(props.tagArray["runtimeError"]);
+    const [compileError, setCE] = useState(props.tagArray["compileError"]);
+    const [incorrectBehavior, setIB] = useState(props.tagArray["incorrectBehavior"]);
+    const [wrongOutput, setWO] = useState(props.tagArray["wrongOutput"]);
+    const [infiniteLoop, setIL] = useState(props.tagArray["infiniteLoop"]);
+
+    // Other
+    const [conceptualQuestion, setCQ] = useState(props.tagArray["conceptualQuestion"])
+
+    // Boolean Togglers
+    const toggleAnon = () => {setAnon(!anonymous);}
+    const toggleGS = () => {setGS(!gettingStarted);}
+    const toggleS = () => {setS(!specifications);}
+    const toggleA = () => {setA(!algorithms);}
+    const togglePL = () => {setPL(!progLang);}
+    const toggleImp = () => {setImp(!implementation);}
+    const toggleT = () => {setT(!testing);}
+    const toggleRE = () => {setRE(!runtimeError);}
+    const toggleCE = () => {setCE(!compileError);}
+    const toggleIB = () => {setIB(!incorrectBehavior);}
+    const toggleWO = () => {setWO(!wrongOutput);}
+    const toggleIL = () => {setIL(!infiniteLoop);}
+    const toggleCQ = () => {setCQ(!conceptualQuestion);}
 
 	const [open, setOpen] = React.useState(false);
   
@@ -35,14 +66,17 @@ export default function Ticket(props:any) {
 	};
   
 	const handleClose = () => {
+	  setAnon(false); setGS(false); setS(false); setA(false); setPL(false); setImp(false); setT(false);
+      setRE(false); setCE(false); setIB(false); setWO(false); setIL(false); setCQ(false);
 	  setOpen(false);
 	};
 
-	const handleEdit = (date:string, time:string, location:string, description:string) => {
-		setDate(date);
-		setTime(time);
+	const handleEdit = (location:string, description:string) => {
 		setLocation(location);
-		setDescrip(description);
+        setDescrip(description);
+        console.log("hello");
+        
+
 		handleClose();
 	}
 
@@ -60,10 +94,11 @@ export default function Ticket(props:any) {
 						</div>
         			</ExpansionPanelSummary>
 					<ExpansionPanelDetails className={classes.body}>
-						<Typography><b>Date: </b>{date}</Typography>
-						<Typography><b>Time: </b>{time}</Typography>
+						<Typography><b>Date: </b>{props.date}</Typography>
+						<Typography><b>Time: </b>{props.time}</Typography>
 						<Typography><b>Location: </b>{location}</Typography>
 						<Typography><b>Description: </b>{description}</Typography>
+						<Typography><b>Tags: </b>{tags}</Typography>
 						<div className={classes.buttonDiv}>
 							<Button variant="contained" startIcon={<EditIcon/>} className={classes.button} onClick={() => handleClickOpen()} >Edit</Button>
 						</div>
@@ -75,13 +110,84 @@ export default function Ticket(props:any) {
 				<Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
 		  			<DialogTitle id="form-dialog-title" className={classes.dialog}>Edit Ticket</DialogTitle>
 		  			<DialogContent className={classes.dialog}>
-						<TextField autoFocus onChange={(e) => setTempDate(e.target.value)} margin="dense" id="name" label="Date" defaultValue={date} type="email" variant="filled" multiline fullWidth/>
-						<TextField autoFocus onChange={(e) => setTempTime(e.target.value)} margin="dense" id="name" label="Time" defaultValue={time} type="email" variant="filled" multiline fullWidth/>
-						<TextField autoFocus onChange={(e) => setTempLocation(e.target.value)} margin="dense" id="name" label="Location" defaultValue={location} type="email" variant="filled" multiline fullWidth/>
-						<TextField autoFocus onChange={(e) => setTempDescrip(e.target.value)} margin="dense" id="name" label="Description" defaultValue={description} type="email" variant="filled" multiline fullWidth/>
-		  			</DialogContent>
+                        <FormControlLabel
+                            className={classes.check}
+                            control={<Checkbox className={classes.check} onClick={toggleGS} color="primary" checked={gettingStarted} name="anonymous" />}
+                            label="Getting Started"
+                        />
+                        <FormControlLabel
+                            className={classes.check} label="Specifications"
+                            control={<Checkbox className={classes.check} onClick={toggleS} color="primary" checked={specifications} name="anonymous" />}
+                        />
+                        <FormControlLabel
+                            className={classes.check} label="Algorithms"
+                            control={<Checkbox className={classes.check} onClick={toggleA} color="primary" checked={algorithms} name="anonymous" />}
+                        />
+                        <FormControlLabel
+                            className={classes.check} label="Programming Language"
+                            control={<Checkbox className={classes.check} onClick={togglePL} color="primary" checked={progLang} name="anonymous" />}
+                        />
+                        <FormControlLabel
+                            className={classes.check} label="Implementation"
+                            control={<Checkbox className={classes.check} onClick={toggleImp} color="primary" checked={implementation} name="anonymous" />}
+                        />
+                        <FormControlLabel
+                            className={classes.check} label="Testing"
+                            control={<Checkbox className={classes.check} onClick={toggleT} color="primary" checked={testing} name="anonymous" />}
+                        />
+                        <FormControlLabel
+                            className={classes.check} label="Runtime Error"
+                            control={<Checkbox className={classes.check} onClick={toggleRE} color="primary" checked={runtimeError} name="anonymous" />}
+                        />
+                        <FormControlLabel
+                            className={classes.check} label="Compile Error"
+                            control={<Checkbox className={classes.check} onClick={toggleCE} color="primary" checked={compileError} name="anonymous" />}
+                        />
+                        <FormControlLabel
+                            className={classes.check} label="Incorrect Behavior"
+                            control={<Checkbox className={classes.check} onClick={toggleIB} color="primary" checked={incorrectBehavior} name="anonymous" />}
+                        />
+                        <FormControlLabel
+                            className={classes.check} label="Wrong Output"
+                            control={<Checkbox className={classes.check} onClick={toggleWO} color="primary" checked={wrongOutput} name="anonymous" />}
+                        />
+                        <FormControlLabel
+                            className={classes.check} label="Infinite Loop"
+                            control={<Checkbox className={classes.check} onClick={toggleIL} color="primary" checked={infiniteLoop} name="anonymous" />}
+                        />
+                        <FormControlLabel
+                            className={classes.check} label="Conceptual Question"
+                            control={<Checkbox className={classes.check} onClick={toggleCQ} color="primary" checked={conceptualQuestion} name="anonymous" />}
+                        />
+						<TextField
+                            className={classes.text}
+                            onChange = {(e) => setTempLocation(e.target.value)}
+                            variant="outlined"
+							id="name"
+							defaultValue={location}
+                            label="Location"
+                            rows="1"
+                            fullWidth
+                        />
+                        <TextField
+                            className={classes.text}
+                            onChange = {(e) => setTempDescrip(e.target.value)}
+                            variant="outlined"
+							id="name"
+							defaultValue={description}
+                            label="Description"
+                            multiline
+                            rows="6"
+                            fullWidth
+                        /> 
+                        <FormControlLabel
+                            className={classes.check}
+                            control={<Checkbox className={classes.check} onClick={toggleAnon} color="primary" checked={anonymous} name="anonymous" />}
+                            label="Hide from Classmates?"
+                        />			
+					</DialogContent>
 		  			<DialogActions>
-						<Button onClick={() => handleEdit(tempDate, tempTime, tempLocation, tempDescription)} color="secondary">Submit</Button>
+						<Button onClick={() => handleEdit(tempLocation, tempDescription)} color="secondary">Submit</Button>
 		  			</DialogActions>
 				</Dialog>
 			</ThemeProvider>
