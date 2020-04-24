@@ -13,15 +13,18 @@ export default function Navbar(props:any) {
 			<ThemeProvider theme={theme}>
 				<AppBar position="static" className={classes.appBar}>
   					<Toolbar>
-    					<Link href="/login" variant="h6" className={classes.title}>
-      						autograder
-   						</Link>
+    						<Typography variant="h6" className={classes.title}>
+								<Link href="queue">autograder</Link>
+							</Typography>
+						
 						<Typography variant="h6" className={classes.pages}>
       						Classes
    						</Typography>
+						
 						<Typography variant="h6" className={classes.pages}>
-      						Ticket History
-   						</Typography>
+							<Link href="tickethistory"> Ticket History </Link>
+						</Typography>
+						
 						<Link href="login"> <ExitToAppIcon/> </Link>
   					</Toolbar>
 				</AppBar>

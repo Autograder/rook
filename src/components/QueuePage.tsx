@@ -7,6 +7,8 @@ import { Grid } from '@material-ui/core';
 import MessageIcon from '@material-ui/icons/Message';
 import OurTheme from '../style/Theme';
 import Styles from '../style/QueuePageStyle';
+import DynamicFeedIcon from '@material-ui/icons/DynamicFeed';
+import TicketStatus from './TicketStatus';
 
 export default function QueuePage() {
     const theme = OurTheme.theme;
@@ -19,7 +21,9 @@ export default function QueuePage() {
                 <br/>
                 <Grid container>
                     <Grid item xs={3}>
-
+                        <DynamicFeedIcon className={classes.icon} />
+                        <TicketStatus type="Resolved"/>
+                        <TicketStatus type="Accepted"/>
                     </Grid>
                     <Grid item xs={6}>
                         <Queue/> 

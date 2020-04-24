@@ -161,7 +161,7 @@ export default function Ticket(props:any) {
                         <FormControl variant="standard" className={classes.locationfield} fullWidth>
                             <InputLabel htmlFor="age-native-simple">Room</InputLabel>
                             <Select native onChange = {(e) => setTempRoom(e.target.value)} >
-                                <option aria-label="None" value="" />
+                                <option aria-label="None" value=""/>
                                 <option value={"B250"}>B250</option>
                                 <option value={"B240"}>B240</option>
                                 <option value={"B250"}>B260</option>
