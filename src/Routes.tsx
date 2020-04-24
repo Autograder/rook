@@ -1,11 +1,11 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import Login from './components/Login';
-import Instructions from './components/Instructions';
-import Reset from './components/Reset';
-import QueuePage from './components/QueuePage';
-import StudentPage from './components/StudentPage'
-import CreateCourse from './components/CreateCourse';
+import Login from './routes/Login';
+import Instructions from './routes/Instructions';
+import Reset from './routes/Reset';
+import QueuePage from './routes/QueuePage';
+import StudentPage from './routes/StudentPage'
+import CreateCourse from './routes/CreateCourse';
 
 const Routes: React.FC = () => {
   return (

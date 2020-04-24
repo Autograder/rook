@@ -1,7 +1,7 @@
 import React from 'react';
-import Navbar from './Navbar';
-import Message from './Message';
-import Queue from './Queue';
+import Navbar from '../components/Navbar';
+import Message from '../components/Message';
+import Queue from '../components/Queue';
 import { ThemeProvider } from '@material-ui/styles';
 import { Grid } from '@material-ui/core';
 import MessageIcon from '@material-ui/icons/Message';
