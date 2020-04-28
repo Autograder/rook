@@ -4,6 +4,7 @@ import { TextField, Typography, Button, Link, Collapse } from '@material-ui/core
 import { Alert } from '@material-ui/lab';
 import { ThemeProvider } from '@material-ui/styles';
 import api from '../conf';
+import Hidden from '../components/Hidden';
 import OurTheme from '../style/Theme';
 import Styles from '../style/LoginStyle';
 
@@ -88,6 +89,8 @@ export default function Login(props:any) {
             <Link href="instructions"> First Time? </Link>
             <br/>
             <Link href="reset"> Forgot Password? </Link>
+            <br/>
+            <Hidden />
           </Typography>
         </ThemeProvider>
       </div>
