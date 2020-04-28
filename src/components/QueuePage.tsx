@@ -22,8 +22,12 @@ export default function QueuePage() {
                 <Grid container>
                     <Grid item xs={3}>
                         <DynamicFeedIcon className={classes.icon} />
-                        <TicketStatus type="Resolved"/>
-                        <TicketStatus type="Accepted"/>
+                        <TicketStatus type="Resolved" person="Tiffany Meng"/>
+                        <TicketStatus type="Accepted" person="Tiffany Meng"/>
+                        <TicketStatus type="Returned" person="Simonne Contreras"/>
+                        <TicketStatus type="Edited" person="Shaeli Yao"/>
+                        <TicketStatus type="Accepted" person="Simonne Contreras"/>
+                        <TicketStatus type="Created" person="Shaeli Yao"/>
                     </Grid>
                     <Grid item xs={6}>
                         <Queue/> 

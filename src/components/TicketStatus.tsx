@@ -10,6 +10,8 @@ export default function TicketStatus(props:any) {
 
 	function chooseStatusType () {
 		switch(props.type) {
+			case "Created":
+				return classes.created;
 			case "Resolved":
 				return classes.resolved;
 			case "Returned":
@@ -28,7 +30,8 @@ export default function TicketStatus(props:any) {
             <ThemeProvider theme={theme}>
                 <Card variant='outlined' className={statusType}>
                     <CardContent>
-                        <Typography variant="body2"> {props.type} </Typography>
+                        <Typography variant="body2" className={classes.statusTitle} > {props.type} </Typography>
+						<Typography variant="body2"> By: {props.person} </Typography>
                     </CardContent>
                 </Card>
             </ThemeProvider>
