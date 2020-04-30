@@ -16,9 +16,12 @@ export default function MessageWidget() {
 			<Message sender="Sravya Balasa" message="Is there anyone in the lab?" received={false}/>
 			<Message sender="Simonne Contreras" message="Yes, please be PATIENT" received={true}/>
 
-			<IconButton aria-label="delete" onClick={() => handleClickOpen()} className={classes.icon}>
-                <AddCircleOutlineIcon/>
-            </IconButton>
+			
 		</div>
 	);
 }
+/*
+<IconButton aria-label="delete" onClick={() => handleClickOpen()} className={classes.icon}>
+                <AddCircleOutlineIcon/>
+			</IconButton>
+			*/
