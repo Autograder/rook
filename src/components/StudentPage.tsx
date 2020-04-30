@@ -22,6 +22,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
+import api from '../conf';
 
 
 function createData( fname: string, lname: string, email: string, status: string, ucext: string) {
@@ -47,6 +48,9 @@ export default function StudentPage() {
     const classes = Styles.useStyles();
     const [sect, setSect] = React.useState('');
     const [open, setOpen] = React.useState(false);
+    const [userID, setUserID] = React.useState(0);
+    const [courseID, setCourseID] = React.useState(0);
+    const [sectID, setSectID] = React.useState(0);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -59,6 +63,24 @@ export default function StudentPage() {
 
     const handleChange = (event: any) => {
         setSect(event.target.value);
+    };
+
+    function EventHandleNewStudent(userID: any, sectID: any, courseID: any) { //would value get read as an int from the input??
+        setOpen(false);
+        let apiBaseUrl : string = '/api/users/enroll_user';
+        let payload : object = {
+            "user_id" : userID,
+            "section_id" : sectID,
+            "course_id" : courseID,
+        };
+
+        api.post(apiBaseUrl,payload)
+        .then ( function (response) {
+            console.log("Student added.");
+          })
+          .catch(function (error) {
+            console.log("Somethin wrong sis: " + error.response.status);
+            });
     };
    
     return (
@@ -143,8 +165,9 @@ export default function StudentPage() {
                         <TextField 
                         id="outlined-basic"
                         variant="outlined"
-                        label="first name"
+                        label="user id"
                         className={classes.input}
+                        onChange = {(event) => setUserID(parseInt(event.target.value))}
                         InputProps={{
                             className: classes.floatingLabelFocusStyle,
                         }}
@@ -157,8 +180,9 @@ export default function StudentPage() {
                         <TextField 
                         id="outlined-basic"
                         variant="outlined"
-                        label="last name"
+                        label="section id"
                         className={classes.input}
+                        onChange = {(event) => setSectID(parseInt(event.target.value))}
                         InputProps={{
                             className: classes.floatingLabelFocusStyle,
                         }}
@@ -170,8 +194,9 @@ export default function StudentPage() {
                         <TextField 
                         id="outlined-basic"
                         variant="outlined"
-                        label="email"
+                        label="course id"
                         className={classes.input}
+                        onChange = {(event) => setCourseID(parseInt(event.target.value))}
                         InputProps={{
                             className: classes.floatingLabelFocusStyle,
                         }}
@@ -183,7 +208,7 @@ export default function StudentPage() {
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={handleClose} className={classes.dialogue}>Cancel</Button>
-                        <Button onClick={handleClose} variant="contained" color="secondary">Add Student</Button>
+                        <Button onClick={(event) => EventHandleNewStudent(userID,sectID,courseID)} variant="contained" color="secondary">Add Student</Button>
                     </DialogActions>
                 </Dialog>
 
