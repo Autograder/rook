@@ -1,5 +1,5 @@
 import React from 'react';
-import Navbar from './Navbar';
+import Navbar from '../components/Navbar';
 import { ThemeProvider } from '@material-ui/styles';
 import { Link, Typography } from '@material-ui/core';
 import OurTheme from '../style/Theme';

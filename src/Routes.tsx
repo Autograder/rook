@@ -1,13 +1,14 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import Login from './components/Login';
-import Instructions from './components/Instructions';
-import Reset from './components/Reset';
-import QueuePage from './components/QueuePage';
-import StudentPage from './components/StudentPage'
-import StaffPage from './components/StaffPage';
-import CreateCourse from './components/CreateCourse';
-import HallOfFame from './components/HallOfFame';
+import Login from './routes/Login';
+import Instructions from './routes/Instructions';
+import Reset from './routes/Reset';
+import QueuePage from './routes/QueuePage';
+import StudentPage from './routes/StudentPage'
+import CreateCourse from './routes/CreateCourse';
+import HallOfFame from './routes/HallOfFame';
+import TicketHistory from './routes/TicketHistory';
+import StaffPage from './routes/StaffPage';
 
 const Routes: React.FC = () => {
   return (
@@ -23,6 +24,7 @@ const Routes: React.FC = () => {
       <Route path="/staff" exact component={StaffPage} />
       <Route path='/createcourse' exact component={CreateCourse}/>
       <Route path='/secret/halloffame' exact component={HallOfFame}/>
+      <Route path="/tickethistory" exact component={TicketHistory}/>
     </Switch>
   );
 }

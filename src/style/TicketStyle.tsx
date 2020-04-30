@@ -32,6 +32,9 @@ const useStyles = makeStyles((theme) => ({
 		verticalAlign: "top",
 		paddingLeft: "30%"
 	},
+	locationfield: {
+		marginBottom: '20px'
+	},
 	columnright: {
 		flexBasis: '100px',
 	},
