@@ -14,7 +14,7 @@ export default function Navbar(props:any) {
 				<AppBar position="static" className={classes.appBar}>
   					<Toolbar>
     						<Typography variant="h6" className={classes.title}>
-								<Link href="queue">autograder</Link>
+								<Link href="queue">queues</Link>
 							</Typography>
 						
 						<Typography variant="h6" className={classes.pages}>
