@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { IconButton, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Button, Checkbox, FormControlLabel } from '@material-ui/core';
+import { IconButton, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Button, Checkbox, FormControl, InputLabel, Select, FormControlLabel } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/styles';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import Ticket from './Ticket';
@@ -38,8 +38,9 @@ export default function Queue() {
 
     // Fields for Ticket
     const [description, setDescrip] = useState('');
-    const [location, setLocation] = useState('');
-
+    const [seat, setSeat] = useState('');
+    const [room, setRoom] = useState('');
+    
     // Hide from classmates
     const [anonymous, setAnon] = useState(false);
 
@@ -120,7 +121,9 @@ export default function Queue() {
 
         setTicketList(
             ticketList.concat([
-                <Ticket name={"John Doe"} location={location}
+                <Ticket name={"John Doe"} 
+                room={room}
+                seat={seat}
                 description={description}
                 time={getTime()}
                 date={getDay()}
@@ -130,7 +133,7 @@ export default function Queue() {
 
     // Existing Queue for the Class
     const [ticketList, setTicketList] = useState(
-        [<Ticket name='Sravya Balasa' location='B250-6'
+        [<Ticket name='Sravya Balasa' seat="6" room="B250"
         description='I need help with a bug'
         time='12:34pm'
         date='April 1, 2020'
@@ -195,15 +198,28 @@ export default function Queue() {
                             className={classes.check} label="Conceptual Question"
                             control={<Checkbox className={classes.check} onClick={toggleCQ} color="primary" checked={conceptualQuestion} name="anonymous" />}
                         />
-                        <TextField
-                            className={classes.text}
-                            onChange = {(e) => setLocation(e.target.value)}
-                            variant="outlined"
-                            id="name"
-                            label="Location"
-                            rows="1"
-                            fullWidth
-                        />
+                        
+                        <FormControl variant="standard" className={classes.locationfield} fullWidth>
+                            <InputLabel htmlFor="age-native-simple">Room</InputLabel>
+                            <Select native>
+                                <option aria-label="None" value="" />
+                                <option value={"B250"}>B250</option>
+                                <option value={"B240"}>B240</option>
+                                <option value={"B250"}>B260</option>
+                                <option value={"B260"}>Hallway</option>
+                            </Select>
+                        </FormControl>
+
+                        <FormControl variant="standard" className={classes.locationfield} fullWidth>
+                            <InputLabel htmlFor="age-native-simple">Seat</InputLabel>
+                            <Select native >
+                                <option aria-label="None" value="" />
+                                <option value={6}>6</option>
+                                <option value={7}>7</option>
+                                <option value={8}>8</option>
+                            </Select>
+                        </FormControl>
+
                         <TextField
                             className={classes.text}
                             onChange = {(e) => setDescrip(e.target.value)}
@@ -229,3 +245,6 @@ export default function Queue() {
         </div>
     );
 } 
+
+// onChange = {(e => setSeat(e.target.value)}
+// can't do this for the selects idk why

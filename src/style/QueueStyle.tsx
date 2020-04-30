@@ -22,6 +22,9 @@ const useStyles = makeStyles((theme) => ({
     check: {
         color: 'black',
     },
+    locationfield: {
+		marginBottom: '20px'
+	},
 }));  
 
 export default {useStyles};

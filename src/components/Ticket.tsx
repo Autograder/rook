@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Typography, ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, FormControlLabel } from '@material-ui/core';
+import { Typography, ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, FormControlLabel, FormControl, InputLabel, Select } from '@material-ui/core';
 import { Dialog, DialogTitle, DialogActions, DialogContent, Button, TextField, Checkbox } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/styles';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -15,13 +15,14 @@ export default function Ticket(props:any) {
 	const theme = OurTheme.theme;
 	const inverseTheme = OurTheme.inverseTheme;
 
-	const [location, setLocation] = useState(props.location);
+    const [room, setRoom] = useState(props.room);
+    const [seat, setSeat]= useState(props.seat);
 	const [description, setDescrip] = useState(props.description);
 	const [tags, setTags] = useState(props.tags);
 
-	const [tempLocation, setTempLocation] = useState(location);
-	const [tempDescription, setTempDescrip] = useState(description);
-	const [tempTags, setTempTags] = useState(tags);
+    const [tempRoom, setTempRoom] = useState(props.room);
+    const [tempSeat, setTempSeat]= useState(props.seat);
+    const [tempDescription, setTempDescrip] = useState(description);
 
     // Hide from classmates
     const [anonymous, setAnon] = useState(false);
@@ -71,12 +72,10 @@ export default function Ticket(props:any) {
 	  setOpen(false);
 	};
 
-	const handleEdit = (location:string, description:string) => {
-		setLocation(location);
+	const handleEdit = (room:string, seat:string, description:string) => {
+        setRoom(room);
+        setSeat(seat);
         setDescrip(description);
-        console.log("hello");
-        
-
 		handleClose();
 	}
 
@@ -90,13 +89,13 @@ export default function Ticket(props:any) {
   							<Typography className={classes.title} align="left"> {props.name}</Typography>
 						</div>
 						<div className={classes.columnright}>
-							<Typography className={classes.location} align="right"> {location}</Typography>
+							<Typography className={classes.location} align="right">{room}-{seat}</Typography>
 						</div>
         			</ExpansionPanelSummary>
 					<ExpansionPanelDetails className={classes.body}>
 						<Typography><b>Date: </b>{props.date}</Typography>
 						<Typography><b>Time: </b>{props.time}</Typography>
-						<Typography><b>Location: </b>{location}</Typography>
+						<Typography><b>Location: </b>{room}-{seat}</Typography>
 						<Typography><b>Description: </b>{description}</Typography>
 						<Typography><b>Tags: </b>{tags}</Typography>
 						<div className={classes.buttonDiv}>
@@ -159,16 +158,27 @@ export default function Ticket(props:any) {
                             className={classes.check} label="Conceptual Question"
                             control={<Checkbox className={classes.check} onClick={toggleCQ} color="primary" checked={conceptualQuestion} name="anonymous" />}
                         />
-						<TextField
-                            className={classes.text}
-                            onChange = {(e) => setTempLocation(e.target.value)}
-                            variant="outlined"
-							id="name"
-							defaultValue={location}
-                            label="Location"
-                            rows="1"
-                            fullWidth
-                        />
+                        <FormControl variant="standard" className={classes.locationfield} fullWidth>
+                            <InputLabel htmlFor="age-native-simple">Room</InputLabel>
+                            <Select native onChange = {(e) => setTempRoom(e.target.value)} >
+                                <option aria-label="None" value=""/>
+                                <option value={"B250"}>B250</option>
+                                <option value={"B240"}>B240</option>
+                                <option value={"B250"}>B260</option>
+                                <option value={"B260"}>Hallway</option>
+                            </Select>
+                        </FormControl>
+
+                        <FormControl variant="standard" className={classes.locationfield} fullWidth>
+                            <InputLabel htmlFor="age-native-simple">Seat</InputLabel>
+                            <Select native onChange = {(e) => setTempSeat(e.target.value)} >
+                                <option aria-label="None" value="" />
+                                <option value={6}>6</option>
+                                <option value={7}>7</option>
+                                <option value={8}>8</option>
+                            </Select>
+                        </FormControl>
+
                         <TextField
                             className={classes.text}
                             onChange = {(e) => setTempDescrip(e.target.value)}
@@ -187,7 +197,7 @@ export default function Ticket(props:any) {
                         />			
 					</DialogContent>
 		  			<DialogActions>
-						<Button onClick={() => handleEdit(tempLocation, tempDescription)} color="secondary">Submit</Button>
+						<Button onClick={() => handleEdit(tempRoom, tempSeat, tempDescription)} color="secondary">Submit</Button>
 		  			</DialogActions>
 				</Dialog>
 			</ThemeProvider>
@@ -195,3 +205,16 @@ export default function Ticket(props:any) {
 		</div>
 	);
 }
+
+/*
+<TextField
+className={classes.text}
+onChange = {(e) => setTempLocation(e.target.value)}
+variant="outlined"
+id="name"
+defaultValue={location}
+label="Location"
+rows="1"
+fullWidth
+/>
+*/
