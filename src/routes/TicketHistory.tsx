@@ -1,5 +1,5 @@
 import React from 'react';
-import Navbar from './Navbar';
+import Navbar from '../components/Navbar';
 import { TextField, Typography, Grid, Select, MenuItem, Button, FormControl, InputLabel } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/styles';
 import OurTheme from '../style/Theme';

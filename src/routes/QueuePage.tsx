@@ -1,14 +1,13 @@
 import React from 'react';
-import Navbar from './Navbar';
-import Message from './Message';
-import MessageWidget from './MessageWidget';
-import Queue from './Queue';
+import Navbar from '../components/Navbar';
+import MessageWidget from '../components/MessageWidget';
+import Queue from '../components/Queue';
 import { ThemeProvider } from '@material-ui/styles';
 import { Grid } from '@material-ui/core';
 import OurTheme from '../style/Theme';
 import Styles from '../style/QueuePageStyle';
 import DynamicFeedIcon from '@material-ui/icons/DynamicFeed';
-import TicketStatus from './TicketStatus';
+import TicketStatus from '../components/TicketStatus';
 
 export default function QueuePage() {
     const theme = OurTheme.theme;
