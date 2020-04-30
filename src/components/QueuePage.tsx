@@ -1,10 +1,10 @@
 import React from 'react';
 import Navbar from './Navbar';
 import Message from './Message';
+import MessageWidget from './MessageWidget';
 import Queue from './Queue';
 import { ThemeProvider } from '@material-ui/styles';
 import { Grid } from '@material-ui/core';
-import MessageIcon from '@material-ui/icons/Message';
 import OurTheme from '../style/Theme';
 import Styles from '../style/QueuePageStyle';
 import DynamicFeedIcon from '@material-ui/icons/DynamicFeed';
@@ -33,9 +33,7 @@ export default function QueuePage() {
                         <Queue/> 
                     </Grid>
                     <Grid item xs={3}>
-                        <MessageIcon className={classes.icon}/>
-                        <Message sender="Sravya Balasa" message="Is there anyone in the lab?" received={false}/>
-                        <Message sender="Simonne Contreras" message="Yes, please be PATIENT" received={true}/>
+                        <MessageWidget/>
                     </Grid>
                 </Grid>
             </ThemeProvider>
