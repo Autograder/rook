@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     },
     body: {
         position: "fixed",
-        width: "100%"
+        width: "100%",
     }
 }));  
 

@@ -20,28 +20,30 @@ export default function QueuePage() {
                 <Navbar/>
                 <br/>
                 <Grid container>
-                    <Grid item xs={3}>
-                        <DynamicFeedIcon className={classes.icon} />
-                        <div className={classes.container}>
-                            <div className={classes.overflow}>
-                                <TicketStatusWidget/>
+                    <Grid container>
+                        <Grid item xs={3}>
+                            <DynamicFeedIcon className={classes.icon} />
+                            <div className={classes.container}>
+                                <div className={classes.overflow}>
+                                    <TicketStatusWidget/>
+                                </div>
                             </div>
-                        </div>
-                    </Grid>
-                    <Grid item xs={6}>
-                        <div className={classes.container}>
-                            <div className={classes.overflow}>
-                                <Queue/> 
+                        </Grid>
+                        <Grid item xs={6}>
+                            <div className={classes.container}>
+                                <div className={classes.overflow}>
+                                    <Queue/> 
+                                </div>
                             </div>
-                        </div>
-                    </Grid>
-                    <Grid item xs={3}>                     
-			            <MessageIcon className={classes.icon}/>
-                        <div className={classes.container}>
-                            <div className={classes.overflow}>
-                                <MessageWidget/>
+                        </Grid>
+                        <Grid item xs={3}>                     
+                            <MessageIcon className={classes.icon}/>
+                            <div className={classes.container}>
+                                <div className={classes.overflow}>
+                                    <MessageWidget/>
+                                </div>
                             </div>
-                        </div>
+                        </Grid>
                     </Grid>
                 </Grid>
             </ThemeProvider>
