@@ -68,7 +68,7 @@ export default function Login(props:any) {
         </Collapse>
       </div>
       <div className={classes.main} onClick = {(event) => PressedKey(event)}>
-        <h1 className={classes.title}>queues<Link href="secret/halloffame">.</Link></h1>
+        <h1 className={classes.title}>queues<Link href="secret/halloffame" className={classes.underline}>.</Link></h1>
         <ThemeProvider theme={theme}>
           <form className={classes.form}>
             <TextField id="outlined-basic" color="primary" label="Email" type="email" value={email} variant="outlined" 

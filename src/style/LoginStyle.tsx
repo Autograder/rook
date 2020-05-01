@@ -27,6 +27,12 @@ const useStyles = makeStyles((theme) => ({
         fontSize: 'calc(30px + 5vw)',
         textAlign : 'center',
     },
+    underline: {
+        '&:hover': {
+            textDecoration : 'none',
+            underline: '1px solid',
+        },
+    },
     button : {
         color: 'white',
         width : 100,
