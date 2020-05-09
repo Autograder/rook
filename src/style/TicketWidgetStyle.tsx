@@ -8,19 +8,6 @@ const useStyles = makeStyles((theme) => ({
         'left' : '50%',
         'margin-left' : '-50px',
     },
-    overflow: {
-        overflowY: "scroll",
-        flex: 1,
-    },
-    container: {
-        display: "flex",
-        flexDirection: "row",
-        height: "100vh",
-    },
-    body: {
-        position: "fixed",
-        width: "100%",
-    }
 }));  
 
 export default {useStyles};
