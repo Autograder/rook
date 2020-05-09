@@ -90,7 +90,7 @@ export default function StudentPage() {
                             <TableContainer component={Paper}>
                                 <Table className={classes.table} aria-label="simple table">
                                     <TableHead>
-                                        <TableRow style={{background :"#c3d4d9"}}>
+                                        <TableRow style={{backgroundColor: "#c3d4d9"}}>
                                             <TableCell className={classes.col}>First Name</TableCell>
                                             <TableCell className={classes.col} align="right">Last Name</TableCell>
                                             <TableCell className={classes.col} align="right">Email</TableCell>

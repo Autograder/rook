@@ -28,14 +28,18 @@ const useStyles = makeStyles((theme) => ({
     },
     col : {
         color: 'black',
-        
+        fontWeight: 'bold',
     },
     cell : {
         color: 'black',
     },
-    table : {
-        minWidth: 500,
-
+    iTable : {
+        minWidth: 600,
+        maxHeight: 290,
+    },
+    gTable : {
+        minWidth: 600,
+        maxHeight: 400,
     },
     rightCol : {
         topPadding: 500,
@@ -54,7 +58,19 @@ const useStyles = makeStyles((theme) => ({
         background: '#2A667B',
         fontSize: 20,
       },
-
+      switchLabel: {
+            paddingLeft: 115,
+            fontSize: 20,
+          color: 'white',
+          fontWeight: 'bold',
+      },
+      tablelabel: {
+        fontSize: 20,
+        color: 'white',
+      },
+      tableheader: {
+          background: 'black',
+      }
 
 }));
 
