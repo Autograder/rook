@@ -10,6 +10,14 @@ export default function MessageWidget() {
 		<div>
 			<Message sender="Sravya Balasa" message="Is there anyone in the lab?" received={false}/>
 			<Message sender="Simonne Contreras" message="Yes, please be PATIENT" received={true}/>
+			<Message sender="Simonne Contreras" message="Yes, please be PATIENT" received={true}/>
+			<Message sender="Simonne Contreras" message="Yes, please be PATIENT" received={true}/>
+			<Message sender="Simonne Contreras" message="Yes, please be PATIENT" received={true}/>
+			<Message sender="Simonne Contreras" message="Yes, please be PATIENT" received={true}/>
+			<Message sender="Simonne Contreras" message="Yes, please be PATIENT" received={true}/>
+			<Message sender="Simonne Contreras" message="Yes, please be PATIENT" received={true}/>
+			<Message sender="Simonne Contreras" message="Yes, please be PATIENT" received={true}/>
+			<Message sender="Simonne Contreras" message="Yes, please be PATIENT" received={true}/>
 		</div>
 	);
 }

@@ -84,6 +84,7 @@ export default function Queue() {
     const handleClose = () => {
         setAnon(false); setGS(false); setS(false); setA(false); setPL(false); setImp(false); setT(false);
         setRE(false); setCE(false); setIB(false); setWO(false); setIL(false); setCQ(false);
+        setDescrip(''); setRoom(''); setSeat('');
         setOpen(false);
     };
 
@@ -103,7 +104,6 @@ export default function Queue() {
     };
     
     const handleSubmit = () => {
-
         const tagArray = {
             gettingStarted : gettingStarted,
             specifications : specifications,
@@ -128,6 +128,7 @@ export default function Queue() {
                 time={getTime()}
                 date={getDay()}
                 tagArray={tagArray}/>]));
+        
         handleClose();
     };
 

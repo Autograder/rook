@@ -17,6 +17,21 @@ const useStyles = makeStyles((theme) => ({
 	pages: {
 		fontSize: 18,
 		marginRight: theme.spacing(2),
+	},
+	link: {
+		cursor: "pointer"
+	},
+	form: {
+        // Border of Input Boxes when not clicked
+        '& .MuiOutlinedInput-root': {
+            '& fieldset': {
+                borderColor: 'black',
+            },
+        },
+    },
+    text: {
+		color: 'black',
+		marginBottom: '15px'
 	}
 }));  
 
