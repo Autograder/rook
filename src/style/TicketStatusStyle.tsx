@@ -27,11 +27,20 @@ const useStyles = makeStyles((theme) => ({
         'border-radius': '15px 15px 2px', 
     },
     tableCellStatus: { 
-        display: 'table-cell',
+        [theme.breakpoints.down(850)]: {
+			display: "table-row",
+		}, [theme.breakpoints.up(851)]: {
+			display: "table-cell"
+		},
     },
     tableCellTutor: {
-        display: 'table-cell',
-        textAlign: "right"
+        [theme.breakpoints.down(850)]: {
+            display: "table-row",
+            textAlign: "left"
+		}, [theme.breakpoints.up(851)]: {
+            display: "table-cell",
+            textAlign: "right"
+		},
     },
     tableRow: {
         display: 'table-row',
