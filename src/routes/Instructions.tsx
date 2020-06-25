@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-import { TextField, Typography, Collapse, Grid, Select, MenuItem, Button, FormControl, InputLabel } from '@material-ui/core';
-import Alert from '@material-ui/lab/Alert';
+import React from 'react';
+import { Typography } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/styles';
 import OurTheme from '../style/Theme';
 import Styles from '../style/InstructionsStyle';

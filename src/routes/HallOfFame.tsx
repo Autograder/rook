@@ -26,7 +26,7 @@ const HallOfFame: React.FC = () => {
             <li>Gary Gillespie for letting us work on this project :)</li>
           </ul>
           Through your vision and hard work that led the contribution of many others, we've gone from whiteboard
-          queues to digital systems, given quite a few people a chance to try out some web development, and made friends.
+          queues to digital systems, given quite a few people a chance to try out some web development, and made amazing lifelong friends.
         </Typography>
         <div className={classes.center}>
           <Typography className={classes.text} color='primary'><b>That opportunity truly is one we're grateful for :)</b></Typography>

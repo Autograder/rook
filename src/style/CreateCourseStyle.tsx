@@ -20,29 +20,21 @@ const useStyles = makeStyles((theme) => ({
 		margin: theme.spacing(1),
 		minWidth: 200,
 	},
-	message: {
-        '& > *': {
-			margin: theme.spacing(1),
-			position: 'relative',
-			textAlign: 'center',
-			verticalAlign: 'middle',
-		},
-    // Border of Input Boxes when not clicked
-        '& .MuiOutlinedInput-root': {
-            '& fieldset': {
-                borderColor: 'white',
-            },
-		},
-		display: 'inline-block',
-		width: "100%"
-	},
 	wrapper: {
 		textAlign: 'center',
+		display: 'table',
+		width: "60%",
+		margin: "0 auto"
+	},
+	wrappertitle: {
+		textAlign: 'center',
+		display: 'table',
+		width: "100%",
+		margin: "0 auto"
 	},
 	wrapper2: {
-		display: 'inline-block',
 		marginTop: '20px',
-		width: "70%"
+		display: 'table-row'
 	},
 	title: {
 		color: "white",
@@ -50,14 +42,22 @@ const useStyles = makeStyles((theme) => ({
 		fontSize: "3em"
 	},
 	body: {
-		display: 'inline-block',
-		width: '30%',
-		verticalAlign: 'top'
+		[theme.breakpoints.down(700)]: {
+			display: "table-row",
+		}, [theme.breakpoints.up(701)]: {
+			display: "table-cell"
+		},
+		verticalAlign: 'top',
 	},
 	submit: {
 		display: 'inline-block',
 		marginTop: "50px"
-	}
+	},
+	alert: {
+		position: "absolute",
+		zIndex: 1,
+		width: "99%",
+	},
 }));  
 
 export default {useStyles};

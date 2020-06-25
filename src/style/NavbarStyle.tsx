@@ -4,19 +4,52 @@ const useStyles = makeStyles((theme) => ({
 	root: {
 	  flexGrow: 1,
 	},
-	appBar: {
+	appTable: {
 		background: 'transparent',
 		boxShadow:'none',
-		color: "#ffffff"
+		color: "#ffffff",
+		display: "table",
+		paddingLeft: "15px",
+		paddingRight: "15px",
+		width: "100%"
+	},
+	appRow: {
+		display: "table-row",
 	},
 	title: {
-	  	flexGrow: 1,
-	  	fontSize: 40,
-	  	fontWeight: 'bold'
+		fontSize: 45,
+		fontWeight: 'bold',
+		height: "80px"
 	},
-	pages: {
+	left: {
+		display: "inline-block",
+		marginLeft: theme.spacing(2), 
+	},
+	right: {
+		display: "inline-block",
+		marginRight: theme.spacing(2), 
+	},
+	logocell: {
+		display: "table-cell",
+		verticalAlign: "middle",
+		textAlign: "right",
+		width: "15px"
+	},
+	titlecell: {
+		display: "table-cell",
+		width: "150px",
+		verticalAlign: "middle"
+	},
+	leftlinks: {
 		fontSize: 18,
-		marginRight: theme.spacing(2),
+		display: "table-cell",
+		verticalAlign: "middle"
+	},
+	rightlinks: {
+		fontSize: 18,
+		display: "table-cell",
+		textAlign: "right",
+		verticalAlign: "middle"
 	},
 	link: {
 		cursor: "pointer"

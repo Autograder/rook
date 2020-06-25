@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from "react-router-dom";
-import { TextField, Typography, Button, Link, Collapse } from '@material-ui/core';
+import { TextField, Button, Link, Collapse } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import { ThemeProvider } from '@material-ui/styles';
 import api from '../conf';

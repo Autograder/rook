@@ -30,16 +30,23 @@ const useStyles = makeStyles((theme) => ({
 		align: "right",
 		display: "inline",
 		verticalAlign: "top",
-		paddingLeft: "30%"
 	},
 	locationfield: {
 		marginBottom: '20px'
 	},
-	columnright: {
-		flexBasis: '100px',
+	table: {
+		display: "table",
+		width: "100%"
 	},
-	columnleft: {
-		flexBasis: '85.0%',
+	tableRow: {
+		display: "table-row",
+	},
+	tableLeft: {
+		display: "table-cell",
+	},
+	tableRight: {
+		display: "table-cell",
+		textAlign: "right"
 	},
 	body: {
 		display: "block"

@@ -60,25 +60,33 @@ export default function Navbar(props:any) {
             	</Dialog>
 			</ThemeProvider>
 			<ThemeProvider theme={theme}>
-				<AppBar position="static" className={classes.appBar}>
-  					<Toolbar>
-    					<Typography variant="h6" className={classes.title}>
-							<Link underline="none" className={classes.link} onClick={() => (ChangeState('/queue'))}>queues</Link>
-						</Typography>
-						   
-						<Typography variant="h6" className={classes.pages}>
-      						<Link className={classes.link} onClick={() => {}}>Classes</Link>
-   						</Typography>
+				<AppBar position="static" className={classes.appTable}>
+  					<Toolbar className={classes.appRow}>
+						<div className={classes.titlecell}>
+							<Typography className={classes.title}>
+								<Link underline="none" className={classes.link} onClick={() => (ChangeState('/queue'))}>queues</Link>
+							</Typography>
+						</div>
 						
-						<Typography variant="h6" className={classes.pages}>
-      						<Link className={classes.link} onClick={() => handleOpen()}>Submit Feedback</Link>
-   						</Typography>
+						<div className={classes.leftlinks}>
+							<Typography  className={classes.left}>
+								<Link className={classes.link} onClick={() => {}}>Classes</Link>
+							</Typography>
+						</div>
 
-						<Typography variant="h6" className={classes.pages}>
-							<Link className={classes.link} onClick={() => (ChangeState('/tickethistory'))}> Ticket History </Link>
-						</Typography>
+						<div className={classes.rightlinks}>
+							<Typography className={classes.right}>
+								<Link className={classes.link} onClick={() => handleOpen()}>Submit Feedback</Link>
+							</Typography>
+
+							<Typography className={classes.right}>
+								<Link className={classes.link} onClick={() => (ChangeState('/tickethistory'))}> Ticket History </Link>
+							</Typography>
+						</div>
 						
-						<Link className={classes.link} onClick={() => (ChangeState('/login'))}> <ExitToAppIcon/> </Link>
+						<div className={classes.logocell}>
+							<Link className={classes.link} onClick={() => (ChangeState('/login'))}> <ExitToAppIcon fontSize="large"/> </Link>
+						</div>
   					</Toolbar>
 				</AppBar>
 			</ThemeProvider>
