@@ -4,6 +4,7 @@ import { Dialog, DialogTitle, DialogActions, DialogContent, Button, TextField, C
 import { ThemeProvider } from '@material-ui/styles';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ConfirmationNumberIcon from '@material-ui/icons/ConfirmationNumber';
+import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import EditIcon from '@material-ui/icons/Edit'; 
 import OurTheme from '../style/Theme';
 import Styles from '../style/TicketStyle';
@@ -77,14 +78,18 @@ export default function Ticket(props:any) {
         setSeat(seat);
         setDescrip(description);
 		handleClose();
-	}
+    }
+    
+    // DUMMY VARIABLE --> Would be "help type" from the database
+    // Submit for edit is different based on help type
+    const isTicket = true 
 
 	return (
 		<div className={classes.container}>
 			<ThemeProvider theme={theme}>
 				<ExpansionPanel square={false} className={classes.root}>
         			<ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>} aria-controls="panel1bh-content" id="panel1bh-header">
-						<ConfirmationNumberIcon className={classes.ticketIcon}/>
+                    { isTicket ? (<ConfirmationNumberIcon className={classes.ticketIcon}/>) : (<CheckBoxIcon className={classes.ticketIcon}/>)}
                         <div className={classes.table}>
                             <div className={classes.tableRow}>
                                 <div className={classes.tableLeft}>
@@ -101,7 +106,7 @@ export default function Ticket(props:any) {
 						<Typography><b>Time: </b>{props.time}</Typography>
 						<Typography><b>Location: </b>{room}-{seat}</Typography>
 						<Typography><b>Description: </b>{description}</Typography>
-						<Typography><b>Tags: </b>{tags}</Typography>
+                        { isTicket && <Typography><b>Tags: </b>{tags}</Typography> }
 						<div className={classes.buttonDiv}>
 							<Button variant="contained" startIcon={<EditIcon/>} className={classes.button} onClick={() => handleClickOpen()} >Edit</Button>
 						</div>
@@ -111,57 +116,62 @@ export default function Ticket(props:any) {
 			
 			<ThemeProvider theme={inverseTheme}>
 				<Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-		  			<DialogTitle id="form-dialog-title" className={classes.dialog}>Edit Ticket</DialogTitle>
+		  			{isTicket ? (<DialogTitle id="form-dialog-title" className={classes.dialog}>Edit Question</DialogTitle>)
+                              : (<DialogTitle id="form-dialog-title" className={classes.dialog}>Edit Checkoff</DialogTitle>)}
 		  			<DialogContent className={classes.dialog}>
-                        <FormControlLabel
-                            className={classes.check}
-                            control={<Checkbox className={classes.check} onClick={toggleGS} color="primary" checked={gettingStarted} name="anonymous" />}
-                            label="Getting Started"
-                        />
-                        <FormControlLabel
-                            className={classes.check} label="Specifications"
-                            control={<Checkbox className={classes.check} onClick={toggleS} color="primary" checked={specifications} name="anonymous" />}
-                        />
-                        <FormControlLabel
-                            className={classes.check} label="Algorithms"
-                            control={<Checkbox className={classes.check} onClick={toggleA} color="primary" checked={algorithms} name="anonymous" />}
-                        />
-                        <FormControlLabel
-                            className={classes.check} label="Programming Language"
-                            control={<Checkbox className={classes.check} onClick={togglePL} color="primary" checked={progLang} name="anonymous" />}
-                        />
-                        <FormControlLabel
-                            className={classes.check} label="Implementation"
-                            control={<Checkbox className={classes.check} onClick={toggleImp} color="primary" checked={implementation} name="anonymous" />}
-                        />
-                        <FormControlLabel
-                            className={classes.check} label="Testing"
-                            control={<Checkbox className={classes.check} onClick={toggleT} color="primary" checked={testing} name="anonymous" />}
-                        />
-                        <FormControlLabel
-                            className={classes.check} label="Runtime Error"
-                            control={<Checkbox className={classes.check} onClick={toggleRE} color="primary" checked={runtimeError} name="anonymous" />}
-                        />
-                        <FormControlLabel
-                            className={classes.check} label="Compile Error"
-                            control={<Checkbox className={classes.check} onClick={toggleCE} color="primary" checked={compileError} name="anonymous" />}
-                        />
-                        <FormControlLabel
-                            className={classes.check} label="Incorrect Behavior"
-                            control={<Checkbox className={classes.check} onClick={toggleIB} color="primary" checked={incorrectBehavior} name="anonymous" />}
-                        />
-                        <FormControlLabel
-                            className={classes.check} label="Wrong Output"
-                            control={<Checkbox className={classes.check} onClick={toggleWO} color="primary" checked={wrongOutput} name="anonymous" />}
-                        />
-                        <FormControlLabel
-                            className={classes.check} label="Infinite Loop"
-                            control={<Checkbox className={classes.check} onClick={toggleIL} color="primary" checked={infiniteLoop} name="anonymous" />}
-                        />
-                        <FormControlLabel
-                            className={classes.check} label="Conceptual Question"
-                            control={<Checkbox className={classes.check} onClick={toggleCQ} color="primary" checked={conceptualQuestion} name="anonymous" />}
-                        />
+                        { isTicket &&
+                        <div>
+                            <FormControlLabel
+                                className={classes.check}
+                                control={<Checkbox className={classes.check} onClick={toggleGS} color="primary" checked={gettingStarted} name="anonymous" />}
+                                label="Getting Started"
+                            />
+                            <FormControlLabel
+                                className={classes.check} label="Specifications"
+                                control={<Checkbox className={classes.check} onClick={toggleS} color="primary" checked={specifications} name="anonymous" />}
+                            />
+                            <FormControlLabel
+                                className={classes.check} label="Algorithms"
+                                control={<Checkbox className={classes.check} onClick={toggleA} color="primary" checked={algorithms} name="anonymous" />}
+                            />
+                            <FormControlLabel
+                                className={classes.check} label="Programming Language"
+                                control={<Checkbox className={classes.check} onClick={togglePL} color="primary" checked={progLang} name="anonymous" />}
+                            />
+                            <FormControlLabel
+                                className={classes.check} label="Implementation"
+                                control={<Checkbox className={classes.check} onClick={toggleImp} color="primary" checked={implementation} name="anonymous" />}
+                            />
+                            <FormControlLabel
+                                className={classes.check} label="Testing"
+                                control={<Checkbox className={classes.check} onClick={toggleT} color="primary" checked={testing} name="anonymous" />}
+                            />
+                            <FormControlLabel
+                                className={classes.check} label="Runtime Error"
+                                control={<Checkbox className={classes.check} onClick={toggleRE} color="primary" checked={runtimeError} name="anonymous" />}
+                            />
+                            <FormControlLabel
+                                className={classes.check} label="Compile Error"
+                                control={<Checkbox className={classes.check} onClick={toggleCE} color="primary" checked={compileError} name="anonymous" />}
+                            />
+                            <FormControlLabel
+                                className={classes.check} label="Incorrect Behavior"
+                                control={<Checkbox className={classes.check} onClick={toggleIB} color="primary" checked={incorrectBehavior} name="anonymous" />}
+                            />
+                            <FormControlLabel
+                                className={classes.check} label="Wrong Output"
+                                control={<Checkbox className={classes.check} onClick={toggleWO} color="primary" checked={wrongOutput} name="anonymous" />}
+                            />
+                            <FormControlLabel
+                                className={classes.check} label="Infinite Loop"
+                                control={<Checkbox className={classes.check} onClick={toggleIL} color="primary" checked={infiniteLoop} name="anonymous" />}
+                            />
+                            <FormControlLabel
+                                className={classes.check} label="Conceptual Question"
+                                control={<Checkbox className={classes.check} onClick={toggleCQ} color="primary" checked={conceptualQuestion} name="anonymous" />}
+                            />
+                        </div> }
+
                         <FormControl variant="standard" className={classes.locationfield} fullWidth>
                             <InputLabel htmlFor="age-native-simple">Room</InputLabel>
                             <Select native onChange = {(e) => setTempRoom(e.target.value)} >
@@ -201,7 +211,7 @@ export default function Ticket(props:any) {
                         />			
 					</DialogContent>
 		  			<DialogActions>
-						<Button onClick={() => handleEdit(tempRoom, tempSeat, tempDescription)} color="secondary">Submit</Button>
+						<Button onClick={() => handleEdit(tempRoom, tempSeat, tempDescription)} color="primary">Submit</Button>
 		  			</DialogActions>
 				</Dialog>
 			</ThemeProvider>
