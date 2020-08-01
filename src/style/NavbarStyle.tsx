@@ -17,7 +17,14 @@ const useStyles = makeStyles((theme) => ({
 	pages: {
 		fontSize: 18,
 		marginRight: theme.spacing(2),
-	}
+	},
+	class: {
+		paddingRight: 30,
+		paddingLeft: 30,
+	},
+	text: {
+		color: '#000000',
+	},
 }));  
 
 export default {useStyles};
