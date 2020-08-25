@@ -28,11 +28,15 @@ export default function StudentCheckoff() {
     createData("Lab 5", "January 6, 2050", "March 18, 2020", "Shaeli Yao", "10/10"),
     createData("Lab 6", "May 15, 2020", "August 5, 2020", "Simonne Contreras", "10/10"),
     createData("Lab 7", "January 2, 2050", "August 5, 2020", "Simonne Contreras", "10/10"),
+    createData("Lab 8", "January 2, 2050", "August 5, 2020", "Simonne Contreras", "10/10"),
+    createData("Lab 5", "January 6, 2050", "March 18, 2020", "Shaeli Yao", "10/10"),
+    createData("Lab 6", "May 15, 2020", "August 5, 2020", "Simonne Contreras", "10/10"),
+    createData("Lab 7", "January 2, 2050", "August 5, 2020", "Simonne Contreras", "10/10"),
     createData("Lab 8", "January 2, 2050", "August 5, 2020", "Simonne Contreras", "10/10")]
 
     return (
         <div className={classes.background}>
-            <Sidebar/>
+            <SideBar/>
             <ThemeProvider theme={theme}>
             
             <h1 className={classes.header}>My Grades</h1>
