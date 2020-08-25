@@ -3,6 +3,7 @@ import { ThemeProvider } from '@material-ui/styles';
 import OurTheme from '../style/Theme';
 import Styles from '../style/StudentCheckoffStyle';
 import Navbar from '../components/Navbar';
+import SideBar from '../components/SideBar';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -13,7 +14,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
 export default function StudentCheckoff() {
-    const theme = OurTheme.theme;
+    const theme = OurTheme.inverseTheme;
     const classes = Styles.useStyles();
 
     function createData(name: any, due: any, completed: any, grader: any, score: any) {
@@ -30,11 +31,13 @@ export default function StudentCheckoff() {
     createData("Lab 8", "January 2, 2050", "August 5, 2020", "Simonne Contreras", "10/10")]
 
     return (
-        <div>
-            <Navbar/>
+        <div className={classes.background}>
+            <Sidebar/>
+            <ThemeProvider theme={theme}>
+            
             <h1 className={classes.header}>My Grades</h1>
             <div className={classes.tablediv}>
-                <ThemeProvider theme={theme}>
+             
                     <TableContainer className={classes.table} component={Paper}>
                         <Table stickyHeader className={classes.table} >
                             <TableHead>
@@ -61,8 +64,8 @@ export default function StudentCheckoff() {
                             </TableBody>
                         </Table>
                     </TableContainer>
-                </ThemeProvider>
             </div>
+            </ThemeProvider>
         </div>
     );
 }
