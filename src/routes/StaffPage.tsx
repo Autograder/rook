@@ -2,6 +2,7 @@ import React from 'react';
 import Navbar from '../components/Navbar';
 import { ThemeProvider } from '@material-ui/styles';
 import OurTheme from '../style/Theme';
+import inverseTheme from '../style/Theme';
 import Styles from '../style/StaffPageStyle';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -12,6 +13,15 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
+import EditIcon from '@material-ui/icons/Edit';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import TextField from '@material-ui/core/TextField';
+
 
 
 function createData( fname: string, lname: string, email: string, status: string) {
@@ -35,6 +45,19 @@ const rows = [
 export default function StaffPage() {
     const theme = OurTheme.theme;
     const classes = Styles.useStyles();
+    const [open, setOpen] = React.useState(false)
+    const [userID, setUserID] = React.useState(0);
+    const [courseID, setCourseID] = React.useState(0);
+    const [sectID, setSectID] = React.useState(0)
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
    
     return (
         <div>
@@ -49,7 +72,7 @@ export default function StaffPage() {
 
                         <h2 className={classes.h2}>OPTIONS</h2>
                         <div className={classes.buttons}>
-                            <Button color={'secondary'} variant='contained'>Add Staff</Button>
+                            <Button color={'secondary'} variant='contained' onClick={handleClickOpen}>Add Staff</Button>
                             <Button color={'secondary'} variant='contained'>Restore Staff</Button>
                             <Button color={'secondary'} variant='contained'>Import Previous Staff</Button>
                             <Button color={'secondary'} variant='contained'>Delete All Staff</Button>
@@ -62,7 +85,8 @@ export default function StaffPage() {
                                 <Table className={classes.table} aria-label="simple table">
                                     <TableHead>
                                         <TableRow style={{background :"#d1dae3"}}>
-                                            <TableCell className={classes.col}>First Name</TableCell>
+                                            <TableCell className={classes.col} align="center">Edit</TableCell>
+                                            <TableCell className={classes.col} align="right">First Name</TableCell>
                                             <TableCell className={classes.col} align="right">Last Name</TableCell>
                                             <TableCell className={classes.col} align="right">Email</TableCell>
                                             <TableCell className={classes.col} align="right">Status</TableCell>
@@ -71,6 +95,11 @@ export default function StaffPage() {
                                     <TableBody>
                                         {rows.map((row, index) => (
                                             <TableRow key={row.fname} style ={ index % 2 ? { background : "#d1dae3" }:{ background : "white" }}>
+                                                <TableCell align="center">
+                                                    <IconButton aria-label="edit">
+                                                        <EditIcon fontSize="small" />
+                                                    </IconButton>
+                                                </TableCell>
                                                 <TableCell className={classes.cell} component="th" scope="row">
                                                     {row.fname}
                                                 </TableCell>
@@ -85,6 +114,64 @@ export default function StaffPage() {
                         </div>
                     </Grid>
                 </Grid>
+
+                <ThemeProvider theme={inverseTheme}>
+                <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+                        <DialogTitle id="form-dialog-title" className={classes.dialogue}>Add Student</DialogTitle>
+                        <DialogContent>
+                            <DialogContentText className={classes.dialogue}>
+                                Enter student information.                            
+                            </DialogContentText>
+                            <TextField 
+                            id="outlined-basic"
+                            variant="outlined"
+                            label="user id"
+                            className={classes.input}
+                            onChange = {(event) => setUserID(parseInt(event.target.value))}
+                            InputProps={{
+                                className: classes.floatingLabelFocusStyle,
+                            }}
+                            InputLabelProps={{
+                                className: classes.floatingLabelFocusStyle,
+                            }}
+                        
+                            />
+                            
+                            <TextField 
+                            id="outlined-basic"
+                            variant="outlined"
+                            label="section id"
+                            className={classes.input}
+                            onChange = {(event) => setSectID(parseInt(event.target.value))}
+                            InputProps={{
+                                className: classes.floatingLabelFocusStyle,
+                            }}
+                            InputLabelProps={{
+                                className: classes.floatingLabelFocusStyle,
+                            }}
+                            />
+                            
+                            <TextField 
+                            id="outlined-basic"
+                            variant="outlined"
+                            label="course id"
+                            className={classes.input}
+                            onChange = {(event) => setCourseID(parseInt(event.target.value))}
+                            InputProps={{
+                                className: classes.floatingLabelFocusStyle,
+                            }}
+                            InputLabelProps={{
+                                className: classes.floatingLabelFocusStyle,
+                            }}
+                            />
+                            
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={handleClose} className={classes.dialogue}>Cancel</Button>
+                            <Button  variant="contained" color="secondary">Add Student</Button>
+                        </DialogActions>
+                    </Dialog>
+                </ThemeProvider>
 
             </ThemeProvider>
         </div>

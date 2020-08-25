@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import { ThemeProvider } from '@material-ui/styles';
 import OurTheme from '../style/Theme';
+import inverseTheme from '../style/Theme';
 import Styles from '../style/StudentPageStyle';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -22,7 +23,10 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
+import IconButton from '@material-ui/core/IconButton';
+import EditIcon from '@material-ui/icons/Edit';
 import api from '../conf';
+//import { useFocusEffect } from '@react-navigation/native';
 
 
 function createData( fname: string, lname: string, email: string, status: string, ucext: string) {
@@ -46,18 +50,21 @@ const rows = [
 export default function StudentPage() {
     const theme = OurTheme.theme;
     const classes = Styles.useStyles();
-    const [sect, setSect] = React.useState('');
-    const [open, setOpen] = React.useState(false);
-    const [userID, setUserID] = React.useState(0);
-    const [courseID, setCourseID] = React.useState(0);
-    const [sectID, setSectID] = React.useState(0);
-
+    const [sect, setSect] = useState('');
+    const [open, setOpen] = useState(false);
+    const [userID, setUserID] = useState(0);
+    const [courseID, setCourseID] = useState(0);
+    const [sectID, setSectID] = useState(0);
+    const [edit, setEdit] = useState(false);
+    const [students, setStudents] = useState([]);
+    
     const handleClickOpen = () => {
         setOpen(true);
     };
 
     const handleClose = () => {
         setOpen(false);
+        setEdit(false);
     };
 
 
@@ -65,23 +72,35 @@ export default function StudentPage() {
         setSect(event.target.value);
     };
 
-    function EventHandleNewStudent(userID: any, sectID: any, courseID: any) { //would value get read as an int from the input??
+    const handleEditStudent = () => {
+        setEdit(true);
+    };
+
+    const EventHandleNewStudent = async(userID: any, sectID: any, courseID: any) => { //would value get read as an int from the input??
         setOpen(false);
-        let apiBaseUrl : string = '/api/users/enroll_user';
+        let apiBaseUrl : string = '/api/enroll_course/enroll_user';
         let payload : object = {
             "user_id" : userID,
             "section_id" : sectID,
             "course_id" : courseID,
         };
 
-        api.post(apiBaseUrl,payload)
-        .then ( function (response) {
+        await api.post(apiBaseUrl,payload)
+        .then ( () => {
             console.log("Student added.");
           })
-          .catch(function (error) {
+        .catch((error) => {
             console.log("Somethin wrong sis: " + error.response.status);
-            });
+        });
     };
+
+    useEffect(() => {
+        let apiBaseUrl: string = '/api/enroll_course/get_all_user_in_course';
+        api.get(apiBaseUrl)
+            .then((response) => {
+                setStudents(response.data.result.filter((user:any) => user.user_info));
+            });
+    }, []);
    
     return (
         <div>
@@ -120,7 +139,7 @@ export default function StudentPage() {
                         <div className={classes.buttons}>
                             <Button color={'secondary'} variant='contained' onClick={handleClickOpen}>Add Student</Button>
                             <Button color={'secondary'} variant='contained'>Update Roster</Button>
-                            <Button color={'secondary'} variant='contained'>View Enrollment Requests</Button>
+                            
                         </div>
                     </Grid>
 
@@ -130,23 +149,33 @@ export default function StudentPage() {
                                 <Table className={classes.table} aria-label="simple table">
                                     <TableHead>
                                         <TableRow style={{background :"#d1dae3"}}>
-                                            <TableCell className={classes.col}>First Name</TableCell>
+                                            <TableCell className={classes.col} align="center">Edit</TableCell>
+                                            
+                                            <TableCell className={classes.col} align="right">First Name</TableCell>
                                             <TableCell className={classes.col} align="right">Last Name</TableCell>
                                             <TableCell className={classes.col} align="right">Email</TableCell>
                                             <TableCell className={classes.col} align="right">Status</TableCell>
                                             <TableCell className={classes.col} align="right">UC Extension</TableCell>
+                                            
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
                                         {rows.map((row, index) => (
-                                            <TableRow key={row.fname} style ={ index % 2 ? { background : "#d1dae3" }:{ background : "white" }}>
-                                                <TableCell className={classes.cell} component="th" scope="row">
+                                            <TableRow key={row.fname} style ={ index % 2 ? { background : "#d1dae3" }:{ background : "white"}} >
+                                                <TableCell align="center">
+                                                    <IconButton aria-label="edit" onClick={handleEditStudent}>
+                                                        <EditIcon fontSize="small" />
+                                                    </IconButton>
+                                                </TableCell>
+                                                
+                                                <TableCell className={classes.cell} align="right" component="th" scope="row">
                                                     {row.fname}
                                                 </TableCell>
                                                 <TableCell className={classes.cell} align="right">{row.lname}</TableCell>
                                                 <TableCell className={classes.cell} align="right">{row.email}</TableCell>
                                                 <TableCell className={classes.cell} align="right">{row.status}</TableCell>
                                                 <TableCell className={classes.cell} align="right">{row.ucext}</TableCell>
+                                                
                                             </TableRow>
                                         ))}
                                     </TableBody>
@@ -155,9 +184,67 @@ export default function StudentPage() {
                         </div>
                     </Grid>
                 </Grid>
+                
+                <ThemeProvider theme={inverseTheme}>
+                    <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+                        <DialogTitle id="form-dialog-title" className={classes.dialogue}>Add Staff</DialogTitle>
+                        <DialogContent>
+                            <DialogContentText className={classes.dialogue}>
+                                Enter new staff information.                            
+                            </DialogContentText>
+                            <TextField 
+                            id="outlined-basic"
+                            variant="outlined"
+                            label="user id"
+                            className={classes.input}
+                            onChange = {(event) => setUserID(parseInt(event.target.value))}
+                            InputProps={{
+                                className: classes.floatingLabelFocusStyle,
+                            }}
+                            InputLabelProps={{
+                                className: classes.floatingLabelFocusStyle,
+                            }}
+                        
+                            />
+                            
+                            <TextField 
+                            id="outlined-basic"
+                            variant="outlined"
+                            label="section id"
+                            className={classes.input}
+                            onChange = {(event) => setSectID(parseInt(event.target.value))}
+                            InputProps={{
+                                className: classes.floatingLabelFocusStyle,
+                            }}
+                            InputLabelProps={{
+                                className: classes.floatingLabelFocusStyle,
+                            }}
+                            />
+                            
+                            <TextField 
+                            id="outlined-basic"
+                            variant="outlined"
+                            label="course id"
+                            className={classes.input}
+                            onChange = {(event) => setCourseID(parseInt(event.target.value))}
+                            InputProps={{
+                                className: classes.floatingLabelFocusStyle,
+                            }}
+                            InputLabelProps={{
+                                className: classes.floatingLabelFocusStyle,
+                            }}
+                            />
+                            
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={handleClose} className={classes.dialogue}>Cancel</Button>
+                            <Button onClick={(event) => EventHandleNewStudent(userID,sectID,courseID)} variant="contained" color="secondary">Add Student</Button>
+                        </DialogActions>
+                    </Dialog>
+                </ThemeProvider>
 
-                <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-                    <DialogTitle id="form-dialog-title" className={classes.dialogue}>Add Student</DialogTitle>
+                <Dialog open={edit} onClose={handleClose} aria-labelledby="form-dialog-title">
+                    <DialogTitle id="form-dialog-title" className={classes.dialogue}>Edit Student</DialogTitle>
                     <DialogContent>
                         <DialogContentText className={classes.dialogue}>
                             Enter student information.                            
@@ -165,9 +252,8 @@ export default function StudentPage() {
                         <TextField 
                         id="outlined-basic"
                         variant="outlined"
-                        label="user id"
+                        label="first name"
                         className={classes.input}
-                        onChange = {(event) => setUserID(parseInt(event.target.value))}
                         InputProps={{
                             className: classes.floatingLabelFocusStyle,
                         }}
@@ -180,9 +266,8 @@ export default function StudentPage() {
                         <TextField 
                         id="outlined-basic"
                         variant="outlined"
-                        label="section id"
+                        label="last name"
                         className={classes.input}
-                        onChange = {(event) => setSectID(parseInt(event.target.value))}
                         InputProps={{
                             className: classes.floatingLabelFocusStyle,
                         }}
@@ -194,9 +279,8 @@ export default function StudentPage() {
                         <TextField 
                         id="outlined-basic"
                         variant="outlined"
-                        label="course id"
+                        label="email"
                         className={classes.input}
-                        onChange = {(event) => setCourseID(parseInt(event.target.value))}
                         InputProps={{
                             className: classes.floatingLabelFocusStyle,
                         }}
@@ -208,7 +292,7 @@ export default function StudentPage() {
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={handleClose} className={classes.dialogue}>Cancel</Button>
-                        <Button onClick={(event) => EventHandleNewStudent(userID,sectID,courseID)} variant="contained" color="secondary">Add Student</Button>
+                        <Button onClick={handleClose} variant="contained" color="secondary">Save</Button>
                     </DialogActions>
                 </Dialog>
 

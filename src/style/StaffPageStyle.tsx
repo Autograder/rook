@@ -39,6 +39,24 @@ const useStyles = makeStyles((theme) => ({
     selectEmpty: {
         marginTop: theme.spacing(2),
     },
+    dialogue: {
+        color: '#464655',
+        paddingLeft: '10px',
+    },
+    floatingLabelFocusStyle: {
+        color: '#464655',
+        paddingLeft: '10px',
+        "&:hover": {
+            borderColor: "#46455",
+        }
+    },
+    input: {
+        color: '#464655',
+        paddingLeft: '10px',
+        paddingBottom: '10px',
+
+        
+    }
 }));
 
 export default { useStyles };
