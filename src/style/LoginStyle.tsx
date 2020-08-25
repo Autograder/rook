@@ -33,14 +33,14 @@ const useStyles = makeStyles((theme) => ({
             underline: '1px solid',
         },
     },
-    button : {
+    button: {
         color: 'white',
         width : 100,
         left : '50%',
         marginLeft : '-50px',
-        paddingTop: 10,
+        marginTop: "30px",
     },
-    form: {
+    email: {
         '& > *': {
             position : 'relative',
             width: 'calc(210px + 6vw)',
@@ -54,6 +54,29 @@ const useStyles = makeStyles((theme) => ({
             },
         },
     },
+    password: {
+        '& > *': {
+            position : 'relative',
+            width: 'calc(210px + 6vw)',
+            left : '50%',
+            marginLeft : 'calc(-105px - 3vw)',
+            paddingBottom : 10,
+        },
+        '& .MuiOutlinedInput-root': {
+            '& fieldset': {
+                borderColor: 'white',
+            },
+        },
+    },
+    links: {
+        textAlign: "center",
+    },
+    bottomRightIcon: {
+        position: "absolute",
+        bottom: 10,
+        right: 10,
+        zIndex: 1
+    }
 }));
 
 export default {useStyles};

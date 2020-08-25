@@ -11,6 +11,7 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
+    "strictNullChecks": false,
     "forceConsistentCasingInFileNames": true,
     "module": "esnext",
     "moduleResolution": "node",
@@ -21,5 +22,8 @@
   },
   "include": [
     "src"
-  ]
+  ],
+  "exclude": [
+    "node_modules"
+  ],
 }

@@ -1,18 +1,36 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Navbar from '../components/Navbar';
-import { TextField, Typography, Grid, Select, MenuItem, Button, FormControl, InputLabel } from '@material-ui/core';
+import { TextField, Typography, Grid, Select, Button, FormControl, InputLabel, Collapse } from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert';
 import { ThemeProvider } from '@material-ui/styles';
 import OurTheme from '../style/Theme';
 import Styles from '../style/CreateCourseStyle';
 
 export default function CreateCourse() {
     const theme = OurTheme.theme;
-	const classes = Styles.useStyles();
+    const classes = Styles.useStyles();
+    
+    const [open, setOpen] = useState(false);
+
+    const handleSubmit = () => {
+        setOpen(true)
+        setTimeout(() => { setOpen(false) }, 5000)
+    }
+
+    const handleClose = () => {
+        setOpen(false)
+    }
+
     return (
         <div>
             <ThemeProvider theme={theme}>
+                <div className={classes.alert}>
+                    <Collapse in={open}>
+                        <Alert onClose={() => handleClose()} severity="success">Course successfully created.</Alert>
+                    </Collapse>
+                </div>
                 <Navbar/>
-                <div className={classes.wrapper}>
+                <div className={classes.wrappertitle}>
                     <Typography className={classes.title}>Create Course</Typography>
                 </div>
                 <div className={classes.wrapper}>
@@ -58,7 +76,7 @@ export default function CreateCourse() {
                     </Grid>
                 </div>
                 <div className={classes.wrapper}>
-                    <Button className={classes.submit} variant="outlined" color="primary">Submit</Button>
+                    <Button className={classes.submit} onClick={handleSubmit} variant="outlined" color="primary">Submit</Button>
                 </div>
             </ThemeProvider>
         </div>

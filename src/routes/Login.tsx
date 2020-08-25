@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { useHistory } from "react-router-dom";
-import { TextField, Typography, Button, Link, Collapse } from '@material-ui/core';
+import { TextField, Button, Link, Collapse } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import { ThemeProvider } from '@material-ui/styles';
 import api from '../conf';
 import OurTheme from '../style/Theme';
 import Styles from '../style/LoginStyle';
+import HelpIcon from '@material-ui/icons/Help';
 
 export default function Login(props:any) {
   // Hooks
@@ -57,41 +58,39 @@ export default function Login(props:any) {
           // Reroute to custom 404
           console.log("Server error possibly");
         }
-        });
+     });
   }
 
   return (
     <div>
-      <div className={classes.popup}>
-        <Collapse in={open}>
-          <Alert variant='filled' severity="error">Incorrect username and/or password!</Alert>
-        </Collapse>
-      </div>
-      <div className={classes.main} onClick = {(event) => PressedKey(event)}>
-        <h1 className={classes.title}>queues<Link href="secret/halloffame" className={classes.underline}>.</Link></h1>
-        <ThemeProvider theme={theme}>
-          <form className={classes.form}>
-            <TextField id="outlined-basic" color="primary" label="Email" type="email" value={email} variant="outlined" 
-              onChange = {(event) => setEmail(event.target.value)}
-              onKeyPress = {(event) => PressedKey(event)}
-              onKeyUp = {(event) => PressedKey(event)}/>
-          </form>
-          <form className={classes.form}>
-            <TextField id="outlined-basic" color="primary" label="Password" type="password" value={password} variant="outlined" 
-              onChange = {(event) => setPass(event.target.value)}
-              onKeyPress = {(event) => PressedKey(event)}/>
-          </form>
-          <Button className={classes.button} color="primary" variant="outlined" 
-            onClick={(event) => (LoginAttempt())}> Login
-          </Button>
-          <Typography align='center'>
-            <Link href="instructions"> First Time? </Link>
-            <br/>
-            <Link href="reset"> Forgot Password? </Link>
-            <br/>
-          </Typography>
-        </ThemeProvider>
-      </div>
+      <ThemeProvider theme={theme}>
+        <div className={classes.popup}>
+          <Collapse in={open}>
+            <Alert variant='filled' severity="error">Incorrect username and/or password!</Alert>
+          </Collapse>
+        </div>
+        <div className={classes.main} onClick = {(event) => PressedKey(event)}>
+          <h1 className={classes.title}>queues<Link href="secret/halloffame" className={classes.underline}>.</Link></h1>
+            <form className={classes.email}>
+              <TextField id="outlined-basic" color="primary" label="Email" type="email" value={email} variant="outlined" 
+                onChange = {(event) => setEmail(event.target.value)}
+                onKeyPress = {(event) => PressedKey(event)}
+                onKeyUp = {(event) => PressedKey(event)}/>
+            </form>
+            <form className={classes.password}>
+              <TextField id="outlined-basic" color="primary" label="Password" type="password" value={password} variant="outlined" 
+                onChange = {(event) => setPass(event.target.value)}
+                onKeyPress = {(event) => PressedKey(event)}/>
+            </form>
+            <div className={classes.links}>
+              <Link href="forgotpassword" > Forgot Password? </Link>
+            </div>
+            <Button className={classes.button} color="primary" variant="outlined" 
+              onClick={(event) => (LoginAttempt())}> Login
+            </Button>
+        </div>
+        <Link href="instructions" className={classes.bottomRightIcon}> <HelpIcon fontSize="large"/> </Link>
+      </ThemeProvider>
     </div>
   );
 }
