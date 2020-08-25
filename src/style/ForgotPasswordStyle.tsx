@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
 	form: {
         '& > *': {
-			margin: theme.spacing(1),
 			position: 'relative',
 			textAlign: 'center',
 			verticalAlign: 'middle'
@@ -14,50 +13,42 @@ const useStyles = makeStyles((theme) => ({
                 borderColor: 'white',
             },
 		},
-		display: 'inline-block',
+		marginTop: "15px"
 	},
 	formControl: {
-		margin: theme.spacing(1),
-		minWidth: 200,
+		minWidth: "100%",
 	},
 	wrapper: {
 		textAlign: 'center',
-		display: 'table',
-		width: "60%",
-		margin: "0 auto"
-	},
-	wrappertitle: {
-		textAlign: 'center',
-		display: 'table',
-		width: "100%",
-		margin: "0 auto"
-	},
-	wrapper2: {
-		marginTop: '20px',
-		display: 'table-row'
 	},
 	title: {
 		color: "white",
 		fontWeight: "bold",
-		fontSize: "3em"
+		fontSize: "3em",
+		marginTop: "40px"
 	},
 	body: {
-		[theme.breakpoints.down(700)]: {
-			display: "table-row",
-		}, [theme.breakpoints.up(701)]: {
-			display: "table-cell"
-		},
-		verticalAlign: 'top',
+		color: "white",
+		marginTop: "25px",
 	},
 	submit: {
 		display: 'inline-block',
-		marginTop: "50px"
+		marginTop: "40px"
 	},
 	alert: {
 		position: "absolute",
 		zIndex: 1,
 		width: "99%",
 	},
+	page: {
+		position: "absolute",
+		zIndex: 0,
+		width: "100%"
+	},
+	wrapper1: {
+		marginLeft: "10%",
+		marginRight: "10%"
+	}
 }));  
 
 export default {useStyles};

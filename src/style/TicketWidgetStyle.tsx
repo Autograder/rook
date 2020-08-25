@@ -7,7 +7,6 @@ const useStyles = makeStyles((theme) => ({
         'position' : 'relative',
         'left' : '50%',
         'margin-left' : '-50px',
-        'cursor': 'pointer'
     },
 }));  
 
