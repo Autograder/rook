@@ -82,7 +82,7 @@ export default function Ticket(props:any) {
     
     // DUMMY VARIABLE --> Would be "help type" from the database
     // Submit for edit is different based on help type
-    const isTicket = true 
+    const isTicket = false 
 
 	return (
 		<div className={classes.container}>

@@ -25,7 +25,7 @@ const Routes: React.FC = () => {
       <Route path="/queue" exact component={QueuePage} />
       <Route path="/students" exact component={StudentPage} />
       <Route path='/createcourse' exact component={CreateCourse}/>
-      <Route path='/secret/halloffame' exact component={HallOfFame}/>
+      <Route path='/secret/halloffame' exact componet={HallOfFame}/>
       <Route path="/tickethistory" exact component={TicketHistory}/>
       <Route path="/ticketfeedback" exact component={TicketFeedback}/>
       <Route path="/checkoff" exact component={TutorCheckoff}/>
