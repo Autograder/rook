@@ -4,6 +4,11 @@ const useStyles = makeStyles((theme) => ({
 	root: {
 	  flexGrow: 1,
 	},
+	appBar: {
+		background: 'transparent',
+		boxShadow:'none',
+		color: "#ffffff"
+	},
 	appTable: {
 		background: 'transparent',
 		boxShadow:'none',
@@ -12,6 +17,10 @@ const useStyles = makeStyles((theme) => ({
 		paddingLeft: "15px",
 		paddingRight: "15px",
 		width: "100%"
+	},
+	pages: {
+		fontSize: 18,
+		marginRight: theme.spacing(2),
 	},
 	appRow: {
 		display: "table-row",
@@ -64,8 +73,13 @@ const useStyles = makeStyles((theme) => ({
     },
     text: {
 		color: 'black',
-		marginBottom: '15px'
-	}
+		marginBottom: '15px',
+		marginRight: theme.spacing(2),
+	},
+	class: {
+		paddingRight: 30,
+		paddingLeft: 30,
+	},
 }));  
 
 export default {useStyles};

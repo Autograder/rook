@@ -5,29 +5,68 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import Styles from '../style/NavbarStyle';
 import OurTheme from '../style/Theme';
 import { ThemeProvider } from '@material-ui/styles';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import Grow from '@material-ui/core/Grow';
+import Paper from '@material-ui/core/Paper';
+import Popper from '@material-ui/core/Popper';
+import MenuItem from '@material-ui/core/MenuItem';
+import MenuList from '@material-ui/core/MenuList';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+	root: {
+	  display: 'flex',
+	},
+	paper: {
+	  marginRight: theme.spacing(2),
+	},
+  }));
 
 export default function Navbar(props:any) {
 	const classes = Styles.useStyles();
 	const theme = OurTheme.theme;
 	const inverseTheme = OurTheme.inverseTheme;
 	const history = useHistory();
+	const [open, setOpen] = React.useState(false);
+	const anchorRef = React.useRef(null);
+
+	const handleToggle = () => {
+		setOpen((prevOpen) => !prevOpen);
+	};
+
+	const handleClose = (event?:any) => {
+		if (anchorRef.current && anchorRef.current.contains(event.target)) {
+			return;
+		}
+		setOpen(false);
+	};
+
+	function handleListKeyDown(event:any) {
+		if (event.key === 'Tab') {
+		event.preventDefault();
+		setOpen(false);
+		}
+	}
 
 	function ChangeState(path:string) {
 		history.push(path);
 	}
 
-	const [open, setOpen] = useState(false);
-    const handleClose = () => {
-        setOpen(false);
-    }
-
     const handleOpen = () => {
         setOpen(true);
     }
 
-    const handleSubmit = () => {
-        handleClose()
-	}
+    const handleSubmit = () => { handleClose() } 
+	
+	// return focus to the button when we transitioned from !open -> open
+	const prevOpen = React.useRef(open);
+	React.useEffect(() => {
+		if (prevOpen.current === true && open === false) {
+			anchorRef.current.focus();
+		}
+
+		prevOpen.current = open;
+	}, [open]);
 	
 	return (
 		<div>
@@ -67,13 +106,11 @@ export default function Navbar(props:any) {
 								<Link underline="none" className={classes.link} onClick={() => (ChangeState('/queue'))}>queues</Link>
 							</Typography>
 						</div>
-						
 						<div className={classes.leftlinks}>
-							<Typography  className={classes.left}>
+							<Typography className={classes.left}>
 								<Link className={classes.link} onClick={() => {}}>Classes</Link>
 							</Typography>
 						</div>
-
 						<div className={classes.rightlinks}>
 							<Typography className={classes.right}>
 								<Link className={classes.link} onClick={() => handleOpen()}>Submit Feedback</Link>
@@ -83,7 +120,6 @@ export default function Navbar(props:any) {
 								<Link className={classes.link} onClick={() => (ChangeState('/tickethistory'))}> Ticket History </Link>
 							</Typography>
 						</div>
-						
 						<div className={classes.logocell}>
 							<Link className={classes.link} onClick={() => (ChangeState('/login'))}> <ExitToAppIcon fontSize="large"/> </Link>
 						</div>
