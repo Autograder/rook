@@ -9,6 +9,7 @@ const useStyles = makeStyles((theme) => ({
     tablediv: {
         maxWidth: '80%',
         paddingLeft: '10%',
+        paddingBottom: '5%',
     },
     table: {
         justifyContent: 'center',
@@ -21,6 +22,9 @@ const useStyles = makeStyles((theme) => ({
     cell : {
         color: 'black',
     },
+    background: {
+        backgroundColor: '#2A667B',
+    }
 }));
 
 export default {useStyles};
