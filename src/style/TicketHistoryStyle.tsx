@@ -66,6 +66,12 @@ const useStyles = makeStyles((theme) => ({
 			textDecoration: 'underline',
 			cursor: 'pointer'
 		}
+	},
+	rowOne: {
+		background: "white"
+	},
+	rowTwo: {
+		background: "#d1dae3"
 	}
 }));  
 
