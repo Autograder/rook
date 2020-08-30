@@ -31,9 +31,11 @@ export default function TicketHistory() {
                     created: 'Created Format', accepted: 'Accepted Format', resolved: 'Resolved Format', 
                     canceled: 'Canceled Format', tags: 'Tags Format', description: 'Description',
                     id: 345678} ]
-    
+    const retrieveRows = () => {
+        // retrieve rows using axios  based on the user role, rest stays the same 
+    }
     const viewTicket = (id:any) => {
-        // send request to grab information about the ticket and render it
+        // send request using axios to grab information about the ticket and render it
         console.log(id)
     }
     const renderCells = (row:any) => {
