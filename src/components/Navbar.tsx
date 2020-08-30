@@ -1,26 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useHistory } from "react-router-dom";
-import { AppBar, Toolbar, Link, Typography, Dialog, DialogTitle, DialogContent, TextField, Button, DialogActions } from '@material-ui/core';
+import { AppBar, Button, Dialog, DialogActions, DialogContent, DialogTitle, Link, TextField, Toolbar, Typography } from '@material-ui/core';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import Styles from '../style/NavbarStyle';
 import OurTheme from '../style/Theme';
 import { ThemeProvider } from '@material-ui/styles';
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
-import Grow from '@material-ui/core/Grow';
-import Paper from '@material-ui/core/Paper';
-import Popper from '@material-ui/core/Popper';
-import MenuItem from '@material-ui/core/MenuItem';
-import MenuList from '@material-ui/core/MenuList';
-import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles((theme) => ({
-	root: {
-	  display: 'flex',
-	},
-	paper: {
-	  marginRight: theme.spacing(2),
-	},
-  }));
+import Styles from '../style/NavbarStyle';
 
 export default function Navbar(props:any) {
 	const classes = Styles.useStyles();

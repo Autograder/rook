@@ -1,32 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import api from '../conf';
 import Navbar from '../components/Navbar';
+import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, InputLabel, MenuItem, FormControl, Button, Grid,
+        Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, IconButton, Select} from '@material-ui/core';
+import EditIcon from '@material-ui/icons/Edit';
 import { ThemeProvider } from '@material-ui/styles';
 import OurTheme from '../style/Theme';
-import inverseTheme from '../style/Theme';
 import Styles from '../style/StudentPageStyle';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import TextField from '@material-ui/core/TextField';
-import IconButton from '@material-ui/core/IconButton';
-import EditIcon from '@material-ui/icons/Edit';
-import api from '../conf';
-//import { useFocusEffect } from '@react-navigation/native';
 
 
 function createData( fname: string, lname: string, email: string, status: string, ucext: string) {
@@ -49,6 +29,7 @@ const rows = [
 
 export default function StudentPage() {
     const theme = OurTheme.theme;
+    const inverseTheme = OurTheme.inverseTheme;
     const classes = Styles.useStyles();
     const [sect, setSect] = useState('');
     const [open, setOpen] = useState(false);

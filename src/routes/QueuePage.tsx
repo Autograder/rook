@@ -3,12 +3,12 @@ import Navbar from '../components/Navbar';
 import Queue from '../components/Queue';
 import MessageWidget from '../components/MessageWidget';
 import TicketStatusWidget from '../components/TicketStatusWidget';
-import { ThemeProvider } from '@material-ui/styles';
 import { Grid, Dialog, DialogActions, Button, TextField, DialogContent, DialogTitle } from '@material-ui/core';
-import OurTheme from '../style/Theme';
-import Styles from '../style/QueuePageStyle';
 import DynamicFeedIcon from '@material-ui/icons/DynamicFeed';
 import AddCommentIcon from '@material-ui/icons/AddComment';
+import { ThemeProvider } from '@material-ui/styles';
+import OurTheme from '../style/Theme';
+import Styles from '../style/QueuePageStyle';
 
 export default function QueuePage() {
     const inverseTheme = OurTheme.inverseTheme;

@@ -1,23 +1,14 @@
-import React, {useState} from 'react';
+import React from 'react';
 import Navbar from '../components/Navbar';
-import OurTheme from '../style/Theme';
-import Styles from '../style/ManageCourseStyle';
-import Grid from '@material-ui/core/Grid'
-import { ThemeProvider, withStyles } from '@material-ui/styles'
+import {Grid, FormControlLabel, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@material-ui/core'
 import Switch from '@material-ui/core/Switch';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import KeyboardArrowDownRoundedIcon from '@material-ui/icons/KeyboardArrowDownRounded';
 import KeyboardArrowUpRoundedIcon from '@material-ui/icons/KeyboardArrowUpRounded';
-
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
+import { ThemeProvider, withStyles } from '@material-ui/styles'
+import OurTheme from '../style/Theme';
+import Styles from '../style/ManageCourseStyle';
 
 
 export default function ManageCourse(){

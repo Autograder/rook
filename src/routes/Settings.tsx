@@ -1,8 +1,8 @@
 import React from 'react';
+import Navbar from '../components/Navbar';
 import { ThemeProvider } from '@material-ui/styles';
 import OurTheme from '../style/Theme';
 import Styles from '../style/StudentCheckoffStyle';
-import Navbar from '../components/Navbar';
 
 export default function Settings() {
     const theme = OurTheme.theme;

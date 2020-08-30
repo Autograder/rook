@@ -1,6 +1,6 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
-import { Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Link } from '@material-ui/core';
+import { Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/styles';
 import OurTheme from '../style/Theme';
 import Styles from '../style/TicketHistoryStyle';
@@ -38,6 +38,7 @@ export default function TicketHistory() {
         // send request using axios to grab information about the ticket and render it
         console.log(id)
     }
+    // rendering kinda like this: https://stackoverflow.com/questions/61131896/error-type-void-is-not-assignable-to-type-reactnode
     const renderCells = (row:any) => {
         return (
             headers.map((header) => {
@@ -65,6 +66,7 @@ export default function TicketHistory() {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
+                                {/* render rows differently based on their color */}
                                 {rows.map((row:any) => <TableRow>{renderCells(row)}</TableRow>)}
                             </TableBody>
                         </Table>

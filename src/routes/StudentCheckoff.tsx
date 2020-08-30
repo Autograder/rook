@@ -1,17 +1,9 @@
 import React from 'react';
+import SideBar from '../components/SideBar';
+import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper} from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/styles';
 import OurTheme from '../style/Theme';
 import Styles from '../style/StudentCheckoffStyle';
-import Navbar from '../components/Navbar';
-import SideBar from '../components/SideBar';
-
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
 
 export default function StudentCheckoff() {
     const theme = OurTheme.inverseTheme;
