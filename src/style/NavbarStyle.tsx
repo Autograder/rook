@@ -25,33 +25,24 @@ const useStyles = makeStyles((theme) => ({
 	appRow: {
 		display: "table-row",
 	},
-	title: {
+	home: {
 		fontSize: 45,
 		fontWeight: 'bold',
 		height: "80px"
-	},
-	left: {
-		display: "inline-block",
-		marginLeft: theme.spacing(2), 
 	},
 	right: {
 		display: "inline-block",
 		marginRight: theme.spacing(2), 
 	},
-	logocell: {
+	exitCell: {
 		display: "table-cell",
 		verticalAlign: "middle",
 		textAlign: "right",
 		width: "15px"
 	},
-	titlecell: {
+	homeCell: {
 		display: "table-cell",
 		width: "150px",
-		verticalAlign: "middle"
-	},
-	leftlinks: {
-		fontSize: 18,
-		display: "table-cell",
 		verticalAlign: "middle"
 	},
 	rightlinks: {
