@@ -17,8 +17,8 @@ export default function Feedback(props: any) {
     const {open, handleClose} = props;
     
     const handleSubmit = () => {
+        // Should send data to server/email?
         handleClose();
-        // do more here eventually
     }
 
     return (

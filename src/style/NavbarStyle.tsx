@@ -30,10 +30,6 @@ const useStyles = makeStyles((theme) => ({
 		fontWeight: 'bold',
 		height: "80px"
 	},
-	right: {
-		display: "inline-block",
-		marginRight: theme.spacing(2), 
-	},
 	exitCell: {
 		display: "table-cell",
 		verticalAlign: "middle",
@@ -44,6 +40,12 @@ const useStyles = makeStyles((theme) => ({
 		display: "table-cell",
 		width: "150px",
 		verticalAlign: "middle"
+	},
+	leftlinks: {
+		fontSize: 18,
+		display: "table-cell",
+		verticalAlign: "middle",
+		paddingLeft: "15px"
 	},
 	rightlinks: {
 		fontSize: 18,
@@ -71,6 +73,9 @@ const useStyles = makeStyles((theme) => ({
 		paddingRight: 30,
 		paddingLeft: 30,
 	},
+	navButtons : {
+		marginRight: 30
+	}
 }));  
 
 export default {useStyles};
