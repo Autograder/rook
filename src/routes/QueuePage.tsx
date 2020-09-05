@@ -30,6 +30,16 @@ export default function QueuePage() {
         handleClose()
     }
 
+    // TODO: Fake context object until Shaeli is done
+    const context = {
+        class : {
+            role: 'student'
+        },
+        user: {
+            id: 2
+        }
+    } 
+
     return (
         <div className={classes.body}> 
             <ThemeProvider theme={inverseTheme}>
@@ -49,7 +59,7 @@ export default function QueuePage() {
                         <Button className={classes.form} onClick={handleSubmit} color="primary">Send</Button>
                     </DialogActions>
                 </Dialog>
-                <Navbar/>
+                <Navbar context={context}/>
                 <br/>
                 <Grid container>
                     <Grid container>

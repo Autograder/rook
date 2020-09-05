@@ -45,6 +45,7 @@ export default function Login(props:any) {
       .then ( function (response) {
         // Direct to queue page
         console.log("Login successfull");
+        // grab user id here to keep in context
         history.push('/queue');
       })
       // Any number of errors occurred

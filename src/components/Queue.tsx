@@ -153,7 +153,7 @@ export default function Queue() {
             setTab(false)
         }
     }
-
+    
     return (
         <div>
             <IconButton aria-label="delete" onClick={() => handleClickOpen()} className={classes.icon}>

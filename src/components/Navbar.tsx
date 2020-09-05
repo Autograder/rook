@@ -1,37 +1,39 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from "react-router-dom";
 import { AppBar, Button, Toolbar, Link, Typography, Menu, MenuItem } from '@material-ui/core';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import Feedback from './Feedback';
 import Styles from '../style/NavbarStyle';
 import OurTheme from '../style/Theme';
+import api from '../conf';
 import { ThemeProvider } from '@material-ui/styles';
-import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles((theme) => ({
-	root: {
-	  display: 'flex',
-	},
-	paper: {
-	  marginRight: theme.spacing(2),
-	},
-  }));
 
 export default function Navbar( props: any ) {
+	const { context } = props;
 	const { theme, inverseTheme } = OurTheme;
 	const classes = Styles.useStyles();
 	const history = useHistory();
+
 	const [classMenu, setClassMenu] = useState(null);
 	const [feedback, setFeedback] = useState(false);
+	const [classList, setClassList] = useState({});
 
-	// Mocked data until I get axios working
-	const classList = [{name:'CSE 12', id:123}, {name:'CSE 30', id:234}]
-	const context = {
-		class : {
-			role: 'student'
-		}
-	}
-
+	useEffect(() => {
+		let apiBaseUrl = '/api/enroll_course/get_courses_user_in';
+		api.get(apiBaseUrl, {
+			params: {
+				user_id: context.user.id
+			}
+		}).then (function(response) {
+			// setClassList(response.data.result.courses);
+		})
+		.catch( function(error) {
+			// TODO: Figure out how to make sure that message is displayed because user
+			// is not in any classes
+			console.log(error)
+		})
+	})
+	setClassList({id: 3, name: 'CSE 12'})
 	const student: boolean = context.class.role === 'student';
 	const admin: boolean = context.class.role === 'admin';
 
@@ -86,7 +88,7 @@ export default function Navbar( props: any ) {
 								elevation={0}
 								getContentAnchorEl={null}
 							>
-								{classList.map((obj) => (
+								{classList.map((obj: any) => (
 									<MenuItem onClick={() => changeClass(obj.id)}>{obj.name}</MenuItem>
 								))}
 							</Menu>
