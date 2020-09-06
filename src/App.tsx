@@ -1,10 +1,11 @@
 import React from 'react';
-import Routes from './Routes'
+import Routes from './Routes';
+import { Provider } from './context/Context';
 
 export default function App(props:any) {
     return (
-      <div>
+      <Provider>
         <Routes />
-      </div>
+      </Provider>
     );
 }
