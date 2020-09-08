@@ -7,7 +7,7 @@ import QueuePage from './routes/QueuePage';
 import StudentPage from './routes/StudentPage'
 import CreateCourse from './routes/CreateCourse';
 import HallOfFame from './routes/HallOfFame';
-import TicketHistory from './routes/TicketHistory';
+import Profile from './routes/Profile';
 import StaffPage from './routes/StaffPage';
 import ManageCourse from './routes/ManageCourse';
 import TicketFeedback from './routes/TicketFeedback';
@@ -29,7 +29,7 @@ const Routes: React.FC = () => {
       <Route path="/staff" exact component={StaffPage} />
       <Route path='/createcourse' exact component={CreateCourse}/>
       <Route path='/secret/halloffame' exact component={HallOfFame}/>
-      <Route path="/tickethistory" exact component={TicketHistory}/>
+      <Route path="/profile" exact component={Profile}/>
       <Route path="/managecourse" exact component={ManageCourse}/>
       <Route path="/ticketfeedback" exact component={TicketFeedback}/>
       <Route path="/checkoff" exact component={TutorCheckoff}/>

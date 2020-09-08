@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
 import { Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@material-ui/core';
-import { ThemeProvider, CSSProperties } from '@material-ui/styles';
+import { ThemeProvider } from '@material-ui/styles';
 import OurTheme from '../style/Theme';
 import Styles from '../style/TicketHistoryStyle';
 
@@ -61,9 +61,8 @@ export default function TicketHistory() {
     return (
         <div>
             <ThemeProvider theme={theme}>
-                <Navbar/>
                 <div className={classes.wrapper}>
-                    <Typography className={classes.title}>Ticket History</Typography>
+                    {/* <Typography className={classes.title}>Ticket History</Typography> */}
                 </div>
             </ThemeProvider>
             <ThemeProvider theme={inverseTheme}>
