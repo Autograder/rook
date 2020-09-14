@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import Navbar from '../components/Navbar';
 import OurTheme from '../style/Theme';
 import Styles from '../style/ManageCourseStyle';
@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import KeyboardArrowDownRoundedIcon from '@material-ui/icons/KeyboardArrowDownRounded';
 import KeyboardArrowUpRoundedIcon from '@material-ui/icons/KeyboardArrowUpRounded';
+import { Context } from '../context/Context';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -23,6 +24,7 @@ import Paper from '@material-ui/core/Paper';
 export default function ManageCourse(){
     const theme = OurTheme.theme;
     const classes = Styles.useStyles();
+    const {state: {userId}} = useContext(Context);
 
     function createData(first: any, last: any, email: any) {
         return {first, last, email};
@@ -37,7 +39,7 @@ export default function ManageCourse(){
     createData('Nicholas', 'Taylor', 'nmtaylor@ucsd.edu'),
     createData('Nandini', 'Kapa', 'nkapa@ucsd.edu')]
 
-    const [rows, setRow] = React.useState(rowsTable);
+    const [rows, setRow] = useState(rowsTable);
 
     let rows2Table = [createData('Nate', 'Browne', 'nbrowne@ucsd.edu'),
                  createData('Nour', 'Yehia', 'nour@ucsd.edu'),
@@ -46,16 +48,16 @@ export default function ManageCourse(){
                  createData('Yixuan', 'Zhou', 'yixuan@ucsd.edu'),
                  createData('Allen', 'Ordoo', 'allen@ucsd.edu')]
     
-    const [rows2, setRow2] = React.useState(rows2Table);
+    const [rows2, setRow2] = useState(rows2Table);
 
-    const [state, setState] = React.useState({
+    const [state, setState] = useState({
         queue: false,
         status: false,
         lock: false,
         lab: false,
       });
 
-    const [enable, setEnable] = React.useState({
+    const [enable, setEnable] = useState({
         queue: "disabled",
         status: "disabled",
         lock: "disabled",
@@ -147,6 +149,10 @@ export default function ManageCourse(){
         handleRemoveGradRow(idx);
         handleAddInstRow(first, last, email);
       };
+
+    if (!userId) {
+        return <Typography> You must be logged in! </Typography>
+    }
 
     return(
         <div>

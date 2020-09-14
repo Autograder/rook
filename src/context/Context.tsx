@@ -5,7 +5,7 @@ const reducer = (state: any, action: any) => {
         case 'signin':
             return { ...state, userId: action.payload };
         case 'signout':
-            return { ...state, userId: null };
+            return { ...state, userId: '' };
         case 'changecourse':
             return { ...state, courseId: action.payload };
         case 'changerole':
@@ -59,9 +59,9 @@ const setCourseList = (dispatch: any) => (list: any) => {
 export const { Provider, Context } = createDataContext(
     reducer,
     { signup, signin, signout, changecourse, setCourseList },
-    { userId: localStorage.getItem('userId') || null, 
-    courseId: localStorage.getItem('courseId') || null, 
-    role: localStorage.getItem('role') || null,
+    { userId: localStorage.getItem('userId') || '', 
+    courseId: localStorage.getItem('courseId') || '', 
+    role: localStorage.getItem('role') || '',
     courseList: localStorage.getItem('coureList') || []
      }
 );

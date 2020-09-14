@@ -1,33 +1,35 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Navbar from '../components/Navbar';
 import { ThemeProvider } from '@material-ui/styles';
 import OurTheme from '../style/Theme';
 import inverseTheme from '../style/Theme';
 import Styles from '../style/StudentPageStyle';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import TextField from '@material-ui/core/TextField';
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    Typography,
+    Paper,
+    InputLabel,
+    MenuItem,
+    FormControl,
+    Select,
+    Button,
+    Grid,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+    TextField
+} from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import api from '../conf';
-//import { useFocusEffect } from '@react-navigation/native';
-
+import { Context } from '../context/Context';
 
 function createData( fname: string, lname: string, email: string, status: string, ucext: string) {
   return { fname, lname, email, status, ucext };
@@ -57,6 +59,9 @@ export default function StudentPage() {
     const [sectID, setSectID] = useState(0);
     const [edit, setEdit] = useState(false);
     const [students, setStudents] = useState([]);
+    const { state: {userId} } = useContext(Context);
+
+    console.log('student page', userId);
     
     const handleClickOpen = () => {
         setOpen(true);
@@ -101,6 +106,10 @@ export default function StudentPage() {
                 setStudents(response.data.result.filter((user:any) => user.user_info));
             });
     }, []);
+
+    if (!userId) {
+        return <Typography> You must be logged in! </Typography>
+    }
    
     return (
         <div>

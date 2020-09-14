@@ -1,26 +1,30 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import Navbar from '../components/Navbar';
 import { ThemeProvider } from '@material-ui/styles';
+import { Context } from '../context/Context';
+import { 
+    Typography, 
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    Paper,
+    Button,
+    Grid,
+    IconButton,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+    TextField
+} from '@material-ui/core';
 import OurTheme from '../style/Theme';
 import inverseTheme from '../style/Theme';
 import Styles from '../style/StaffPageStyle';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
-import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import TextField from '@material-ui/core/TextField';
 
 
 
@@ -45,19 +49,23 @@ const rows = [
 export default function StaffPage() {
     const theme = OurTheme.theme;
     const classes = Styles.useStyles();
-    const [open, setOpen] = React.useState(false)
-    const [userID, setUserID] = React.useState(0);
-    const [courseID, setCourseID] = React.useState(0);
-    const [sectID, setSectID] = React.useState(0)
+    const [open, setOpen] = useState(false);
+    const [userID, setUserID] = useState(0);
+    const [courseID, setCourseID] = useState(0);
+    const [sectID, setSectID] = useState(0);
+    const {state: {userId}} = useContext(Context);
 
     const handleClose = () => {
         setOpen(false);
     };
 
-
     const handleClickOpen = () => {
         setOpen(true);
     };
+
+    if (!userId) {
+        return <Typography> You must be logged in! </Typography>
+    }
    
     return (
         <div>

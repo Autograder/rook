@@ -1,21 +1,26 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { ThemeProvider } from '@material-ui/styles';
 import OurTheme from '../style/Theme';
 import Styles from '../style/StudentCheckoffStyle';
 import Navbar from '../components/Navbar';
 import SideBar from '../components/SideBar';
+import { Context } from '../context/Context';
 
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    Typography,
+    Paper
+} from '@material-ui/core';
 
 export default function StudentCheckoff() {
     const theme = OurTheme.inverseTheme;
     const classes = Styles.useStyles();
+    const { state: {userId} } = useContext(Context);
 
     function createData(name: any, due: any, completed: any, grader: any, score: any) {
         return {name, due, completed, grader, score};
@@ -33,6 +38,10 @@ export default function StudentCheckoff() {
     createData("Lab 6", "May 15, 2020", "August 5, 2020", "Simonne Contreras", "10/10"),
     createData("Lab 7", "January 2, 2050", "August 5, 2020", "Simonne Contreras", "10/10"),
     createData("Lab 8", "January 2, 2050", "August 5, 2020", "Simonne Contreras", "10/10")]
+
+    if (!userId) {
+        return <Typography> You must be logged in! </Typography>
+    }
 
     return (
         <div className={classes.background}>
