@@ -16,7 +16,7 @@ export default function Navbar( props: any ) {
 
 	const [classMenu, setClassMenu] = useState<null | HTMLElement>(null);
 	const [feedback, setFeedback] = useState(false);
-	const [classList, setClassList] = useState(null);
+	const [classList, setClassList] = useState([]);
 
 	useEffect(() => {
 		let apiBaseUrl = '/api/enrolled_course/get_courses_user_in';
@@ -85,7 +85,7 @@ export default function Navbar( props: any ) {
 						</Typography>
 					</div>
 					<div className={classes.leftlinks}>
-						{classList ?
+						{classList.length !== 0 ?
 						<React.Fragment>
 							<Button className={classes.navButtons} onClick={openMenu}>Classes</Button>
 							<ThemeProvider theme={inverseTheme}>
