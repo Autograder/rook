@@ -10,7 +10,6 @@ import HallOfFame from './routes/HallOfFame';
 import Profile from './routes/Profile';
 import StaffPage from './routes/StaffPage';
 import ManageCourse from './routes/ManageCourse';
-import TicketFeedback from './routes/TicketFeedback';
 import TutorCheckoff from './routes/TutorCheckoff';
 import StudentCheckoff from './routes/StudentCheckoff';
 import Settings from './routes/Settings';
@@ -31,7 +30,6 @@ const Routes: React.FC = () => {
       <Route path='/secret/halloffame' exact component={HallOfFame}/>
       <Route path="/profile" exact component={Profile}/>
       <Route path="/managecourse" exact component={ManageCourse}/>
-      <Route path="/ticketfeedback" exact component={TicketFeedback}/>
       <Route path="/checkoff" exact component={TutorCheckoff}/>
       <Route path="/checkoffHistory" exact component={StudentCheckoff}/>
       <Route path="/settings" exact component={Settings}/>

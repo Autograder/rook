@@ -1,19 +1,15 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) =>({
-	container: {
-    paddingLeft: "5%",
-    paddingRight:"5%"
-  },
   title: {
     color: 'white',
     fontSize : 60,
   },
   root: {
-    flexGrow: 1,
-    backgroundColor: "#2A667B",
-    paddingLeft: 100,
-    paddingRight: 100
+    paddingLeft: "10%",
+    paddingRight: "10%",
+		position: "absolute",
+		zIndex: 0,
   },
   tabs: {
     borderRight: `1px solid ${theme.palette.divider}`,
@@ -21,6 +17,11 @@ const useStyles = makeStyles((theme) =>({
   tab: {
     // width: "10px",
     color: "white"
-  }
+  },
+	alert: {
+		position: "absolute",
+		zIndex: 1,
+		width: "99%",
+	}
 }))
 export default {useStyles};
