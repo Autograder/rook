@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import api from '../conf';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import Feedback from './Feedback';
@@ -20,7 +20,7 @@ export default function Navbar( props: any ) {
 	const student: boolean = context.class.role === 'student';
 	const admin: boolean = context.class.role === 'admin';
 
-	useLayoutEffect(() =>  {
+	useEffect(() =>  {
 		const apiBaseUrl = '/api/enrolled_course/get_courses_user_in';
 		api.get(apiBaseUrl, {
 			params: {
