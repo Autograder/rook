@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory } from "react-router-dom";
 import api from '../conf';
 import { TextField, Button, Link, Collapse } from '@material-ui/core';
@@ -7,6 +7,7 @@ import HelpIcon from '@material-ui/icons/Help';
 import { ThemeProvider } from '@material-ui/styles';
 import OurTheme from '../style/Theme';
 import Styles from '../style/LoginStyle';
+import {Context} from '../context/Context';
 
 export default function Login(props:any) {
   // Hooks
@@ -18,6 +19,8 @@ export default function Login(props:any) {
   let [password, setPass] = useState('');
   let [email, setEmail] = useState('');
   let [open, setOpen] = useState(false);
+
+  const {signin} = useContext(Context);
   
   // Handling key press
   function PressedKey(event:any) {
@@ -46,6 +49,7 @@ export default function Login(props:any) {
         // Direct to queue page
         console.log("Login successfull");
         history.push('/queue');
+        signin(response.data.result)
       })
       // Any number of errors occurred
       .catch(function (error) {

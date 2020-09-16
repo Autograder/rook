@@ -17,24 +17,25 @@ const reducer = (state: any, action: any) => {
     }
 };
 
-const signup = (dispatch: any) => (id: any) => {
+const signup = (dispatch: any) => (user: any) => {
     // on successful signup OR make api call here to sign up
-    // set the userId
-    dispatch({type: 'signin', payload: id});
-    localStorage.setItem('userId', id);
+    // set the user
+    dispatch({type: 'signin', payload: user});
+    localStorage.setItem('user', JSON.stringify(user));
 };
 
-const signin = (dispatch: any) => (id: any) => {
+const signin = (dispatch: any) => (user: any) => {
     // on successful signin OR make api call here to sign in
-    // set the userId
-    dispatch({type: 'signin', payload: id});
-    localStorage.setItem('userId', id);
+    // set the user
+    dispatch({type: 'signin', payload: user});
+    console.log(user)
+    localStorage.setItem('user', JSON.stringify(user));
 };
 
 const signout = (dispatch: any) => () => {
-    // remove the userId from the state
+    // remove the user from the state
     dispatch({type: 'signout'});
-    localStorage.removeItem('userId');
+    localStorage.removeItem('user');
 };
 
 const changecourse = (dispatch: any) => (course: any, role: any ) => {
@@ -59,9 +60,9 @@ const setCourseList = (dispatch: any) => (list: any) => {
 export const { Provider, Context } = createDataContext(
     reducer,
     { signup, signin, signout, changecourse, setCourseList },
-    { userId: localStorage.getItem('userId') || '', 
-    courseId: localStorage.getItem('courseId') || '', 
-    role: localStorage.getItem('role') || '',
-    courseList: localStorage.getItem('coureList') || []
-     }
+    {   user: JSON.parse(localStorage.getItem('user')) || '', 
+        courseId: localStorage.getItem('courseId') || '', 
+        role: localStorage.getItem('role') || '',
+        courseList: localStorage.getItem('courseList') || []
+    }
 );

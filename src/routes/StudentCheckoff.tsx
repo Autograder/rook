@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import SideBar from '../components/SideBar';
-import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper} from '@material-ui/core';
+import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography} from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/styles';
 import OurTheme from '../style/Theme';
 import Styles from '../style/StudentCheckoffStyle';

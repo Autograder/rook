@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { useHistory } from "react-router-dom";
 import { AppBar, Button, Dialog, DialogActions, DialogContent, DialogTitle, Link, TextField, Toolbar, Typography } from '@material-ui/core';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import OurTheme from '../style/Theme';
 import { ThemeProvider } from '@material-ui/styles';
 import Styles from '../style/NavbarStyle';
+import { Context } from '../context/Context';
 
 export default function Navbar(props:any) {
 	const classes = Styles.useStyles();
@@ -13,6 +14,7 @@ export default function Navbar(props:any) {
 	const history = useHistory();
 	const [open, setOpen] = React.useState(false);
 	const anchorRef = React.useRef(null);
+	const {signout} = useContext(Context);
 
 	const handleClose = (event?:any) => {
 		setOpen(false);
@@ -26,6 +28,9 @@ export default function Navbar(props:any) {
 	}
 
 	function ChangeState(path:string) {
+		if (path === '/login') {
+			signout()
+		}
 		history.push(path);
 	}
 

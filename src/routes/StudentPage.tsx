@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import api from '../conf';
 import Navbar from '../components/Navbar';
 import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, InputLabel, MenuItem, FormControl, Button, Grid,
-        Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, IconButton, Select} from '@material-ui/core';
+        Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, IconButton, Select, Typography} from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import { ThemeProvider } from '@material-ui/styles';
 import OurTheme from '../style/Theme';

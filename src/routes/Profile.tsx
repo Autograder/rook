@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import Navbar from '../components/Navbar';
 import TicketHistory from '../components/TicketHistory';
 import TicketFeedback from '../components/TicketFeedback';
@@ -9,12 +9,14 @@ import { ThemeProvider } from '@material-ui/styles';
 import OurTheme from '../style/Theme';
 import Styles from '../style/ProfileStyle';
 import Alert from '@material-ui/lab/Alert';
+import {Context} from '../context/Context';
 
 export default function Profile() {
   const theme = OurTheme.theme;
   const classes = Styles.useStyles();
   const [value, setValue] = React.useState(0);
   const [open, setOpen] = useState(false);
+  const {state: {user}} = useContext(Context);
 
   const handleChange = (event:any, newValue:any) => {
     setValue(newValue)
@@ -72,7 +74,7 @@ export default function Profile() {
                 <Tab className={classes.tab} label="Ticket History" {...a11yProps(2)} />
               </Tabs>
               <TabPanel value={value} index={0}>
-                <ProfileSection setOpen={setOpen}/>
+                <ProfileSection setOpen={setOpen} user={user}/>
               </TabPanel>
               <TabPanel value={value} index={1}>
                 <TicketFeedback/>

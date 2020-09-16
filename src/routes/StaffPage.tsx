@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import Navbar from '../components/Navbar';
-import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, Grid, Button, IconButton } from '@material-ui/core'
+import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, Grid, Button, IconButton, Typography} from '@material-ui/core'
 import EditIcon from '@material-ui/icons/Edit';
 import { ThemeProvider } from '@material-ui/styles';
 import { Context } from '../context/Context';
