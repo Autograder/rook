@@ -1,13 +1,15 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import SideBar from '../components/SideBar';
 import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper} from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/styles';
 import OurTheme from '../style/Theme';
 import Styles from '../style/StudentCheckoffStyle';
+import { Context } from '../context/Context';
 
 export default function StudentCheckoff() {
     const theme = OurTheme.inverseTheme;
     const classes = Styles.useStyles();
+    const { state: {userId} } = useContext(Context);
 
     function createData(name: any, due: any, completed: any, grader: any, score: any) {
         return {name, due, completed, grader, score};
@@ -25,6 +27,10 @@ export default function StudentCheckoff() {
     createData("Lab 6", "May 15, 2020", "August 5, 2020", "Simonne Contreras", "10/10"),
     createData("Lab 7", "January 2, 2050", "August 5, 2020", "Simonne Contreras", "10/10"),
     createData("Lab 8", "January 2, 2050", "August 5, 2020", "Simonne Contreras", "10/10")]
+
+    if (!userId) {
+        return <Typography> You must be logged in! </Typography>
+    }
 
     return (
         <div className={classes.background}>

@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import Navbar from '../components/Navbar';
 import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, Grid, Button, IconButton } from '@material-ui/core'
 import EditIcon from '@material-ui/icons/Edit';
 import { ThemeProvider } from '@material-ui/styles';
+import { Context } from '../context/Context';
 import OurTheme from '../style/Theme';
 import Styles from '../style/StaffPageStyle';
 
@@ -28,19 +29,23 @@ export default function StaffPage() {
     const theme = OurTheme.theme;
     const inverseTheme = OurTheme.inverseTheme;
     const classes = Styles.useStyles();
-    const [open, setOpen] = React.useState(false)
-    const [userID, setUserID] = React.useState(0);
-    const [courseID, setCourseID] = React.useState(0);
-    const [sectID, setSectID] = React.useState(0)
+    const [open, setOpen] = useState(false);
+    const [userID, setUserID] = useState(0);
+    const [courseID, setCourseID] = useState(0);
+    const [sectID, setSectID] = useState(0);
+    const {state: {userId}} = useContext(Context);
 
     const handleClose = () => {
         setOpen(false);
     };
 
-
     const handleClickOpen = () => {
         setOpen(true);
     };
+
+    if (!userId) {
+        return <Typography> You must be logged in! </Typography>
+    }
    
     return (
         <div>

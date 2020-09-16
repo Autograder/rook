@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import api from '../conf';
 import Navbar from '../components/Navbar';
 import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, InputLabel, MenuItem, FormControl, Button, Grid,
@@ -7,7 +7,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import { ThemeProvider } from '@material-ui/styles';
 import OurTheme from '../style/Theme';
 import Styles from '../style/StudentPageStyle';
-
+import { Context } from '../context/Context';
 
 function createData( fname: string, lname: string, email: string, status: string, ucext: string) {
   return { fname, lname, email, status, ucext };
@@ -38,6 +38,9 @@ export default function StudentPage() {
     const [sectID, setSectID] = useState(0);
     const [edit, setEdit] = useState(false);
     const [students, setStudents] = useState([]);
+    const { state: {userId} } = useContext(Context);
+
+    console.log('student page', userId);
     
     const handleClickOpen = () => {
         setOpen(true);
@@ -82,6 +85,10 @@ export default function StudentPage() {
                 setStudents(response.data.result.filter((user:any) => user.user_info));
             });
     }, []);
+
+    if (!userId) {
+        return <Typography> You must be logged in! </Typography>
+    }
    
     return (
         <div>

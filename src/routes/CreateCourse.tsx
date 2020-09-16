@@ -1,16 +1,18 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import Navbar from '../components/Navbar';
 import { TextField, Typography, Grid, Select, Button, FormControl, InputLabel, Collapse } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import { ThemeProvider } from '@material-ui/styles';
 import OurTheme from '../style/Theme';
 import Styles from '../style/CreateCourseStyle';
+import { Context } from '../context/Context';
 
 export default function CreateCourse() {
     const theme = OurTheme.theme;
     const classes = Styles.useStyles();
     
     const [open, setOpen] = useState(false);
+    const {state: {userId}} = useContext(Context);
 
     const handleSubmit = () => {
         setOpen(true)
@@ -19,6 +21,10 @@ export default function CreateCourse() {
 
     const handleClose = () => {
         setOpen(false)
+    }
+
+    if (!userId) {
+        return <Typography> You must be logged in! </Typography>
     }
 
     return (

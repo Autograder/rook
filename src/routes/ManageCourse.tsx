@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useContext} from 'react';
 import Navbar from '../components/Navbar';
 import {Grid, FormControlLabel, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@material-ui/core'
 import Switch from '@material-ui/core/Switch';
@@ -9,11 +9,13 @@ import KeyboardArrowUpRoundedIcon from '@material-ui/icons/KeyboardArrowUpRounde
 import { ThemeProvider, withStyles } from '@material-ui/styles'
 import OurTheme from '../style/Theme';
 import Styles from '../style/ManageCourseStyle';
+import { Context } from '../context/Context';
 
 
 export default function ManageCourse(){
     const theme = OurTheme.theme;
     const classes = Styles.useStyles();
+    const {state: {userId}} = useContext(Context);
 
     function createData(first: any, last: any, email: any) {
         return {first, last, email};
@@ -28,7 +30,7 @@ export default function ManageCourse(){
     createData('Nicholas', 'Taylor', 'nmtaylor@ucsd.edu'),
     createData('Nandini', 'Kapa', 'nkapa@ucsd.edu')]
 
-    const [rows, setRow] = React.useState(rowsTable);
+    const [rows, setRow] = useState(rowsTable);
 
     let rows2Table = [createData('Nate', 'Browne', 'nbrowne@ucsd.edu'),
                  createData('Nour', 'Yehia', 'nour@ucsd.edu'),
@@ -37,16 +39,16 @@ export default function ManageCourse(){
                  createData('Yixuan', 'Zhou', 'yixuan@ucsd.edu'),
                  createData('Allen', 'Ordoo', 'allen@ucsd.edu')]
     
-    const [rows2, setRow2] = React.useState(rows2Table);
+    const [rows2, setRow2] = useState(rows2Table);
 
-    const [state, setState] = React.useState({
+    const [state, setState] = useState({
         queue: false,
         status: false,
         lock: false,
         lab: false,
       });
 
-    const [enable, setEnable] = React.useState({
+    const [enable, setEnable] = useState({
         queue: "disabled",
         status: "disabled",
         lock: "disabled",
@@ -138,6 +140,10 @@ export default function ManageCourse(){
         handleRemoveGradRow(idx);
         handleAddInstRow(first, last, email);
       };
+
+    if (!userId) {
+        return <Typography> You must be logged in! </Typography>
+    }
 
     return(
         <div>
