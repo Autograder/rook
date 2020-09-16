@@ -40,6 +40,31 @@ const useStyles = makeStyles((theme) => ({
     text: {
         color: 'black',
     },
+    smallContainer: {
+        display: "flex",
+        flexDirection: "row",
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: 'white',
+        marginLeft: 18,
+        marginBottom: 18,
+        marginRight: 35,
+        borderRadius: 5
+
+    },
+    activeTutors: {
+        marginRight: 33,
+        marginLeft: 18,
+        marginBottom: 10,
+        color: 'white',
+        border: 'solid',
+        borderWidth: 1,
+        borderColor: 'white',
+        fontSize: 14,
+        paddingLeft: 10,
+        paddingRight: 10,
+        borderRadius: 5
+    }
 }));  
 
 export default {useStyles};
