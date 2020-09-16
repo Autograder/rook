@@ -12,7 +12,6 @@ import Alert from '@material-ui/lab/Alert';
 
 export default function Profile() {
   const theme = OurTheme.theme;
-  const inverseTheme = OurTheme.inverseTheme;
   const classes = Styles.useStyles();
   const [value, setValue] = React.useState(0);
   const [open, setOpen] = useState(false);

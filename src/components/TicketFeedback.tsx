@@ -45,14 +45,8 @@ export default function TicketFeedback() {
         return (index % 2) ? { background : "#d1dae3" }:{ background : "white" }
     }
     return (
-        <div>
-            <ThemeProvider theme={theme}>
-            <div className={classes.wrapper}>
-                {/* <Typography className={classes.title}>Ticket Feedback</Typography> */}
-            </div>
-            </ThemeProvider>
+        <>
             <ThemeProvider theme={inverseTheme}>
-                <div>
                     <TableContainer component={Paper}>
                         <Table size="small" aria-label="simple table">
                             <TableHead>
@@ -69,8 +63,7 @@ export default function TicketFeedback() {
                             </TableBody>
                         </Table>
                     </TableContainer>
-                </div>
             </ThemeProvider>
-        </div>
+        </>
     );
 }

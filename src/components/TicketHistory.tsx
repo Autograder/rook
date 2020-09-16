@@ -59,14 +59,8 @@ export default function TicketHistory() {
     }
 
     return (
-        <div>
-            <ThemeProvider theme={theme}>
-                <div className={classes.wrapper}>
-                    {/* <Typography className={classes.title}>Ticket History</Typography> */}
-                </div>
-            </ThemeProvider>
+        <>
             <ThemeProvider theme={inverseTheme}>
-                <div>
                     <TableContainer component={Paper}>
                         <Table size="small" aria-label="simple table">
                             <TableHead>
@@ -83,9 +77,8 @@ export default function TicketHistory() {
                             </TableBody>
                         </Table>
                     </TableContainer>
-                </div>
             </ThemeProvider>
-        </div>
+        </>
     );
 } 
 
