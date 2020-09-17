@@ -15,8 +15,12 @@ export default function Profile() {
   const theme = OurTheme.theme;
   const classes = Styles.useStyles();
   const [value, setValue] = React.useState(0);
+  const [message, setMessage] = React.useState('');
   const [open, setOpen] = useState(false);
   const {state: {user}} = useContext(Context);
+
+  type Color = 'success' | 'info' | 'warning' | 'error';
+  const [alertColor, setAlertColor] = React.useState<Color>('success');
 
   const handleChange = (event:any, newValue:any) => {
     setValue(newValue)
@@ -24,6 +28,13 @@ export default function Profile() {
 
   const handleClose = () => {
     setOpen(false)
+  }
+
+  const handleOpen = (message: string, responseStatus: any) => {
+    setMessage(message)
+    setAlertColor(responseStatus === 200 ? 'success' : 'error')
+    setOpen(true)
+    setTimeout(() => { setOpen(false) }, 5000)
   }
 
   TabPanel.propTypes = {
@@ -63,7 +74,7 @@ export default function Profile() {
         <ThemeProvider theme={theme}>
           <div className={classes.alert}>
             <Collapse in={open}>
-                <Alert onClose={() => handleClose()} severity="success">Profile successfully updated.</Alert>
+                <Alert onClose={() => handleClose()} severity={alertColor}>{message}</Alert>
             </Collapse>
           </div>
           <div className={classes.root}>
@@ -74,7 +85,7 @@ export default function Profile() {
                 <Tab className={classes.tab} label="Ticket History" {...a11yProps(2)} />
               </Tabs>
               <TabPanel value={value} index={0}>
-                <ProfileSection setOpen={setOpen} user={user}/>
+                <ProfileSection setOpen={setOpen} user={user} handleOpen={handleOpen}/>
               </TabPanel>
               <TabPanel value={value} index={1}>
                 <TicketFeedback/>

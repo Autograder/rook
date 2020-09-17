@@ -12,13 +12,20 @@ const server:any = {
 		}
 		return api.post('/api/users/check_password', payload)
 	},
-	updateUser(id: any, fname: string, password: string) {
+	updateUser(id: any, fname: string) {
 		const payload: object = {
 			"id": id,
 			"fname": fname,
-			"password": password
 		}
-		return api.post('/api/users/update_user', payload)
+		return api.put('/api/users/update_user', payload)
+	},
+	resetPassword(id: any, newPassword: string, currPassword: string) {
+		const payload: object = {
+			"id": id,
+			"password": newPassword,
+			"old_password": currPassword
+		}
+		return api.put('/api/users/reset_password', payload)
 	}
 }
 
