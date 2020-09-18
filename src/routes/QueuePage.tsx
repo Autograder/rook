@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
+import { useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import Navbar from '../components/Navbar';
 import Queue from '../components/Queue';
@@ -15,22 +16,13 @@ import { Context } from '../context/Context';
 export default function QueuePage() {
     const inverseTheme = OurTheme.inverseTheme;
     const classes = Styles.useStyles();
-    let history = useHistory();
+    const history = useHistory();
     const [open, setOpen] = useState(false);
     const {state: {userId}, signin } = useContext(Context);
     const [onDuty, setOnDuty] = useState(false);
+    const { course_id } = useParams();
 
-    const fakeList = 'Shaeli Yao, Simonne Contreras, Sravya Balasa, Tiffany Meng'
-
-    // TESTING
-    //console.log('user: ', userId);
-    // const test = () => {
-    //     signin('');
-    // }
-    
-    // const changePage = () => {
-    //     history.push('/students');
-    // }
+    const fakeList = 'Shaeli Yao, Simonne Contreras, Sravya Balasa, Tiffany Meng';
 
     const handleClose = () => {
         setOpen(false);
@@ -47,16 +39,6 @@ export default function QueuePage() {
         handleClose()
     }
 
-    // TODO: Fake context object until Shaeli is done
-    const context = {
-        class : {
-            role: 'student'
-        },
-        user: {
-            id: 2
-        }
-    } 
-    
     const handleOnDutyToggle = () => {
         setOnDuty(!onDuty);
     }
@@ -107,7 +89,7 @@ export default function QueuePage() {
                         <Button className={classes.form} onClick={handleSubmit} color="primary">Send</Button>
                     </DialogActions>
                 </Dialog>
-                <Navbar context={context}/>
+                <Navbar/>
                 <br/>
                 <Grid container>
                     <Grid container>

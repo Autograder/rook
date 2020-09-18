@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useHistory } from "react-router-dom";
 import { TextField, Button, Link, Collapse } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
@@ -7,58 +7,57 @@ import api from '../conf';
 import OurTheme from '../style/Theme';
 import Styles from '../style/LoginStyle';
 import HelpIcon from '@material-ui/icons/Help';
+import { Context } from '../context/Context';
 
 export default function Login(props:any) {
-  // Hooks
-  let history = useHistory();
-  let classes = Styles.useStyles();
-  let theme = OurTheme.theme;
+  const history = useHistory();
+  const classes = Styles.useStyles();
+  const theme = OurTheme.theme;
+  const [password, setPass] = useState('');
+  const [email, setEmail] = useState('');
+  const [open, setOpen] = useState(false);
+  const { state: {userId}, signin, changecourse } = useContext(Context);
 
-  // States
-  let [password, setPass] = useState('');
-  let [email, setEmail] = useState('');
-  let [open, setOpen] = useState(false);
-  
-  // Handling key press
-  function PressedKey(event:any) {
-
+  const pressedKey = (event:any) => {
     if (event.key === "Enter") {
-      // Handle it as a submission
       event.preventDefault();
-      LoginAttempt();
+      loginAttempt();
     } 
     setOpen(false);
   }
 
-  // Handling an attempted login
-  function LoginAttempt() {
-
-    // Define where we are sending info and what info to send
-    let apiBaseUrl : string = '/api/users/login';
-    let payload : object = {
+  const loginAttempt = async () =>  {
+    const login : string = '/api/users/login';
+    const loginInfo: object = {
       "email" : email,
       "password" : password,
-    };
-    
-    api.post(apiBaseUrl,payload)
-      // Username and Password were a match for a user
-      .then ( function (response) {
-        // Direct to queue page
-        console.log("Login successfull");
-        // TODO: Go to default queue or queue/none
-        // grab user id here to keep in context
-        history.push('/queue');
+    }
+    await api.post(login, loginInfo)
+      .then (async function (response) {
+        signin(response.data.result.id);
+        const url = '/api/enrolled_course/get_courses_user_in';
+        
+        await api.get(url, {
+          params: {
+            user_id: response.data.result.id
+          }
+        })
+        .then ( function(response) {
+          const courseId = response.data.result.courses.length > 0 ? response.data.result.courses[0].enrolled_user_info.course_id : 0;
+          if (courseId !== 0) {
+            changecourse(courseId, response.data.result.courses[0].enrolled_user_info.role)
+          }
+          history.push(`/queue/${courseId}`);
+        })
       })
-      // Any number of errors occurred
       .catch(function (error) {
+        console.log(error)
         if (error.response.status === 400) {
           // Display an alert and clear password
-          console.log("Incorrect email and/or password");
           setOpen(true);
           setPass('');
         } else {
-          // Reroute to custom 404
-          console.log("Server error possibly");
+          // TODO: Reroute to custom 404
         }
      });
   }
@@ -71,24 +70,24 @@ export default function Login(props:any) {
             <Alert variant='filled' severity="error">Incorrect username and/or password!</Alert>
           </Collapse>
         </div>
-        <div className={classes.main} onClick = {(event) => PressedKey(event)}>
+        <div className={classes.main} onClick = {(event) => pressedKey(event)}>
           <h1 className={classes.title}>queues<Link href="secret/halloffame" className={classes.underline}>.</Link></h1>
             <form className={classes.email}>
-              <TextField id="outlined-basic" color="primary" label="Email" type="email" value={email} variant="outlined" 
+              <TextField color="primary" label="Email" type="username" value={email} variant="outlined" 
                 onChange = {(event) => setEmail(event.target.value)}
-                onKeyPress = {(event) => PressedKey(event)}
-                onKeyUp = {(event) => PressedKey(event)}/>
+                onKeyPress = {(event) => pressedKey(event)}
+                onKeyUp = {(event) => pressedKey(event)}/>
             </form>
             <form className={classes.password}>
-              <TextField id="outlined-basic" color="primary" label="Password" type="password" value={password} variant="outlined" 
+              <TextField color="primary" label="Password" type="password" value={password} variant="outlined" 
                 onChange = {(event) => setPass(event.target.value)}
-                onKeyPress = {(event) => PressedKey(event)}/>
+                onKeyPress = {(event) => pressedKey(event)}/>
             </form>
             <div className={classes.links}>
               <Link href="forgotpassword" > Forgot Password? </Link>
             </div>
             <Button className={classes.button} color="primary" variant="outlined" 
-              onClick={(event) => (LoginAttempt())}> Login
+              onClick={() => loginAttempt}> Login
             </Button>
         </div>
         <Link href="instructions" className={classes.bottomRightIcon}> <HelpIcon fontSize="large"/> </Link>
