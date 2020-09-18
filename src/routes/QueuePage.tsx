@@ -5,12 +5,12 @@ import Navbar from '../components/Navbar';
 import Queue from '../components/Queue';
 import MessageWidget from '../components/MessageWidget';
 import TicketStatusWidget from '../components/TicketStatusWidget';
-import { ThemeProvider, withStyles } from '@material-ui/styles';
 import { Grid, Dialog, DialogActions, Button, TextField, DialogContent, DialogTitle, Switch, Typography } from '@material-ui/core';
-import OurTheme from '../style/Theme';
-import Styles from '../style/QueuePageStyle';
 import DynamicFeedIcon from '@material-ui/icons/DynamicFeed';
 import AddCommentIcon from '@material-ui/icons/AddComment';
+import { ThemeProvider, withStyles } from '@material-ui/styles';
+import OurTheme from '../style/Theme';
+import Styles from '../style/QueuePageStyle';
 import { Context } from '../context/Context';
 
 export default function QueuePage() {
@@ -18,7 +18,7 @@ export default function QueuePage() {
     const classes = Styles.useStyles();
     const history = useHistory();
     const [open, setOpen] = useState(false);
-    const {state: {userId}, signin } = useContext(Context);
+    const {state: {user} } = useContext(Context);
     const [onDuty, setOnDuty] = useState(false);
     const { course_id } = useParams();
 
@@ -64,7 +64,7 @@ export default function QueuePage() {
         // request isOnDuty
     }, [courseId]) */
 
-    if (!userId) {
+    if (!user) {
         return <Typography> You must be logged in! </Typography>
     }
 

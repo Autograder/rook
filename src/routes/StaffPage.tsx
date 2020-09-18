@@ -1,32 +1,11 @@
 import React, { useState, useContext } from 'react';
 import Navbar from '../components/Navbar';
+import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, Grid, Button, IconButton, Typography} from '@material-ui/core'
+import EditIcon from '@material-ui/icons/Edit';
 import { ThemeProvider } from '@material-ui/styles';
 import { Context } from '../context/Context';
-import { 
-    Typography, 
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow,
-    Paper,
-    Button,
-    Grid,
-    IconButton,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogContentText,
-    DialogTitle,
-    TextField
-} from '@material-ui/core';
 import OurTheme from '../style/Theme';
-import inverseTheme from '../style/Theme';
 import Styles from '../style/StaffPageStyle';
-import EditIcon from '@material-ui/icons/Edit';
-
-
 
 function createData( fname: string, lname: string, email: string, status: string) {
   return { fname, lname, email, status };
@@ -48,6 +27,7 @@ const rows = [
 
 export default function StaffPage() {
     const theme = OurTheme.theme;
+    const inverseTheme = OurTheme.inverseTheme;
     const classes = Styles.useStyles();
     const [open, setOpen] = useState(false);
     const [userID, setUserID] = useState(0);

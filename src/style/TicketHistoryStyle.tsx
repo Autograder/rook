@@ -57,6 +57,21 @@ const useStyles = makeStyles((theme) => ({
 	submit: {
 		display: 'inline-block',
 		marginTop: "50px"
+	},
+	table: {
+		color: "black"
+	},
+	viewTicket: {
+		'&:hover': {
+			textDecoration: 'underline',
+			cursor: 'pointer'
+		}
+	},
+	rowOne: {
+		background: "white"
+	},
+	rowTwo: {
+		background: "#d1dae3"
 	}
 }));  
 

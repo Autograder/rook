@@ -1,11 +1,10 @@
 import React, {useState} from 'react';
-import { Typography, ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, FormControlLabel, FormControl, InputLabel, Select } from '@material-ui/core';
-import { Dialog, DialogTitle, DialogActions, DialogContent, Button, TextField, Checkbox } from '@material-ui/core';
-import { ThemeProvider } from '@material-ui/styles';
+import { Dialog, DialogTitle, DialogActions, DialogContent, Button, TextField, Checkbox, Typography, ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, FormControlLabel, FormControl, InputLabel, Select } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ConfirmationNumberIcon from '@material-ui/icons/ConfirmationNumber';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import EditIcon from '@material-ui/icons/Edit'; 
+import { ThemeProvider } from '@material-ui/styles';
 import OurTheme from '../style/Theme';
 import Styles from '../style/TicketStyle';
 

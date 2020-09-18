@@ -1,8 +1,8 @@
 import React from 'react';
-import { Typography, Box, Card, CardContent } from '@material-ui/core';
+import { Box, Card, CardContent, Typography } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/styles';
-import Styles from '../style/MessageStyle';
 import OurTheme from '../style/Theme';
+import Styles from '../style/MessageStyle';
 
 export default function Message(props:any) {
     const classes = Styles.useStyles();

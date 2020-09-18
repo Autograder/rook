@@ -1,34 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
+import api from '../conf';
 import Navbar from '../components/Navbar';
+import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, InputLabel, MenuItem, FormControl, Button, Grid,
+        Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, IconButton, Select, Typography} from '@material-ui/core';
+import EditIcon from '@material-ui/icons/Edit';
 import { ThemeProvider } from '@material-ui/styles';
 import OurTheme from '../style/Theme';
-import inverseTheme from '../style/Theme';
 import Styles from '../style/StudentPageStyle';
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow,
-    Typography,
-    Paper,
-    InputLabel,
-    MenuItem,
-    FormControl,
-    Select,
-    Button,
-    Grid,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogContentText,
-    DialogTitle,
-    TextField
-} from '@material-ui/core';
-import IconButton from '@material-ui/core/IconButton';
-import EditIcon from '@material-ui/icons/Edit';
-import api from '../conf';
 import { Context } from '../context/Context';
 
 function createData( fname: string, lname: string, email: string, status: string, ucext: string) {
@@ -51,6 +29,7 @@ const rows = [
 
 export default function StudentPage() {
     const theme = OurTheme.theme;
+    const inverseTheme = OurTheme.inverseTheme;
     const classes = Styles.useStyles();
     const [sect, setSect] = useState('');
     const [open, setOpen] = useState(false);

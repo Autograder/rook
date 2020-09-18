@@ -1,11 +1,10 @@
 import React, {useState} from 'react';
-import { IconButton, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Button, Checkbox, FormControl, InputLabel, Select, FormControlLabel, AppBar, Tabs, Tab, Typography, Box } from '@material-ui/core';
-import { ThemeProvider } from '@material-ui/styles';
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import Ticket from './Ticket';
+import { Button, Checkbox, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, FormControlLabel, IconButton, InputLabel, Select, TextField } from '@material-ui/core';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import OurTheme from '../style/Theme';
+import { ThemeProvider } from '@material-ui/styles';
 import Styles from '../style/QueueStyle';
-import PropTypes from 'prop-types';
 
 function getDay() {
     var tempDate = new Date();

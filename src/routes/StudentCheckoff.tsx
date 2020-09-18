@@ -1,21 +1,10 @@
-import React, { useContext } from 'react';
+import React, {useContext} from 'react';
+import SideBar from '../components/SideBar';
+import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography} from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/styles';
 import OurTheme from '../style/Theme';
 import Styles from '../style/StudentCheckoffStyle';
-import Navbar from '../components/Navbar';
-import SideBar from '../components/SideBar';
 import { Context } from '../context/Context';
-
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow,
-    Typography,
-    Paper
-} from '@material-ui/core';
 
 export default function StudentCheckoff() {
     const theme = OurTheme.inverseTheme;

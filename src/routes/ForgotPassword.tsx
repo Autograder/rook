@@ -4,14 +4,30 @@ import Alert from '@material-ui/lab/Alert';
 import { ThemeProvider } from '@material-ui/styles';
 import OurTheme from '../style/Theme';
 import Styles from '../style/ForgotPasswordStyle';
+import server from '../server'
 
 export default function ForgotPassword() {
     const theme = OurTheme.theme;
     const classes = Styles.useStyles();
-    
     const [open, setOpen] = useState(false);
+    const [email, setEmail] = useState('');
+    const [message, setMessage] = React.useState('');
+
+    type Color = 'success' | 'info' | 'warning' | 'error';
+    const [alertColor, setAlertColor] = React.useState<Color>('success');
 
     const handleSubmit = () => {
+        server.forgotPassword(email)
+            .then(function(response: any) {
+                console.log(response)
+                handleOpen('Email successfully sent.', response.status)
+            })
+            .catch((err:any) => handleOpen('Email not found.'))
+    }
+
+    const handleOpen = (message: string, responseStatus?: any) => {
+        setMessage(message)
+        setAlertColor(responseStatus === 200 ? 'success' : 'error')
         setOpen(true)
         setTimeout(() => { setOpen(false) }, 2000)
     }
@@ -25,7 +41,7 @@ export default function ForgotPassword() {
             <ThemeProvider theme={theme}>
                 <div className={classes.alert}>
                     <Collapse in={open}>
-                        <Alert onClose={() => handleClose()} severity="success">Email successfully sent.</Alert>
+                        <Alert onClose={() => handleClose()} severity={alertColor}>{message}</Alert>
                     </Collapse>
                 </div>
                 <div className={classes.page}>
@@ -36,7 +52,8 @@ export default function ForgotPassword() {
                         <div className={classes.body}>
                             <Typography>Enter your official UCSD email address and follow the instructions given to you to reset your password.</Typography>
                             <form className={classes.form}>
-                                <TextField className={classes.formControl} fullWidth id="standard-basic" label="Email Address" variant="outlined"/>
+                                <TextField className={classes.formControl} fullWidth id="standard-basic" label="Email Address" variant="outlined"
+                                            onChange={e => setEmail(e.target.value)}/>
                             </form>
                         </div>
                         <div className={classes.wrapper}>

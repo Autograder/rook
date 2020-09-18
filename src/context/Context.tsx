@@ -1,11 +1,14 @@
 import createDataContext from './createDataContext';
+import { ActionImportantDevices } from 'material-ui/svg-icons';
 
 const reducer = (state: any, action: any) => {
     switch (action.type) {
         case 'signin':
-            return { ...state, userId: action.payload };
+            return { ...state, user: action.payload };
         case 'signout':
-            return { ...state, userId: '' };
+            return { ...state, user: '' };
+        case 'updateuser':
+            return { ...state, user: action.payload };
         case 'changecourse':
             return { ...state, courseId: action.payload };
         case 'changerole':
@@ -17,25 +20,31 @@ const reducer = (state: any, action: any) => {
     }
 };
 
-const signup = (dispatch: any) => (id: any) => {
+const signup = (dispatch: any) => (user: any) => {
     // on successful signup OR make api call here to sign up
-    // set the userId
-    dispatch({type: 'signin', payload: id});
-    localStorage.setItem('userId', id);
+    // set the user
+    dispatch({type: 'signin', payload: user});
+    localStorage.setItem('user', JSON.stringify(user));
 };
 
-const signin = (dispatch: any) => (id: any) => {
+const signin = (dispatch: any) => (user: any) => {
     // on successful signin OR make api call here to sign in
-    // set the userId
-    dispatch({type: 'signin', payload: id});
-    localStorage.setItem('userId', id);
+    // set the user
+    dispatch({type: 'signin', payload: user});
+    localStorage.setItem('user', JSON.stringify(user));
 };
 
 const signout = (dispatch: any) => () => {
-    // remove the userId from the state
+    // remove the user from the state
     dispatch({type: 'signout'});
-    localStorage.removeItem('userId');
+    localStorage.removeItem('user');
 };
+
+const updateuser = (dispatch: any) => (user: any) => {
+    // user updates their profile
+    dispatch({type: 'updateuser', payload: user});
+    localStorage.setItem('user', JSON.stringify(user));
+}
 
 const changecourse = (dispatch: any) => (course: any, role: any ) => {
     dispatch({ type: 'changecourse', payload: course });
@@ -56,12 +65,13 @@ const setCourseList = (dispatch: any) => (list: any) => {
         role: ____
     }
 ] */
+
 export const { Provider, Context } = createDataContext(
     reducer,
-    { signup, signin, signout, changecourse, setCourseList },
-    { userId: localStorage.getItem('userId') || '', 
-    courseId: localStorage.getItem('courseId') || '', 
-    role: localStorage.getItem('role') || '',
-    courseList: localStorage.getItem('coureList') || []
-     }
+    { signup, signin, signout, updateuser, changecourse, setCourseList },
+    {   user: JSON.parse(localStorage.getItem('user')) || '', 
+        courseId: localStorage.getItem('courseId') || '', 
+        role: localStorage.getItem('role') || '',
+        courseList: localStorage.getItem('courseList') || []
+    }
 );

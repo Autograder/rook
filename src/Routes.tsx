@@ -6,10 +6,10 @@ import ForgotPassword from './routes/ForgotPassword';
 import QueuePage from './routes/QueuePage';
 import CreateCourse from './routes/CreateCourse';
 import HallOfFame from './routes/HallOfFame';
+import Profile from './routes/Profile';
 import ManageCourse from './routes/ManageCourse';
 import TutorCheckoff from './routes/TutorCheckoff';
 import StudentCheckoff from './routes/StudentCheckoff';
-// import Profile from './routes/Profile';
 
 const Routes: React.FC = () => {
   return (
@@ -22,7 +22,7 @@ const Routes: React.FC = () => {
       <Route exact path="/forgotpassword" component={ForgotPassword} />
       <Route exact path='/secret/halloffame' component={HallOfFame}/>
       <Route path="/queue/:course_id" component={QueuePage} />
-      {/*<Route path="/profile" component={Profile} /> */}
+      <Route path="/profile" component={Profile} /> 
       <Route path='/createcourse' component={CreateCourse}/>
       <Route path="/managecourse/:course_id" component={ManageCourse}/>
       <Route path="/checkoff/:course_id" component={TutorCheckoff}/>
