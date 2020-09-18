@@ -26,6 +26,12 @@ const server:any = {
 			"old_password": currPassword
 		}
 		return api.put('/api/users/reset_password', payload)
+	},
+	forgotPassword(email: any) {
+		const payload: object = {
+			"email": email
+		}
+		return api.put('/api/users/forgot_password', payload)
 	}
 }
 

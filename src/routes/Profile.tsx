@@ -1,5 +1,6 @@
 import React, {useState, useContext} from 'react';
 import Navbar from '../components/Navbar';
+//  history and feedback depend on url param for class??
 import TicketHistory from '../components/TicketHistory';
 import TicketFeedback from '../components/TicketFeedback';
 import ProfileSection from '../components/ProfileSection';
@@ -30,7 +31,7 @@ export default function Profile() {
     setOpen(false)
   }
 
-  const handleOpen = (message: string, responseStatus: any) => {
+  const handleOpen = (message: string, responseStatus?: any) => {
     setMessage(message)
     setAlertColor(responseStatus === 200 ? 'success' : 'error')
     setOpen(true)
