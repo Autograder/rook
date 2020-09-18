@@ -29,5 +29,3 @@ docker-compose.prod.yml
 nginx/*
 nginx
 *.swp
-docs/
-docs/*
