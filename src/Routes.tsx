@@ -14,6 +14,7 @@ import TicketFeedback from './routes/TicketFeedback';
 import TutorCheckoff from './routes/TutorCheckoff';
 import StudentCheckoff from './routes/StudentCheckoff';
 import Settings from './routes/Settings';
+import Forbidden from './routes/Forbidden';
 
 const Routes: React.FC = () => {
   return (
@@ -35,6 +36,7 @@ const Routes: React.FC = () => {
       <Route path="/checkoff" exact component={TutorCheckoff}/>
       <Route path="/checkoffHistory" exact component={StudentCheckoff}/>
       <Route path="/settings" exact component={Settings}/>
+      <Route path="/forbidden" exact component={Forbidden}/>
     </Switch>
   );
 }

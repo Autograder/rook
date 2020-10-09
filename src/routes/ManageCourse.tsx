@@ -11,6 +11,7 @@ import IconButton from '@material-ui/core/IconButton';
 import KeyboardArrowDownRoundedIcon from '@material-ui/icons/KeyboardArrowDownRounded';
 import KeyboardArrowUpRoundedIcon from '@material-ui/icons/KeyboardArrowUpRounded';
 import { Context } from '../context/Context';
+import { useHistory } from 'react-router-dom';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -25,6 +26,7 @@ export default function ManageCourse(){
     const theme = OurTheme.theme;
     const classes = Styles.useStyles();
     const {state: {userId}} = useContext(Context);
+    let history = useHistory();
 
     function createData(first: any, last: any, email: any) {
         return {first, last, email};
@@ -151,7 +153,7 @@ export default function ManageCourse(){
       };
 
     if (!userId) {
-        return <Typography> You must be logged in! </Typography>
+        history.push('./forbidden');
     }
 
     return(

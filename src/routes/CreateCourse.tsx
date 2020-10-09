@@ -6,6 +6,7 @@ import { ThemeProvider } from '@material-ui/styles';
 import OurTheme from '../style/Theme';
 import Styles from '../style/CreateCourseStyle';
 import { Context } from '../context/Context';
+import { useHistory } from "react-router-dom";
 
 export default function CreateCourse() {
     const theme = OurTheme.theme;
@@ -13,6 +14,7 @@ export default function CreateCourse() {
     
     const [open, setOpen] = useState(false);
     const {state: {userId}} = useContext(Context);
+    let history = useHistory();
 
     const handleSubmit = () => {
         setOpen(true)
@@ -24,7 +26,7 @@ export default function CreateCourse() {
     }
 
     if (!userId) {
-        return <Typography> You must be logged in! </Typography>
+        history.push('/forbidden');
     }
 
     return (

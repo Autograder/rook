@@ -73,7 +73,7 @@ export default function QueuePage() {
     }, [courseId]) */
 
     if (!userId) {
-        return <Typography> You must be logged in! </Typography>
+        history.push('/forbidden');
     }
 
     return (

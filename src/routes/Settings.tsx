@@ -4,15 +4,16 @@ import OurTheme from '../style/Theme';
 import Styles from '../style/StudentCheckoffStyle';
 import Navbar from '../components/Navbar';
 import { Context } from '../context/Context';
-import { Typography } from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
 
 export default function Settings() {
     const theme = OurTheme.theme;
     const classes = Styles.useStyles();
     const {state: {userId}} = useContext(Context);
+    let history = useHistory();
 
     if (!userId) {
-        return <Typography> You must be logged in! </Typography>
+        history.push('./forbidden');
     }
 
     return (
