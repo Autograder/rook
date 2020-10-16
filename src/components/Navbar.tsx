@@ -45,13 +45,13 @@ export default function Navbar () {
 				})
 			})
 		})
-	}, [userId])
+	}, [course_id, userId])
 
 	const openMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
 		setClassMenu(event.currentTarget);
 	};
 
-	const changeClass = (courseId: number, role: String) => {
+	const changeClass = (courseId: number) => {
 		setClassMenu(null);
 		history.push(`/queue/${courseId}`);
 	}
@@ -97,7 +97,7 @@ export default function Navbar () {
 									getContentAnchorEl={null}
 									>
 									{classList.map((obj: any) => (
-										<MenuItem onClick={() => changeClass(obj.id, obj.role)}>{obj.name}</MenuItem>
+										<MenuItem onClick={() => changeClass(obj.id)}>{obj.name}</MenuItem>
 									))}
 								</Menu>
 							</ThemeProvider>

@@ -3,7 +3,6 @@ import { useHistory } from "react-router-dom";
 import api from '../conf';
 import { TextField, Button, Link, Collapse } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
-import HelpIcon from '@material-ui/icons/Help';
 import { ThemeProvider } from '@material-ui/styles';
 import OurTheme from '../style/Theme';
 import Styles from '../style/LoginStyle';
@@ -17,7 +16,7 @@ export default function Login(props:any) {
   const [password, setPass] = useState('');
   const [email, setEmail] = useState('');
   const [open, setOpen] = useState(false);
-  const { state: {userId}, signin, changecourse } = useContext(Context);
+  const { signin, changecourse } = useContext(Context);
 
   const pressedKey = (event:any) => {
     if (event.key === "Enter") {

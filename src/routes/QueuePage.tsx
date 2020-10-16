@@ -1,6 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { useParams } from "react-router-dom";
-import { useHistory } from "react-router-dom";
+import React, { useState, useContext } from 'react';
 import Navbar from '../components/Navbar';
 import Queue from '../components/Queue';
 import MessageWidget from '../components/MessageWidget';
@@ -16,11 +14,9 @@ import { Context } from '../context/Context';
 export default function QueuePage() {
     const inverseTheme = OurTheme.inverseTheme;
     const classes = Styles.useStyles();
-    const history = useHistory();
     const [open, setOpen] = useState(false);
     const {state: {user} } = useContext(Context);
     const [onDuty, setOnDuty] = useState(false);
-    const { course_id } = useParams();
 
     const fakeList = 'Shaeli Yao, Simonne Contreras, Sravya Balasa, Tiffany Meng';
 

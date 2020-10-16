@@ -1,5 +1,4 @@
 import createDataContext from './createDataContext';
-import { ActionImportantDevices } from 'material-ui/svg-icons';
 
 const reducer = (state: any, action: any) => {
     switch (action.type) {
