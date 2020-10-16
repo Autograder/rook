@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory } from "react-router-dom";
 import { TextField, Button, Link, Collapse } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
@@ -7,12 +7,14 @@ import api from '../conf';
 import OurTheme from '../style/Theme';
 import Styles from '../style/LoginStyle';
 import HelpIcon from '@material-ui/icons/Help';
+import { Context } from '../context/Context';
 
 export default function Login(props:any) {
   // Hooks
   let history = useHistory();
   let classes = Styles.useStyles();
   let theme = OurTheme.theme;
+  const { state: { userId }, signin } = useContext(Context);
 
   // States
   let [password, setPass] = useState('');
@@ -45,6 +47,7 @@ export default function Login(props:any) {
       .then ( function (response) {
         // Direct to queue page
         console.log("Login successfull");
+        signin(response.data.result.id);
         history.push('/queue');
       })
       // Any number of errors occurred
@@ -59,6 +62,10 @@ export default function Login(props:any) {
           console.log("Server error possibly");
         }
      });
+  }
+
+  if(userId) {
+    history.push('/queue');
   }
 
   return (

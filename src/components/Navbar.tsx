@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory } from "react-router-dom";
 import { AppBar, Toolbar, Link, Typography, Dialog, DialogTitle, DialogContent, TextField, Button, DialogActions } from '@material-ui/core';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
@@ -12,6 +12,7 @@ import Popper from '@material-ui/core/Popper';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import { makeStyles } from '@material-ui/core/styles';
+import { Context } from '../context/Context';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -29,6 +30,7 @@ export default function Navbar(props:any) {
 	const history = useHistory();
 	const [open, setOpen] = React.useState(false);
 	const anchorRef = React.useRef(null);
+	const { signout } = useContext(Context);
 
 	const handleClose = (event?:any) => {
 		setOpen(false);
@@ -49,7 +51,12 @@ export default function Navbar(props:any) {
         setOpen(true);
     }
 
-    const handleSubmit = () => { handleClose() } 
+	const handleSubmit = () => { handleClose() } 
+	
+	function handleSignout() {
+		signout();
+		ChangeState('./login');
+	}
 	
 	return (
 		<div>
@@ -104,7 +111,7 @@ export default function Navbar(props:any) {
 							</Typography>
 						</div>
 						<div className={classes.logocell}>
-							<Link className={classes.link} onClick={() => (ChangeState('/login'))}> <ExitToAppIcon fontSize="large"/> </Link>
+							<Link className={classes.link} onClick={() => handleSignout()}> <ExitToAppIcon fontSize="large"/> </Link>
 						</div>
   					</Toolbar>
 				</AppBar>
