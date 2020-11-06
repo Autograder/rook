@@ -48,11 +48,12 @@ export default function Login(props:any) {
       .then ( function (response) {
         // Direct to queue page
         console.log("Login successfull");
+	      signin(response.data.result)
         history.push('/queue');
-        signin(response.data.result)
-      })
+       })
       // Any number of errors occurred
       .catch(function (error) {
+        console.log(error)
         if (error.response.status === 400) {
           // Display an alert and clear password
           console.log("Incorrect email and/or password");

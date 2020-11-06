@@ -58,6 +58,16 @@ const useStyles = makeStyles((theme) => ({
 		position: "absolute",
 		width: "99%",
 	},
+	white: {
+		color: "white",
+		marginTop: "30px"
+	},
+	input: {
+		display: 'none',
+	},
+	upButton: {
+		width: "1000px"
+	}
 }));  
 
 export default {useStyles};
