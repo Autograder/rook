@@ -1,34 +1,34 @@
 import api from './conf'
 
-const server:any = {
-	getUser(id:any) {
+const server = {
+	getUser(id) {
 		const params = {id: id}
 		return api.get('/api/users/get', {params: params})
 	},
-	checkPassword(email: any, password: any) {
-		const payload: object = {
+	checkPassword(email, password) {
+		const payload = {
 			"email": email,
 			"password": password
 		}
 		return api.post('/api/users/check_password', payload)
 	},
-	updateUser(id: any, fname: string) {
-		const payload: object = {
+	updateUser(id, fname) {
+		const payload = {
 			"id": id,
 			"fname": fname,
 		}
 		return api.put('/api/users/update_user', payload)
 	},
-	resetPassword(id: any, newPassword: string, currPassword: string) {
-		const payload: object = {
+	resetPassword(id, newPassword, currPassword) {
+		const payload = {
 			"id": id,
 			"password": newPassword,
 			"old_password": currPassword
 		}
 		return api.put('/api/users/reset_password', payload)
 	},
-	forgotPassword(email: any) {
-		const payload: object = {
+	forgotPassword(email) {
+		const payload = {
 			"email": email
 		}
 		return api.put('/api/users/forgot_password', payload)

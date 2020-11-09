@@ -1,5 +1,5 @@
-import React from 'react';
-import Message from './Message';
+import Message from "./Message";
+import React from "react";
 
 export default function MessageWidget() {
 	return (
@@ -17,8 +17,3 @@ export default function MessageWidget() {
 		</div>
 	);
 }
-/*
-<IconButton aria-label="delete" onClick={() => handleClickOpen()} className={classes.icon}>
-                <AddCircleOutlineIcon/>
-			</IconButton>
-			*/

@@ -20,10 +20,9 @@ export default function Profile() {
   const [open, setOpen] = useState(false);
   const {state: {user}} = useContext(Context);
 
-  type Color = 'success' | 'info' | 'warning' | 'error';
-  const [alertColor, setAlertColor] = React.useState<Color>('success');
+  const [alertColor, setAlertColor] = React.useState('success');
 
-  const handleChange = (event:any, newValue:any) => {
+  const handleChange = (event, newValue) => {
     setValue(newValue)
   }
 
@@ -31,7 +30,7 @@ export default function Profile() {
     setOpen(false)
   }
 
-  const handleOpen = (message: string, responseStatus?: any) => {
+  const handleOpen = (message, responseStatus) => {
     setMessage(message)
     setAlertColor(responseStatus === 200 ? 'success' : 'error')
     setOpen(true)
@@ -44,7 +43,7 @@ export default function Profile() {
     value: PropTypes.any.isRequired,
   };
 
-  function TabPanel(props:any) {
+  function TabPanel(props) {
     const {children, value, index, ...other} = props;
     return (
       <div
@@ -63,7 +62,7 @@ export default function Profile() {
     );
   }
 
-  function a11yProps(index:any) {
+  function a11yProps(index) {
     return {
       id: `simple-tabpanel-${index}`,
       'aria-controls': `simple-tab-${index}`,

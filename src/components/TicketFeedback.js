@@ -29,11 +29,11 @@ export default function TicketFeedback() {
     const formatRows = () => {
         // once data is retrieved from axios, format dates, etc, correctly
     }
-    const viewTicket = (id:any) => {
+    const viewTicket = (id) => {
         // send request using axios to grab information about the ticket and render it
         console.log(id)
     }
-    const renderCells = (row:any) => {
+    const renderCells = (row) => {
         return (
             headers.map((header) => {
                 return (header.field !== 'view') 
@@ -41,7 +41,7 @@ export default function TicketFeedback() {
                         : (<TableCell className={classes.viewTicket} onClick={() => viewTicket(row['id'])}>View Ticket</TableCell>)
             })
         )}
-    const getStripedStyle = (index:any) => {
+    const getStripedStyle = (index) => {
         return (index % 2) ? { background : "#d1dae3" }:{ background : "white" }
     }
     return (
@@ -57,7 +57,7 @@ export default function TicketFeedback() {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {rows.map((row:any, index) => <TableRow style ={getStripedStyle(index)}>
+                                {rows.map((row, index) => <TableRow style ={getStripedStyle(index)}>
                                                                     {renderCells(row)}
                                                             </TableRow>)}
                             </TableBody>

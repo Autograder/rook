@@ -17,7 +17,7 @@ export default function ManageCourse(){
     const classes = Styles.useStyles();
     const {state: {userId}} = useContext(Context);
 
-    function createData(first: any, last: any, email: any) {
+    function createData(first, last, email) {
         return {first, last, email};
     }
 
@@ -69,11 +69,11 @@ export default function ManageCourse(){
         track: {},
       })(Switch);
 
-    const handleChange = (event: any) =>{
+    const handleChange = (event) =>{
         setState({ ...state, [event.target.name]: event.target.checked });
     };
 
-    function FormRow(props:any) {
+    function FormRow(props) {
         return (
           <React.Fragment>
             <Grid  item xs={6}>
@@ -86,7 +86,7 @@ export default function ManageCourse(){
         );
       }
 
-      function FormRow2(props:any) {
+      function FormRow2(props) {
           return (
               
             <React.Fragment>
@@ -100,7 +100,7 @@ export default function ManageCourse(){
           
           );
       }
-      const handleAddGradRow = (f: any, l: any, e: any) =>{
+      const handleAddGradRow = (f, l, e) =>{
         const item = {
           first: f,
           last: l,
@@ -109,7 +109,7 @@ export default function ManageCourse(){
         setRow2([...rows2,createData(f,l,e)]);
       };
 
-      const handleAddInstRow = (f: any, l: any, e: any) =>{
+      const handleAddInstRow = (f, l, e) =>{
         const item = {
           first: f,
           last: l,
@@ -118,25 +118,25 @@ export default function ManageCourse(){
         setRow([...rows,createData(f,l,e)]);
       };
 
-      const handleRemoveInstrRow = (idx: any) => {
+      const handleRemoveInstrRow = (idx) => {
         const row = [...rows];
         row.splice(idx, 1);
         setRow(row);
       }
 
-      const handleRemoveGradRow = (idx: any) => {
+      const handleRemoveGradRow = (idx) => {
         const row = [...rows2];
         row.splice(idx, 1);
         setRow2(row);
       }
 
       //handleAddRow(first, last, email);
-      const handleDemoteButton = (first: any, last: any, email: any, idx: any) =>{
+      const handleDemoteButton = (first, last, email, idx) =>{
         handleRemoveInstrRow(idx);
         handleAddGradRow(first, last, email);
       };
 
-      const handlePromoteButton = (first: any, last: any, email: any, idx: any) =>{
+      const handlePromoteButton = (first, last, email, idx) =>{
         handleRemoveGradRow(idx);
         handleAddInstRow(first, last, email);
       };

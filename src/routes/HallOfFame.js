@@ -5,7 +5,7 @@ import { ThemeProvider } from '@material-ui/styles';
 import OurTheme from '../style/Theme';
 import Styles from '../style/HallOfFameStyles';
 
-const HallOfFame: React.FC = () => {
+const HallOfFame = () => {
   const theme = OurTheme.theme;
   const classes = Styles.useStyles();
   return (

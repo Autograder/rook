@@ -1,15 +1,17 @@
-import React, {useState, useContext, useEffect} from 'react';
-import PropTypes from 'prop-types';
-import { ThemeProvider } from '@material-ui/styles';
-import OurTheme from '../style/Theme';
-import Styles from '../style/ProfileSectionStyle';
-import PersonIcon from '@material-ui/icons/Person';
-import { TextField, Button } from '@material-ui/core';
-import server from '../server'
-import {Context} from '../context/Context';
+import {Context} from "../context/Context";
+import PersonIcon from "@material-ui/icons/Person";
+import PropTypes from "prop-types";
+import server from "../server"
+import Styles from "../style/ProfileSectionStyle";
+import { Button, TextField } from "@material-ui/core";
+import React, {useContext, useState} from "react";
 
-export default function ProfileSection(props:any) {
-  const theme = OurTheme.theme;
+export default function ProfileSection(props) {
+  ProfileSection.propTypes = {
+    user: PropTypes.object,
+    handleOpen: PropTypes.func,
+  };
+
   const classes = Styles.useStyles();
   const [fname, setFName] = useState(props.user.fname)
   const [currPassword, setCurrPassword] = useState(null)
@@ -20,19 +22,19 @@ export default function ProfileSection(props:any) {
 
   const handleUserInfo = () => {
     server.updateUser(props.user.id, fname)
-      .then(function(response: any) {
-        props.handleOpen('Profile successfully updated.', response.status)
+      .then(function(response) {
+        props.handleOpen("Profile successfully updated.", response.status)
         updateuser(response.data.result)
       })
-      .catch((err:any) => console.log(err))
+      .catch((err) => console.log(err))
   }
 
   const handleResetPassword = () => {
     server.resetPassword(props.user.id, newPassword, currPassword)
-      .then(function(response: any) {
-        props.handleOpen('Password successfully reset.', response.status)
+      .then(function(response) {
+        props.handleOpen("Password successfully reset.", response.status)
       })
-      .catch((err:any) => props.handleOpen('Incorrect password information.'))
+      .catch(() => props.handleOpen("Incorrect password information."))
   }
 
 	return (

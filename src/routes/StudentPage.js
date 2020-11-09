@@ -9,7 +9,7 @@ import OurTheme from '../style/Theme';
 import Styles from '../style/StudentPageStyle';
 import { Context } from '../context/Context';
 
-function createData( fname: string, lname: string, email: string, status: string, ucext: string) {
+function createData( fname, lname, email, status, ucext) {
   return { fname, lname, email, status, ucext };
 }
 
@@ -52,7 +52,7 @@ export default function StudentPage() {
     };
 
 
-    const handleChange = (event: any) => {
+    const handleChange = (event) => {
         setSect(event.target.value);
     };
 
@@ -60,10 +60,10 @@ export default function StudentPage() {
         setEdit(true);
     };
 
-    const EventHandleNewStudent = async(userID: any, sectID: any, courseID: any) => { //would value get read as an int from the input??
+    const EventHandleNewStudent = async(userID, sectID, courseID) => { //would value get read as an int from the input??
         setOpen(false);
-        let apiBaseUrl : string = '/api/enroll_course/enroll_user';
-        let payload : object = {
+        let apiBaseUrl = '/api/enroll_course/enroll_user';
+        let payload = {
             "user_id" : userID,
             "section_id" : sectID,
             "course_id" : courseID,
@@ -79,10 +79,10 @@ export default function StudentPage() {
     };
 
     useEffect(() => {
-        let apiBaseUrl: string = '/api/enroll_course/get_all_user_in_course';
+        let apiBaseUrl = '/api/enroll_course/get_all_user_in_course';
         api.get(apiBaseUrl)
             .then((response) => {
-                setStudents(response.data.result.filter((user:any) => user.user_info));
+                setStudents(response.data.result.filter((user) => user.user_info));
             });
     }, []);
 

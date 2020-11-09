@@ -11,7 +11,7 @@ import ManageCourse from './routes/ManageCourse';
 import TutorCheckoff from './routes/TutorCheckoff';
 import StudentCheckoff from './routes/StudentCheckoff';
 
-const Routes: React.FC = () => {
+const Routes = () => {
   return (
     <Switch>
       <Route path='/' exact component={Login}>

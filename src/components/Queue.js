@@ -1,31 +1,31 @@
-import React, {useState} from 'react';
-import Ticket from './Ticket';
-import { Button, Checkbox, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, FormControlLabel, IconButton, InputLabel, Select, TextField } from '@material-ui/core';
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import OurTheme from '../style/Theme';
-import { ThemeProvider } from '@material-ui/styles';
-import Styles from '../style/QueueStyle';
+import React, {useState} from "react";
+import Ticket from "./Ticket";
+import { Button, Checkbox, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, FormControlLabel, IconButton, InputLabel, Select, TextField } from "@material-ui/core";
+import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
+import OurTheme from "../style/Theme";
+import { ThemeProvider } from "@material-ui/styles";
+import Styles from "../style/QueueStyle";
 
 function getDay() {
     var tempDate = new Date();
-    var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-    var day = months[tempDate.getMonth()] + ' ' + tempDate.getDate() + ', ' + tempDate.getFullYear()
+    var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    var day = months[tempDate.getMonth()] + " " + tempDate.getDate() + ", " + tempDate.getFullYear()
     return day;
 }
 
 function getTime() {
     var tempTime = new Date();
-    var meridian = '';
+    var meridian = "";
     var hours = tempTime.getHours();
     if (hours > 11) {
-        meridian = 'pm';
+        meridian = "pm";
         if (hours > 12) {
             hours = hours - 12;
         }
     } else {
-        meridian = 'am';
+        meridian = "am";
     }
-    var time = hours + ':' + tempTime.getMinutes() + ' ' + meridian;
+    var time = hours + ":" + tempTime.getMinutes() + " " + meridian;
     return time;
 
 }
@@ -36,9 +36,9 @@ export default function Queue() {
     const [open, setOpen] = useState(false);
 
     // Fields for Ticket
-    const [description, setDescrip] = useState('');
-    const [seat, setSeat] = useState('');
-    const [room, setRoom] = useState('');
+    const [description, setDescrip] = useState("");
+    const [seat, setSeat] = useState("");
+    const [room, setRoom] = useState("");
     
     // Hide from classmates
     const [anonymous, setAnon] = useState(false);
@@ -83,7 +83,7 @@ export default function Queue() {
     const handleClose = () => {
         setAnon(false); setGS(false); setS(false); setA(false); setPL(false); setImp(false); setT(false);
         setRE(false); setCE(false); setIB(false); setWO(false); setIL(false); setCQ(false);
-        setDescrip(''); setRoom(''); setSeat('');
+        setDescrip(""); setRoom(""); setSeat("");
         setOpen(false);
     };
 
@@ -162,12 +162,12 @@ export default function Queue() {
                 <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                     <DialogActions>
                         <Button variant="contained" onClick={clickQuestion} className={classes.tab} disableElevation
-                                style= {{ color: '#FFFFFF',
-                                          backgroundColor : questionTab ? '#2A667B' : '#CCCCCC',
+                                style= {{ color: "#FFFFFF",
+                                          backgroundColor : questionTab ? "#2A667B" : "#CCCCCC",
                                           fontWeight: questionTab ? "bold" : "normal" }}>Question</Button>
                         <Button variant="contained" onClick= {clickCheckoff} className={classes.tab} disableElevation
-                                style = {{ color: '#FFFFFF',
-                                           backgroundColor : !questionTab ? '#2A667B' : '#CCCCCC',
+                                style = {{ color: "#FFFFFF",
+                                           backgroundColor : !questionTab ? "#2A667B" : "#CCCCCC",
                                            fontWeight: !questionTab ? "bold" : "normal" }}>Checkoff</Button>
                     </DialogActions>
                     { questionTab ? (<DialogTitle className={classes.title} id="form-dialog-title">Create Question</DialogTitle>)

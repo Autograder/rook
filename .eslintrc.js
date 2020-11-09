@@ -1,48 +1,34 @@
 module.exports = {
-	'env': {
-		'browser': false,
-		'es2021': true
+	"env": {
+		"browser": true,
+		"es2021": true,
+		"node": true,
 	},
-	'extends': [
-		'eslint:recommended',
-		'plugin:react/recommended',
-		'plugin:@typescript-eslint/recommended'
+	"extends": [
+		"eslint:recommended",
+		"plugin:react/recommended",
 	],
-	'parser': '@typescript-eslint/parser',
-	'parserOptions': {
-		'ecmaFeatures': {
-			'jsx': true
-		},
-		'ecmaVersion': 12,
-		'sourceType': 'module'
+	"parserOptions": {
+		"sourceType": "module",
 	},
-	'plugins': [
-		'react',
-		'@typescript-eslint'
+	"plugins": [
+		"react",
 	],
-	'rules': {
-		'indent': [
-			'error',
-			'tab'
+	"rules": {
+		"linebreak-style": [
+			"error",
+			"unix"
 		],
-		'linebreak-style': [
-			'error',
-			'unix'
+		"quotes": [
+			"error",
+			"double"
 		],
-		'quotes': [
-			'error',
-			'single'
-		],
-		'semi': [
-			'error',
-			'always'
-		],
-		'sort-imports': ['error', {
-			'ignoreCase': false,
-			'ignoreDeclarationSort': false,
-			'ignoreMemberSort': false,
-			'memberSyntaxSortOrder': ['none', 'all', 'multiple', 'single'],
-			'allowSeparatedGroups': false
+		"sort-imports": ["error", {
+			"ignoreCase": true,
+			"ignoreDeclarationSort": false,
+			"ignoreMemberSort": false,
+			"memberSyntaxSortOrder": ["none", "all", "single", "multiple"],
+			"allowSeparatedGroups": false
 		}]
 	}
 };

@@ -1,12 +1,12 @@
 import React, { createContext, useReducer } from 'react';
 
-export default (reducer: any, actions: any, defaultValue: any) => {
+export default (reducer, actions, defaultValue) => {
     const Context = createContext(defaultValue);
 
-    const Provider = ({ children }: any) => {
+    const Provider = ({ children }) => {
         const [state,dispatch] = useReducer(reducer,defaultValue);
 
-        const boundActions: any = {};
+        const boundActions = {};
         for (let key in actions) {
             boundActions[key] = actions[key](dispatch);
         }

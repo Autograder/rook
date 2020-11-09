@@ -1,33 +1,32 @@
-import React, { useState } from 'react';
-import { TextField, Typography, Collapse, Button} from '@material-ui/core';
-import Alert from '@material-ui/lab/Alert';
-import { ThemeProvider } from '@material-ui/styles';
-import OurTheme from '../style/Theme';
-import Styles from '../style/ForgotPasswordStyle';
-import server from '../server'
+import { Button, Collapse, TextField, Typography} from "@material-ui/core";
+import React, { useState } from "react";
+import Alert from "@material-ui/lab/Alert";
+import OurTheme from "../style/Theme";
+import Styles from "../style/ForgotPasswordStyle";
+import {ThemeProvider} from "@material-ui/styles";
+import server from "../server";
 
 export default function ForgotPassword() {
     const theme = OurTheme.theme;
     const classes = Styles.useStyles();
     const [open, setOpen] = useState(false);
-    const [email, setEmail] = useState('');
-    const [message, setMessage] = React.useState('');
+    const [email, setEmail] = useState("");
+    const [message, setMessage] = React.useState("");
 
-    type Color = 'success' | 'info' | 'warning' | 'error';
-    const [alertColor, setAlertColor] = React.useState<Color>('success');
+    const [alertColor, setAlertColor] = React.useState("success");
 
     const handleSubmit = () => {
         server.forgotPassword(email)
-            .then(function(response: any) {
+            .then(function(response) {
                 console.log(response)
-                handleOpen('Email successfully sent.', response.status)
+                handleOpen("Email successfully sent.", response.status)
             })
-            .catch((err:any) => handleOpen('Email not found.'))
+            .catch((err) => handleOpen("Email not found."))
     }
 
-    const handleOpen = (message: string, responseStatus?: any) => {
+    const handleOpen = (message, responseStatus) => {
         setMessage(message)
-        setAlertColor(responseStatus === 200 ? 'success' : 'error')
+        setAlertColor(responseStatus === 200 ? "success" : "error")
         setOpen(true)
         setTimeout(() => { setOpen(false) }, 2000)
     }

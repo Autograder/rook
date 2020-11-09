@@ -11,7 +11,7 @@ export default function StudentCheckoff() {
     const classes = Styles.useStyles();
     const { state: {userId} } = useContext(Context);
 
-    function createData(name: any, due: any, completed: any, grader: any, score: any) {
+    function createData(name, due, completed, grader, score) {
         return {name, due, completed, grader, score};
     }
 

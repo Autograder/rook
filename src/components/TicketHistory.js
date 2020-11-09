@@ -1,5 +1,5 @@
 import React from 'react';
-import Navbar from '../components/Navbar';
+import Navbar from './Navbar';
 import { Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/styles';
 import OurTheme from '../style/Theme';
@@ -41,12 +41,12 @@ export default function TicketHistory() {
     const formatRows = () => {
         // once data is retrieved from axios, format dates, etc, correctly
     }
-    const viewTicket = (id:any) => {
+    const viewTicket = (id) => {
         // send request using axios to grab information about the ticket and render it
         console.log(id)
     }
     // rendering kinda like this: https://stackoverflow.com/questions/61131896/error-type-void-is-not-assignable-to-type-reactnode
-    const renderCells = (row:any) => {
+    const renderCells = (row) => {
         return (
             headers.map((header) => {
                 return (header.field !== 'view') 
@@ -54,7 +54,7 @@ export default function TicketHistory() {
                         : (<TableCell className={classes.viewTicket} onClick={() => viewTicket(row['id'])}>View Ticket</TableCell>)
             })
         )}
-    const getStripedStyle = (index:any) => {
+    const getStripedStyle = (index) => {
         return (index % 2) ? { background : "#d1dae3" }:{ background : "white" }
     }
 
@@ -71,7 +71,7 @@ export default function TicketHistory() {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {rows.map((row:any, index) => <TableRow style ={getStripedStyle(index)}>
+                                {rows.map((row, index) => <TableRow style ={getStripedStyle(index)}>
                                                                     {renderCells(row)}
                                                               </TableRow>)}
                             </TableBody>

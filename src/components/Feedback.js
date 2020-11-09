@@ -1,10 +1,18 @@
-import React from 'react';
-import { ThemeProvider } from '@material-ui/styles';
-import { Dialog, DialogTitle, DialogContent, TextField, Typography, Button, DialogActions } from '@material-ui/core'; 
-import Styles from '../style/NavbarStyle';
-import OurTheme from '../style/Theme';
+import OurTheme from "../style/Theme";
+import PropTypes from "prop-types";
+import React from "react";
+import Styles from "../style/NavbarStyle";
+import { ThemeProvider } from "@material-ui/styles";
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Typography } from "@material-ui/core"; 
 
-export default function Feedback(props: any) {
+
+
+export default function Feedback(props) {
+    Feedback.propTypes = {
+        open: PropTypes.bool,
+        handleClose: PropTypes.func,
+    };
+
     const classes = Styles.useStyles();
     const { inverseTheme } = OurTheme;
     const {open, handleClose} = props;

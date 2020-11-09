@@ -4,7 +4,7 @@ import { ThemeProvider } from '@material-ui/styles';
 import Styles from '../style/TicketStatusStyle';
 import OurTheme from '../style/Theme';
 
-export default function TicketStatus(props:any) {
+export default function TicketStatus(props) {
     const classes = Styles.useStyles();
     const theme = OurTheme.theme;
 

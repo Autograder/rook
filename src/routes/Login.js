@@ -9,7 +9,7 @@ import Styles from '../style/LoginStyle';
 import HelpIcon from '@material-ui/icons/Help';
 import { Context } from '../context/Context';
 
-export default function Login(props:any) {
+export default function Login(props) {
   const history = useHistory();
   const classes = Styles.useStyles();
   const theme = OurTheme.theme;
@@ -18,7 +18,7 @@ export default function Login(props:any) {
   const [open, setOpen] = useState(false);
   const { signin, changecourse } = useContext(Context);
 
-  const pressedKey = (event:any) => {
+  const pressedKey = (event) => {
     if (event.key === "Enter") {
       event.preventDefault();
       loginAttempt();
@@ -27,8 +27,8 @@ export default function Login(props:any) {
   }
 
   const loginAttempt = async () =>  {
-    const login : string = '/api/users/login';
-    const loginInfo: object = {
+    const login = '/api/users/login';
+    const loginInfo = {
       "email" : email,
       "password" : password,
     }

@@ -1,6 +1,6 @@
 import createDataContext from './createDataContext';
 
-const reducer = (state: any, action: any) => {
+const reducer = (state, action) => {
     switch (action.type) {
         case 'signin':
             return { ...state, user: action.payload };
@@ -19,40 +19,40 @@ const reducer = (state: any, action: any) => {
     }
 };
 
-const signup = (dispatch: any) => (user: any) => {
+const signup = (dispatch) => (user) => {
     // on successful signup OR make api call here to sign up
     // set the user
     dispatch({type: 'signin', payload: user});
     localStorage.setItem('user', JSON.stringify(user));
 };
 
-const signin = (dispatch: any) => (user: any) => {
+const signin = (dispatch) => (user) => {
     // on successful signin OR make api call here to sign in
     // set the user
     dispatch({type: 'signin', payload: user});
     localStorage.setItem('user', JSON.stringify(user));
 };
 
-const signout = (dispatch: any) => () => {
+const signout = (dispatch) => () => {
     // remove the user from the state
     dispatch({type: 'signout'});
     localStorage.removeItem('user');
 };
 
-const updateuser = (dispatch: any) => (user: any) => {
+const updateuser = (dispatch) => (user) => {
     // user updates their profile
     dispatch({type: 'updateuser', payload: user});
     localStorage.setItem('user', JSON.stringify(user));
 }
 
-const changecourse = (dispatch: any) => (course: any, role: any ) => {
+const changecourse = (dispatch) => (course, role) => {
     dispatch({ type: 'changecourse', payload: course });
     dispatch({ type: 'changerole', payload: role });
     localStorage.setItem('courseId', course);
     localStorage.setItem('role', role);
 };
 
-const setCourseList = (dispatch: any) => (list: any) => {
+const setCourseList = (dispatch) => (list) => {
     dispatch({ type: 'setcourselist', payload: list });
     localStorage.setItem('courseList', list);
 };

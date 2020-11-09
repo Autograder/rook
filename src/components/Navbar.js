@@ -1,13 +1,13 @@
-import React, { useState, useContext, useEffect } from 'react';
-import api from '../conf';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import Feedback from './Feedback';
-import Styles from '../style/NavbarStyle';
-import OurTheme from '../style/Theme';
-import { Context } from '../context/Context';
-import { ThemeProvider } from '@material-ui/styles';
-import { useParams, useHistory } from "react-router-dom";
-import { AppBar, Button, Link, Menu, MenuItem, Toolbar, Tooltip, Typography } from '@material-ui/core';
+import api from "../conf";
+import { Context } from "../context/Context";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import Feedback from "./Feedback";
+import OurTheme from "../style/Theme";
+import Styles from "../style/NavbarStyle";
+import { ThemeProvider } from "@material-ui/styles";
+import { AppBar, Button, Link, Menu, MenuItem, Toolbar, Tooltip, Typography } from "@material-ui/core";
+import React, { useContext, useEffect, useState } from "react";
+import { useHistory, useParams } from "react-router-dom";
 
 export default function Navbar () {
 	// Setup
@@ -18,21 +18,21 @@ export default function Navbar () {
 	const { state:{userId}, signout } = useContext(Context);
 	
 	// States
-	const [classMenu, setClassMenu] = useState<null | HTMLElement>(null);
+	const [classMenu, setClassMenu] = useState(null);
 	const [feedback, setFeedback] = useState(false);
 	const [classList, setClassList] = useState([]);
-	const [role, setRole] = useState('');
+	const [role, setRole] = useState("");
 
 	useEffect(() =>  {
 		// Get course list and current role for course (url param)
-		const getCourses = '/api/enrolled_course/get_courses_user_in';
+		const getCourses = "/api/enrolled_course/get_courses_user_in";
 		api.get(getCourses, {
 			params: {
 				user_id: userId
 			}
 		}).then (function(response) {
-			const getCourse = '/api/course/get_course';
-			(response.data.result.courses).forEach(function(item: any) {
+			const getCourse = "/api/course/get_course";
+			(response.data.result.courses).forEach(function(item) {
 				api.get(getCourse, {
 					params: {
 						course_id: item.enrolled_user_info.course_id,
@@ -47,18 +47,18 @@ export default function Navbar () {
 		})
 	}, [course_id, userId])
 
-	const openMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
+	const openMenu = (event) => {
 		setClassMenu(event.currentTarget);
 	};
 
-	const changeClass = (courseId: number) => {
+	const changeClass = (courseId) => {
 		setClassMenu(null);
 		history.push(`/queue/${courseId}`);
 	}
 
 	const handleLogOut = () => {
 		signout();
-		history.push('/login');
+		history.push("/login");
 	}
 
 	const goToDefaultQueue = () => {
@@ -86,18 +86,18 @@ export default function Navbar () {
 									open={Boolean(classMenu)}
 									onClose={() => setClassMenu(null)}
 									anchorOrigin={{
-										vertical: 'bottom',
-										horizontal: 'center',
+										vertical: "bottom",
+										horizontal: "center",
 									}}
 									transformOrigin={{
-										vertical: 'top',
-										horizontal: 'center',
+										vertical: "top",
+										horizontal: "center",
 									}}
 									elevation={0}
 									getContentAnchorEl={null}
 									>
-									{classList.map((obj: any) => (
-										<MenuItem onClick={() => changeClass(obj.id)}>{obj.name}</MenuItem>
+									{classList.map((obj) => (
+										<MenuItem key={obj} onClick={() => changeClass(obj.id)}>{obj.name}</MenuItem>
 									))}
 								</Menu>
 							</ThemeProvider>
@@ -109,17 +109,17 @@ export default function Navbar () {
 						</React.Fragment>}		
 					</div>
 					<div className={classes.rightlinks}>
-						{role === 'admin' ? (
+						{role === "admin" ? (
 							<React.Fragment>
-								<Button className={classes.navButtons} onClick={() => history.push('/manageCourse')}>Manage Course</Button>
-								<Button className={classes.navButtons} onClick={() => history.push('/createCourse')}>Create Course</Button>
+								<Button className={classes.navButtons} onClick={() => history.push("/manageCourse")}>Manage Course</Button>
+								<Button className={classes.navButtons} onClick={() => history.push("/createCourse")}>Create Course</Button>
 							</React.Fragment> ): null
 						}
-						{role === 'student' ? 
+						{role === "student" ? 
 							<Button className={classes.navButtons} onClick={() => history.push(`/checkoffHistory/${course_id}`)}>Checkoffs</Button> : 
 							<Button className={classes.navButtons} onClick={() => history.push(`/checkoff/${course_id}`)}>Checkoffs</Button>}
 						<Button className={classes.navButtons} onClick={() => setFeedback(true)}>Submit Feedback</Button>
-						<Button className={classes.navButtons} onClick={() => history.push('/profile')}>Profile</Button>
+						<Button className={classes.navButtons} onClick={() => history.push("/profile")}>Profile</Button>
 					</div>
 					<div className={classes.exitCell}>
 						<Button className={classes.navButtons} onClick={handleLogOut}>

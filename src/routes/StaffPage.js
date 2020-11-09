@@ -7,7 +7,7 @@ import { Context } from '../context/Context';
 import OurTheme from '../style/Theme';
 import Styles from '../style/StaffPageStyle';
 
-function createData( fname: string, lname: string, email: string, status: string) {
+function createData( fname, lname, email, status) {
   return { fname, lname, email, status };
 }
 

@@ -10,7 +10,7 @@ import Styles from '../style/TicketStyle';
 
 // Need post request to send checkbox data to database
 
-export default function Ticket(props:any) {
+export default function Ticket(props) {
 	const classes = Styles.useStyles();
 	const theme = OurTheme.theme;
 	const inverseTheme = OurTheme.inverseTheme;
@@ -72,7 +72,7 @@ export default function Ticket(props:any) {
 	  setOpen(false);
 	};
 
-	const handleEdit = (room:string, seat:string, description:string) => {
+	const handleEdit = (room, seat, description) => {
         setRoom(room);
         setSeat(seat);
         setDescrip(description);
