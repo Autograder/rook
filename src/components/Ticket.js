@@ -1,15 +1,13 @@
-import React, {useState} from 'react';
-import { Dialog, DialogTitle, DialogActions, DialogContent, Button, TextField, Checkbox, Typography, ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, FormControlLabel, FormControl, InputLabel, Select } from '@material-ui/core';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import ConfirmationNumberIcon from '@material-ui/icons/ConfirmationNumber';
-import CheckBoxIcon from '@material-ui/icons/CheckBox';
-import EditIcon from '@material-ui/icons/Edit'; 
-import { ThemeProvider } from '@material-ui/styles';
-import OurTheme from '../style/Theme';
-import Styles from '../style/TicketStyle';
+import OurTheme from "../style/Theme";
+import Styles from "../style/TicketStyle";
+import { ThemeProvider } from "@material-ui/styles";
+import {Button, Checkbox,  FormControl, FormControlLabel, InputLabel, Select, TextField, Typography } from "@material-ui/core";
+import {CheckBoxIcon, ConfirmationNumberIcon, EditIcon, ExpandMoreIcon} from "@material-ui/icons";
+import {Dialog, DialogActions, DialogContent, DialogTitle} from "@material-ui/core";
+import {ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary} from "@material-ui/core";
+import React, {useState} from "react";
 
 // Need post request to send checkbox data to database
-
 export default function Ticket(props) {
 	const classes = Styles.useStyles();
 	const theme = OurTheme.theme;
@@ -63,13 +61,13 @@ export default function Ticket(props) {
 	const [open, setOpen] = React.useState(false);
   
 	const handleClickOpen = () => {
-	  setOpen(true);
+      setOpen(true);
 	};
   
 	const handleClose = () => {
-	  setAnon(false); setGS(false); setS(false); setA(false); setPL(false); setImp(false); setT(false);
+      setAnon(false); setGS(false); setS(false); setA(false); setPL(false); setImp(false); setT(false);
       setRE(false); setCE(false); setIB(false); setWO(false); setIL(false); setCQ(false);
-	  setOpen(false);
+      setOpen(false);
 	};
 
 	const handleEdit = (room, seat, description) => {
@@ -87,7 +85,7 @@ export default function Ticket(props) {
 		<div className={classes.container}>
 			<ThemeProvider theme={theme}>
 				<ExpansionPanel square={false} className={classes.root}>
-        			<ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>} aria-controls="panel1bh-content" id="panel1bh-header">
+                    <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>} aria-controls="panel1bh-content" id="panel1bh-header">
                     { isTicket ? (<ConfirmationNumberIcon className={classes.ticketIcon}/>) : (<CheckBoxIcon className={classes.ticketIcon}/>)}
                         <div className={classes.table}>
                             <div className={classes.tableRow}>
@@ -99,7 +97,7 @@ export default function Ticket(props) {
                                 </div>
                             </div>
                         </div>
-        			</ExpansionPanelSummary>
+                    </ExpansionPanelSummary>
 					<ExpansionPanelDetails className={classes.body}>
 						<Typography><b>Date: </b>{props.date}</Typography>
 						<Typography><b>Time: </b>{props.time}</Typography>
@@ -109,15 +107,15 @@ export default function Ticket(props) {
 						<div className={classes.buttonDiv}>
 							<Button variant="contained" startIcon={<EditIcon/>} className={classes.button} onClick={() => handleClickOpen()} >Edit</Button>
 						</div>
-        			</ExpansionPanelDetails>
-      			</ExpansionPanel>
+                    </ExpansionPanelDetails>
+                </ExpansionPanel>
 			</ThemeProvider>
 			
 			<ThemeProvider theme={inverseTheme}>
 				<Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-		  			{isTicket ? (<DialogTitle id="form-dialog-title" className={classes.dialog}>Edit Question</DialogTitle>)
+                    {isTicket ? (<DialogTitle id="form-dialog-title" className={classes.dialog}>Edit Question</DialogTitle>)
                               : (<DialogTitle id="form-dialog-title" className={classes.dialog}>Edit Checkoff</DialogTitle>)}
-		  			<DialogContent className={classes.dialog}>
+                    <DialogContent className={classes.dialog}>
                         { isTicket &&
                         <div>
                             <FormControlLabel
@@ -209,25 +207,12 @@ export default function Ticket(props) {
                             label="Hide from Classmates?"
                         />			
 					</DialogContent>
-		  			<DialogActions>
+                    <DialogActions>
 						<Button onClick={() => handleEdit(tempRoom, tempSeat, tempDescription)} color="primary">Submit</Button>
-		  			</DialogActions>
+                    </DialogActions>
 				</Dialog>
 			</ThemeProvider>
 
 		</div>
 	);
 }
-
-/*
-<TextField
-className={classes.text}
-onChange = {(e) => setTempLocation(e.target.value)}
-variant="outlined"
-id="name"
-defaultValue={location}
-label="Location"
-rows="1"
-fullWidth
-/>
-*/

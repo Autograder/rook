@@ -15,6 +15,10 @@ module.exports = {
 		"react",
 	],
 	"rules": {
+		"no-mixed-spaces-and-tabs": [
+			2, 
+			"smart-tabs"
+		],
 		"linebreak-style": [
 			"error",
 			"unix"

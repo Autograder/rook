@@ -1,10 +1,10 @@
-import React, {useState} from "react";
-import Ticket from "./Ticket";
-import { Button, Checkbox, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, FormControlLabel, IconButton, InputLabel, Select, TextField } from "@material-ui/core";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import OurTheme from "../style/Theme";
-import { ThemeProvider } from "@material-ui/styles";
 import Styles from "../style/QueueStyle";
+import { ThemeProvider } from "@material-ui/styles";
+import Ticket from "./Ticket";
+import { Button, Checkbox, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, FormControlLabel, IconButton, InputLabel, Select, TextField } from "@material-ui/core";
+import React, {useState} from "react";
 
 function getDay() {
     var tempDate = new Date();
@@ -310,6 +310,3 @@ export default function Queue() {
         </div>
     );
 } 
-
-// onChange = {(e => setSeat(e.target.value)}
-// can't do this for the selects idk why

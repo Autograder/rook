@@ -1,36 +1,36 @@
-import { makeStyles } from '@material-ui/core/styles';
-import OurTheme from './Theme';
+import { makeStyles } from "@material-ui/core/styles";
+import OurTheme from "./Theme";
 
 const theme1 = OurTheme.theme;
 const useStyles = makeStyles((theme) => ({
     title : {
-        color: 'white',
+        color: "white",
         fontSize : 60,
         paddingLeft: 100,
     },
     h2 : {
-        color: 'white',
+        color: "white",
         paddingLeft: 100,
     },
     h3 : {
         paddingLeft: 130,
-        color: 'white',
+        color: "white",
         fontSize: 20,
         height: 1,
     },
     courseinfo: {
-        color: 'white',
+        color: "white",
         fontSize: 20,
     },
     switch: {
         marginTop: -15,
     },
     col : {
-        color: 'black',
-        fontWeight: 'bold',
+        color: "black",
+        fontWeight: "bold",
     },
     cell : {
-        color: 'black',
+        color: "black",
     },
     iTable : {
         minWidth: 600,
@@ -47,28 +47,28 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(0),
         paddingLeft: 125,
         color: theme1.palette.text.primary,
-        background: '#2A667B',
+        background: "#2A667B",
         fontSize: 20,
-        fontWeight: 'bold',
+        fontWeight: "bold",
       },
       paper2: {
         padding: theme.spacing(0),
         color: theme1.palette.text.primary,
-        background: '#2A667B',
+        background: "#2A667B",
         fontSize: 20,
       },
       switchLabel: {
             paddingLeft: 115,
             fontSize: 20,
-          color: 'white',
-          fontWeight: 'bold',
+          color: "white",
+          fontWeight: "bold",
       },
       tablelabel: {
         fontSize: 20,
-        color: 'white',
+        color: "white",
       },
       tableheader: {
-          background: 'black',
+          background: "black",
       }
 
 }));
