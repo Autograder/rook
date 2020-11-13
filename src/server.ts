@@ -35,34 +35,19 @@ const server:any = {
 		return api.put('/api/users/forgot_password', payload)
 	},
 	/* COURSE */
-	createCourse(description: any, name: any, quarter: any, short_name: any,
-				url: any, year: any, active: boolean, queue_enabled: boolean,
-				cse: boolean, queue_id: number) {
+	createCourse(name: any, quarter: any, short_name: any,
+				url: any, year: any, active: boolean, cse: boolean, inst_id: number) {
 		const payload: Object = {
-			'description': description,
 			'name': name,
 			'quarter': quarter,
 			'short_name': short_name,
-			'url': url,
+			'url': url, // TODO: URL to homepage
 			'year': year,
 			'active': active,
-			'queue_enabled': queue_enabled, // TODO: isn't it always enabled
-			'cse': cse,
-			'queue_id': queue_id
+			'cse': cse, // TODO: MAYBE
+			'inst_id': inst_id
 		}
 		return api.post('/api/queue/create_course', payload)
-	},
-	/* QUEUE */
-	// should take in course ID
-	createQueue(hc_enable: any, hc_threshold: any, hc_message: any, hc_warning: any) {
-		const payload: object = {
-			'high_capacity_enabled': hc_enable,
-			'high_capacity_threshold': hc_threshold,
-			'high_capacity_message': hc_message,
-			'high_capacity_warning': hc_warning,
-			'ticket_cooldown': 1
-		}
-		return api.post('/api/queue/create_queue', payload)
 	},
 	autoOpenQueue(id: any, user_id: any, action_type: any) {
 		const payload: object = {

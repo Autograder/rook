@@ -31,9 +31,13 @@ export default function CreateCourse() {
     const handleSubmit = () => {
         // TODO: should these be default values
         // TODO: set a waiting timer button thing?
+
+        server.createCourse(title, quarter, code, year, cse, instructor.id)
+
+        /*
         server.createQueue(true, 150, 'The queue is at high capacity, the wait may be longer than usual.', true, 1)
             .then(function(response: any) {
-                server.createCourse(description, title, quarter, code, year, queue_enabled, cse, response.queue.id)
+                server.createCourse(title, quarter, code, year, cse, instructor.id)
                     .then(function(response: any) {
                         setOpen(true)
                         setTimeout(() => { setOpen(false) }, 5000)
@@ -41,6 +45,7 @@ export default function CreateCourse() {
                     .catch((err: any) => console.log(err))
             })
             .catch((err: any) => console.log(err))
+        */
 
     }
 
@@ -65,8 +70,6 @@ export default function CreateCourse() {
                 <div className={classes.wrappertitle}>
                     <Typography className={classes.title}>Create Course</Typography>
                 </div>
-
-
                 <Grid container spacing={3} className={classes.courseForm}>
                         <Grid item xs={12} className={classes.courseRow}>
                             <Typography className={classes.white}>User Information</Typography>
