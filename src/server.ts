@@ -35,17 +35,13 @@ const server:any = {
 		return api.put('/api/users/forgot_password', payload)
 	},
 	/* COURSE */
-	createCourse(name: any, quarter: any, short_name: any,
-				url: any, year: any, active: boolean, cse: boolean, inst_id: number) {
+	createCourse(name: any, quarter: any, shortName: any, url: any, user: any) {
 		const payload: Object = {
 			'name': name,
 			'quarter': quarter,
-			'short_name': short_name,
-			'url': url, // TODO: URL to homepage
-			'year': year,
-			'active': active,
-			'cse': cse, // TODO: MAYBE
-			'inst_id': inst_id
+			'short_name': shortName,
+			'url': url,
+			'user': user.id,
 		}
 		return api.post('/api/queue/create_course', payload)
 	},

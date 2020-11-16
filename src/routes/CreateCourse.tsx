@@ -13,40 +13,22 @@ export default function CreateCourse() {
     const classes = Styles.useStyles();
     
     const [open, setOpen] = useState(false);
-    const [fname, setFName] = useState('');
-    const [lname, setLName] = useState('');
-    const [email, setEmail] = useState('');
-    const [title, setTitle] = useState('');
-    const [code, setCode] = useState(''); // TODO: this is not being stored in the DB at the moment? is it shortname?
-    const [quarter, setQuarter] = useState('');
-    const [year, setYear] = useState('');
-    const [cse, setCSE] = useState(true);
-    // TODO: what do about the rosters
 
-    const description = 'no description yet'
-    const queue_enabled = true
-    
+    const [name, setName] = useState('');
+    const [quarter, setQuarter] = useState('');
+    const [shortName, setShortName] = useState('');
+    const [url, setURL] = useState('');    
     const {state: {user}} = useContext(Context);
 
+    // TODO: what do about the rosters
     const handleSubmit = () => {
-        // TODO: should these be default values
         // TODO: set a waiting timer button thing?
-
-        server.createCourse(title, quarter, code, year, cse, instructor.id)
-
-        /*
-        server.createQueue(true, 150, 'The queue is at high capacity, the wait may be longer than usual.', true, 1)
-            .then(function(response: any) {
-                server.createCourse(title, quarter, code, year, cse, instructor.id)
-                    .then(function(response: any) {
-                        setOpen(true)
-                        setTimeout(() => { setOpen(false) }, 5000)
-                    })
-                    .catch((err: any) => console.log(err))
+        server.createCourse(name, quarter, shortName, url, user)
+            .then(function(response: any){
+                setOpen(true)
+                setTimeout(() => { setOpen(false) }, 5000)
             })
             .catch((err: any) => console.log(err))
-        */
-
     }
 
     const handleClose = () => {
