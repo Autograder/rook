@@ -103,7 +103,7 @@ export default function Navbar () {
 							</ThemeProvider>
 						</React.Fragment> :
 						<React.Fragment>
-							<Tooltip title="You must enroll in a class to be able to see its queue" placement="bottom">
+							<Tooltip title="You must enroll in a course to be able to see its queue" placement="bottom">
 								<Button className={classes.navButtons}>Classes</Button>
 							</Tooltip>
 						</React.Fragment>}		

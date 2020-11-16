@@ -27,6 +27,7 @@ export default function Login(props) {
   }
 
   const loginAttempt = async () =>  {
+    console.log("I got here?");
     const login = '/api/users/login';
     const loginInfo = {
       "email" : email,
@@ -87,7 +88,7 @@ export default function Login(props) {
               <Link href="forgotpassword" > Forgot Password? </Link>
             </div>
             <Button className={classes.button} color="primary" variant="outlined" 
-              onClick={() => loginAttempt}> Login
+              onClick={() => loginAttempt()}> Login
             </Button>
         </div>
         <Link href="instructions" className={classes.bottomRightIcon}> <HelpIcon fontSize="large"/> </Link>
