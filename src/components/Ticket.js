@@ -1,8 +1,11 @@
+import CheckBoxIcon from "@material-ui/icons/CheckBox";
+import ConfirmationNumberIcon from "@material-ui/icons/ConfirmationNumber";
+import EditIcon from "@material-ui/icons/Edit";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import OurTheme from "../style/Theme";
 import Styles from "../style/TicketStyle";
 import { ThemeProvider } from "@material-ui/styles";
 import {Button, Checkbox,  FormControl, FormControlLabel, InputLabel, Select, TextField, Typography } from "@material-ui/core";
-import {CheckBoxIcon, ConfirmationNumberIcon, EditIcon, ExpandMoreIcon} from "@material-ui/icons";
 import {Dialog, DialogActions, DialogContent, DialogTitle} from "@material-ui/core";
 import {ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary} from "@material-ui/core";
 import React, {useState} from "react";
