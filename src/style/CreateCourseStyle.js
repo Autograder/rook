@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
+import { textAlign } from '@material-ui/system';
 
 const useStyles = makeStyles((theme) => ({
 	form: {
@@ -32,10 +33,6 @@ const useStyles = makeStyles((theme) => ({
 		width: "100%",
 		margin: "0 auto",
 	},
-	wrapper2: {
-		marginTop: '20px',
-		display: 'table-row'
-	},
 	title: {
 		color: "white",
 		fontWeight: "bold",
@@ -58,6 +55,26 @@ const useStyles = makeStyles((theme) => ({
 		position: "absolute",
 		width: "99%",
 	},
+	white: {
+		color: "white",
+		marginTop: "30px"
+	},
+	input: {
+		display: 'none',
+	},
+	upButton: {
+		width: "1000px"
+	},
+	courseForm: {
+		width: "80%",
+		marginLeft: "10%",
+		marginRight: "10%",
+	},
+	courseRow: {
+		[theme.breakpoints.down("xs")]: {
+			textAlign: "center"
+		}
+	}
 }));  
 
 export default {useStyles};

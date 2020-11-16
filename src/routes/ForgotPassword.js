@@ -29,6 +29,7 @@ export default function ForgotPassword() {
         setAlertColor(responseStatus === 200 ? "success" : "error")
         setOpen(true)
         setTimeout(() => { setOpen(false) }, 2000)
+        // route them back home
     }
 
     const handleClose = () => {

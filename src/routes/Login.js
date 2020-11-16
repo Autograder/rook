@@ -1,20 +1,20 @@
-import React, { useContext, useState } from 'react';
+import { Alert } from "@material-ui/lab";
+import api from "../conf";
+import { Context } from "../context/Context";
+import HelpIcon from "@material-ui/icons/Help";
+import OurTheme from "../style/Theme";
+import Styles from "../style/LoginStyle";
+import { ThemeProvider } from "@material-ui/styles";
 import { useHistory } from "react-router-dom";
-import api from '../conf';
-import { TextField, Button, Link, Collapse } from '@material-ui/core';
-import { Alert } from '@material-ui/lab';
-import { ThemeProvider } from '@material-ui/styles';
-import OurTheme from '../style/Theme';
-import Styles from '../style/LoginStyle';
-import HelpIcon from '@material-ui/icons/Help';
-import { Context } from '../context/Context';
+import { Button, Collapse, Link, TextField } from "@material-ui/core";
+import React, { useContext, useState } from "react";
 
-export default function Login(props) {
+export default function Login() {
   const history = useHistory();
   const classes = Styles.useStyles();
   const theme = OurTheme.theme;
-  const [password, setPass] = useState('');
-  const [email, setEmail] = useState('');
+  const [password, setPass] = useState("");
+  const [email, setEmail] = useState("");
   const [open, setOpen] = useState(false);
   const { signin, changecourse } = useContext(Context);
 
@@ -28,15 +28,15 @@ export default function Login(props) {
 
   const loginAttempt = async () =>  {
     console.log("I got here?");
-    const login = '/api/users/login';
+    const login = "/api/users/login";
     const loginInfo = {
       "email" : email,
       "password" : password,
     }
     await api.post(login, loginInfo)
       .then (async function (response) {
-        signin(response.data.result.id);
-        const url = '/api/enrolled_course/get_courses_user_in';
+        signin(response.data.result);
+        const url = "/api/enrolled_course/get_courses_user_in";
         
         await api.get(url, {
           params: {
@@ -56,7 +56,7 @@ export default function Login(props) {
         if (error.response.status === 400) {
           // Display an alert and clear password
           setOpen(true);
-          setPass('');
+          setPass("");
         } else {
           // TODO: Reroute to custom 404
         }
