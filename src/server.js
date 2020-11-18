@@ -1,6 +1,9 @@
 import api from "./conf"
 
 const server = {
+	logoutUser() {
+		return api.post("/api/users/logout");
+	},
 	getUser(id) {
 		const params = {id: id}
 		return api.get("/api/users/get", {params: params})
@@ -42,7 +45,8 @@ const server = {
 			"url": url,
 			"user": user.id,
 		}
-		return api.post("/api/queue/create_course", payload)
+		console.log(payload)
+		return api.post("/api/course/create_course", payload)
 	},
 	autoOpenQueue(id, user_id, action_type) {
 		const payload = {

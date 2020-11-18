@@ -8,6 +8,7 @@ import { ThemeProvider } from "@material-ui/styles";
 import { AppBar, Button, Link, Menu, MenuItem, Toolbar, Tooltip, Typography } from "@material-ui/core";
 import React, { useContext, useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
+import server from '../server';
 
 export default function Navbar () {
 	// Setup
@@ -15,7 +16,7 @@ export default function Navbar () {
 	const classes = Styles.useStyles();
 	const history = useHistory();
 	const { course_id } = useParams();
-	const { state:{userId}, signout } = useContext(Context);
+	const { state:{user}, signout } = useContext(Context);
 	
 	// States
 	const [classMenu, setClassMenu] = useState(null);
@@ -28,7 +29,7 @@ export default function Navbar () {
 		const getCourses = "/api/enrolled_course/get_courses_user_in";
 		api.get(getCourses, {
 			params: {
-				user_id: userId
+				user_id: user.id
 			}
 		}).then (function(response) {
 			const getCourse = "/api/course/get_course";
@@ -45,7 +46,7 @@ export default function Navbar () {
 				})
 			})
 		})
-	}, [course_id, userId])
+	}, [course_id, user.id])
 
 	const openMenu = (event) => {
 		setClassMenu(event.currentTarget);
@@ -58,6 +59,7 @@ export default function Navbar () {
 
 	const handleLogOut = () => {
 		signout();
+		server.logoutUser();
 		history.push("/login");
 	}
 
