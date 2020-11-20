@@ -31,24 +31,20 @@ const useStyles = makeStyles((theme) =>({
         float: 'left',
     },
     paper: {
-    //padding: theme.spacing(0),
-    //paddingLeft: 125,
-    color: theme1.palette.text.primary,
-    background: '#2A667B',
-    fontSize: 20,
-    fontWeight: 'bold',
+        color: theme1.palette.text.primary,
+        background: '#2A667B',
+        fontSize: 20,
+        fontWeight: 'bold',
     },
     paper2: {
-    //padding: theme.spacing(0),
-    color: theme1.palette.text.primary,
-    background: '#2A667B',
-    fontSize: 20,
+        color: theme1.palette.text.primary,
+        background: '#2A667B',
+        fontSize: 20,
     },
     switchLabel: {
-        //paddingLeft: 115,
         fontSize: 20,
-      color: 'white',
-      fontWeight: 'bold',
+        color: 'white',
+        fontWeight: 'bold',
   },
 }))
 

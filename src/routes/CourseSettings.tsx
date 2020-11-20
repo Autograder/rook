@@ -7,7 +7,6 @@ import { ThemeProvider } from '@material-ui/styles';
 import OurTheme from '../style/Theme';
 import Styles from '../style/CourseSettingsStyle';
 import { Tabs, Tab, Box, Typography } from '@material-ui/core';
-import StaffPage from './StaffPage';
 
 export default function CourseSettings() {
     const theme = OurTheme.theme;
