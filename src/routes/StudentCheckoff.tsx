@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { ThemeProvider } from '@material-ui/styles';
 import OurTheme from '../style/Theme';
 import Styles from '../style/StudentCheckoffStyle';
@@ -12,10 +12,19 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import api from '../conf';
+
+const headers = [
+    {field: 'name', label: 'Name'},
+    {field: 'due', label: 'Due Date'},
+    {field: 'completed', label: 'Completed Date'},
+    {field: 'grader', label: 'Grader'},
+    {field: 'score', label: 'Score'},]
 
 export default function StudentCheckoff() {
     const theme = OurTheme.inverseTheme;
     const classes = Styles.useStyles();
+    const [checkoffs, setCheckoffs] = useState([]);
 
     function createData(name: any, due: any, completed: any, grader: any, score: any) {
         return {name, due, completed, grader, score};
@@ -34,9 +43,44 @@ export default function StudentCheckoff() {
     createData("Lab 7", "January 2, 2050", "August 5, 2020", "Simonne Contreras", "10/10"),
     createData("Lab 8", "January 2, 2050", "August 5, 2020", "Simonne Contreras", "10/10")]
 
+
+    useEffect(() => {
+        getStudentGrades();
+    }, []);
+
+    function getStudentGrades() {
+        let apiBaseUrl : string = '/api/checkoff/get_latest_ce_all_checkoffs_for_student';
+        let arr = []
+        api.get(apiBaseUrl, {params: {course_id: 1, student_id: 2}})
+            .then((response) => {
+                console.log(response.data.evals)
+                arr = response.data.evals
+                let entry = []
+                for(var i = 0; i < arr.length; i++) {
+                    console.log("here")
+                    let item = arr[i];
+
+                    entry.push(createData(item.eval.student_id,"Date", item.eval.checkoff_time, item.eval.grader_id, item.eval.score));
+                }
+                console.log(entry)
+                setCheckoffs(entry);
+            });
+    }
+
+    const renderCells = (row:any) => {
+        return (
+            headers.map((header) => {
+                return <TableCell className={classes.cell} align="left">{row[header.field]}</TableCell>
+            })
+        )}
+    
+    const getStripedStyle = (index:any) => {
+        return (index % 2) ? { background : "#d1dae3" }:{ background : "white" }
+    }
+
     return (
         <div className={classes.background}>
-            <SideBar/>
+            <Navbar/>
             <ThemeProvider theme={theme}>
             
             <h1 className={classes.header}>My Grades</h1>
@@ -46,24 +90,13 @@ export default function StudentCheckoff() {
                         <Table stickyHeader className={classes.table} >
                             <TableHead>
                                 <TableRow>
-                                    <TableCell className={classes.col}>Name</TableCell>
-                                    <TableCell className={classes.col}>Due Date</TableCell>
-                                    <TableCell className={classes.col}>Completed Date</TableCell>
-                                    <TableCell className={classes.col}>Grader</TableCell>
-                                    <TableCell className={classes.col}>Score</TableCell>
+                                    {headers.map((header) => 
+                                        (<TableCell align="left" className={classes.col}>{header.label}</TableCell>))}
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {rowsTable.map((row, index) => (
-                                    <TableRow key={row.name} style ={ index % 2 ? { background : "white" }:{ background : "#c3d4d9" }}> 
-                                        <TableCell className={classes.cell} component="th" scope="row">
-                                            {row.name}
-                                        </TableCell>
-                                        <TableCell className={classes.cell}  align="left">{row.due}</TableCell>
-                                        <TableCell className={classes.cell}  align="left">{row.completed}</TableCell>
-                                        <TableCell className={classes.cell}  align="left">{row.grader}</TableCell>
-                                        <TableCell className={classes.cell}  align="left">{row.score}</TableCell>
-                                    </TableRow>
+                                {checkoffs.map((row, index) => (
+                                    <TableRow style ={getStripedStyle(index)} > {renderCells(row)}</TableRow>
                                 ))}
                             </TableBody>
                         </Table>
