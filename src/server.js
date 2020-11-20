@@ -46,7 +46,8 @@ const server = {
 			"user": user.id,
 		}
 		console.log(payload)
-		return api.post("/api/course/create_course", payload)
+		api.withCredentials = true
+		return api.post("/api/course/create_course", payload, {withCredentials: true})
 	},
 	autoOpenQueue(id, user_id, action_type) {
 		const payload = {

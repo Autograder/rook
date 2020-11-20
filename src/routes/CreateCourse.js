@@ -23,6 +23,7 @@ export default function CreateCourse() {
 
     const handleSubmit = () => {
         // TODO: set a waiting timer button thing?
+        
         console.log(name, quarter, year, shortName, url)
         server.createCourse(name, quarter, shortName, url, user)
             .then(function(response){

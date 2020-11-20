@@ -33,7 +33,12 @@ export default function Login() {
       "email" : email,
       "password" : password,
     }
-    await api.post(login, loginInfo)
+    const head = { "headers": {
+      "credientials": true,
+      }
+    }
+    
+    await api.post(login, loginInfo, {withCredentials: true})
       .then (async function (response) {
         console.log(response)
         signin(response.data.result);
@@ -63,6 +68,39 @@ export default function Login() {
         }
      });
   }
+  
+/*
+  await api.post(login, loginInfo, head)
+  .then (async function (response) {
+    console.log(response)
+    signin(response.data.result);
+    const url = "/api/enrolled_course/get_courses_user_in";
+    
+    await api.get(url, {
+      params: {
+        user_id: response.data.result.id
+      }
+    })
+    .then ( function(response) {
+      const courseId = response.data.result.courses.length > 0 ? response.data.result.courses[0].enrolled_user_info.course_id : 0;
+      if (courseId !== 0) {
+        changecourse(courseId, response.data.result.courses[0].enrolled_user_info.role)
+      }
+      history.push(`/queue/${courseId}`);
+    })
+  })
+  .catch(function (error) {
+    console.log(error)
+    if (error.response.status === 400) {
+      // Display an alert and clear password
+      setOpen(true);
+      setPass("");
+    } else {
+      // TODO: Reroute to custom 404
+    }
+  });
+  }
+*/
 
   return (
     <div>
