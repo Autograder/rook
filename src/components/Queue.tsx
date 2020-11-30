@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import { IconButton, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Button, Checkbox, FormControl, InputLabel, Select, FormControlLabel, AppBar, Tabs, Tab, Typography, Box } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/styles';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
@@ -6,6 +6,8 @@ import Ticket from './Ticket';
 import OurTheme from '../style/Theme';
 import Styles from '../style/QueueStyle';
 import PropTypes from 'prop-types';
+import { Context } from '../context/Context';
+import api from '../conf';
 
 function getDay() {
     var tempDate = new Date();
@@ -34,6 +36,7 @@ function getTime() {
 export default function Queue() {
     const classes = Styles.useStyles();
     const inverseTheme = OurTheme.inverseTheme;
+    const {state: {userId, queueId} } = useContext(Context);
     const [open, setOpen] = useState(false);
 
     // Fields for Ticket
@@ -77,6 +80,8 @@ export default function Queue() {
     const toggleIL = () => {setIL(!infiniteLoop);}
     const toggleCQ = () => {setCQ(!conceptualQuestion);}
 
+    console.log("user: ", userId)
+
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -102,21 +107,64 @@ export default function Queue() {
         infiniteLoop : infiniteLoop,
         conceptualQuestion : conceptualQuestion,
     };
+
+    const createTagList = () => {
+        let ret = "";
+        gettingStarted && (ret += "0;")
+        specifications && (ret += "1;")
+        algorithms && (ret += "2;")
+        progLang && (ret += "3;")
+        implementation && (ret += "4;")
+        compileError && (ret += "5;")
+        runtimeError && (ret += "6;")
+        wrongOutput && (ret += "7;")
+        infiniteLoop && (ret += "8;")
+        if(ret !== ""){
+            return ret.substr(0,ret.length - 1);
+        }
+        return ret;
+    }
     
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
+        let tagList : string = createTagList();
+
+        let apiBaseUrl : string = "/api/ticket/add_ticket";
+        let payload : object = {
+            "student_id": userId,
+            "queue_id": queueId,
+            "title": "uhh",
+            "description": description,
+            "room": room,
+            "workstation": seat,
+            "is_private": anonymous,
+            "help_type": 0,
+            "tag_list": tagList
+        };
+        console.log(payload);
+
+        await api.post(apiBaseUrl, payload)
+        .then ((response) => {
+            console.log(response.data);
+            
+          })
+          // Any number of errors occurred
+          .catch((error) => {
+            console.log(error.response);
+         });
+
         const tagArray = {
-            gettingStarted : gettingStarted,
-            specifications : specifications,
-            algorithms : algorithms,
-            progLang : progLang,
-            implementation : implementation,
-            testing : testing,
-            runtimeError : runtimeError,
-            compileError : compileError,
-            incorrectBehavior : incorrectBehavior,
-            wrongOutput : wrongOutput,
-            infiniteLoop : infiniteLoop,
-            conceptualQuestion : conceptualQuestion,
+            gettingStarted,
+            specifications,
+            algorithms,
+            progLang,
+            implementation,
+            testing,
+            runtimeError,
+            compileError,
+            incorrectBehavior,
+            wrongOutput,
+            infiniteLoop,
+            conceptualQuestion,
         };
 
         setTicketList(

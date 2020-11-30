@@ -11,26 +11,20 @@ import Styles from '../style/QueuePageStyle';
 import DynamicFeedIcon from '@material-ui/icons/DynamicFeed';
 import AddCommentIcon from '@material-ui/icons/AddComment';
 import { Context } from '../context/Context';
+import api from '../conf';
 
 export default function QueuePage() {
     const inverseTheme = OurTheme.inverseTheme;
     const classes = Styles.useStyles();
     let history = useHistory();
     const [open, setOpen] = useState(false);
-    const {state: {userId}, signin } = useContext(Context);
+    const {state: {userId, queueId, courseId}, signin } = useContext(Context);
     const [onDuty, setOnDuty] = useState(false);
+    const [tutorsOnDuty, setTutorsOnDuty] = useState(0);
+    const [isLoaded, setIsLoaded] = useState(false);
 
-    const fakeList = 'Shaeli Yao, Simonne Contreras, Sravya Balasa, Tiffany Meng'
-
-    // TESTING
-    //console.log('user: ', userId);
-    // const test = () => {
-    //     signin('');
-    // }
-    
-    // const changePage = () => {
-    //     history.push('/students');
-    // }
+    //console.log("user: ", userId);
+   //onsole.log("on Duty? ", onDuty);
 
     const handleClose = () => {
         setOpen(false);
@@ -47,8 +41,114 @@ export default function QueuePage() {
         handleClose()
     }
 
+    const loginGrader = async () => {
+        const q_id = parseInt(queueId);
+        const u_id = parseInt(userId);
+        let apiBaseUrl : string = "/api/queue/login_grader";
+        let payload : object = {
+            "queue_id" : q_id,
+            "user_id" : u_id,
+            "action_type" : "MANUAL"
+        };
+    
+        await api.post(apiBaseUrl, payload)
+        .then ((response) => {
+            console.log("success");
+            
+          })
+          // Any number of errors occurred
+          .catch((error) => {
+            console.log(error.response);
+         });
+    }
+
+    const logoutGrader = async () => {
+        const q_id = parseInt(queueId);
+        const u_id = parseInt(userId);
+        let apiBaseUrl : string = "/api/queue/logout_grader";
+        let payload : object = {
+            "queue_id" : q_id,
+            "user_id" : u_id,
+            "action_type" : "MANUAL"
+        };
+    
+        await api.post(apiBaseUrl, payload)
+        .then ((response) => {
+            console.log("success");
+            
+          })
+          // Any number of errors occurred
+          .catch((error) => {
+            console.log(error.response);
+         });
+    }
+
     const handleOnDutyToggle = () => {
-        setOnDuty(!onDuty);
+        if(onDuty){
+            logoutGrader();
+            setOnDuty(false);
+            setTutorsOnDuty(tutorsOnDuty - 1);
+        } else {
+            loginGrader();
+            setOnDuty(true);
+            setTutorsOnDuty(tutorsOnDuty + 1);
+        }
+    }
+
+    const getActiveTutors = async () => {
+        let apiBaseUrl : string = `/api/enrolled_course/find_active_tutor_for?queue_id=${queueId}`;
+    
+        await api.get(apiBaseUrl)
+        .then ((response) => {
+            // Direct to queue page
+            setTutorsOnDuty(response.data.result.length);
+            
+          })
+          // Any number of errors occurred
+          .catch((error) => {
+            console.log(error.response);
+         });
+
+         setIsLoaded(true);
+    }
+
+    /* const nameString = () => {
+        let tutorStr = '';
+        var i;
+
+        if(tutorsOnDuty.length === 0) {
+            return "None";
+        }
+
+        for (i = 0; i < tutorsOnDuty.length; i++) {
+            tutorStr += tutorsOnDuty[i].fname + " " + tutorsOnDuty[i].lname;
+            if( i !== tutorsOnDuty.length - 1){
+                tutorStr += ", ";
+            }
+        }
+
+        return tutorStr;
+
+    }; */
+
+    const checkSelf = async () => {
+        let apiBaseUrl : string = `api/enrolled_course/get_user_in_course?user_id=${userId}&course_id=${courseId}`;
+
+        await api.get(apiBaseUrl)
+        .then ((response) => {
+            // Direct to queue page
+            var status = response.data.result.enrolled_course_info.status;
+            if (status === "ACTIVE"){
+                setOnDuty(true);
+            } else {
+                setOnDuty(false);
+            }
+            
+          })
+          // Any number of errors occurred
+          .catch((error) => {
+            console.log(error.response);
+         });
     }
 
     const TutorSwitch = withStyles({
@@ -67,10 +167,13 @@ export default function QueuePage() {
         },
     })(Switch);
 
-    /* useEffect(() => {
+    useEffect(() => {
         // load list of tutors
         // request isOnDuty
-    }, [courseId]) */
+        getActiveTutors();
+        checkSelf();
+        
+    }, [queueId]);
 
     if (!userId) {
         history.push('/forbidden');
@@ -130,7 +233,7 @@ export default function QueuePage() {
                              </div>
 
                             <div className={classes.activeTutors}>
-                                <p>Active Tutors: {fakeList}</p>
+                                {isLoaded && <p>Tutors On Duty: {tutorsOnDuty}</p>}
                             </div>
                             
                             <AddCommentIcon onClick={handleOpen} className={classes.clickableicon}/>  

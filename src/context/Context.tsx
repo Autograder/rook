@@ -59,8 +59,9 @@ const setCourseList = (dispatch: any) => (list: any) => {
 export const { Provider, Context } = createDataContext(
     reducer,
     { signup, signin, signout, changecourse, setCourseList },
-    { userId: localStorage.getItem('userId') || '', 
-    courseId: localStorage.getItem('courseId') || '', 
+    { userId: '',//localStorage.getItem('userId') || '', 
+    courseId: '1',//localStorage.getItem('courseId') || '',
+    queueId: '1',//localStorage.getItem('queueId') || '',
     role: localStorage.getItem('role') || '',
     courseList: localStorage.getItem('coureList') || []
      }
