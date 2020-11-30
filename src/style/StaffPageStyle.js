@@ -3,20 +3,20 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
     title : {
         color: 'white',
-        'font-size': '60px',
-        paddingLeft: '100px',
+        'font-size': '40px',
+        //paddingLeft: '100px',
     },
     h2 : {
         color: 'white',
-        paddingLeft: '100px',
+        //paddingLeft: '100px',
     },
     information: {
         color: 'white',
-        paddingLeft: '130px',
+        //paddingLeft: '130px',
         paddingBottom: '10px',
     },
     buttons: {
-        paddingLeft: '120px',
+       // paddingLeft: '120px',
         flexDirection: 'column',
         '& > *': {
         margin: theme.spacing(2),
@@ -26,8 +26,9 @@ const useStyles = makeStyles((theme) => ({
         minWidth: 650,
     },
     container : {
-        paddingLeft: '50px',
-        paddingRight: '100px',
+        paddingTop: 50,
+        //paddingLeft: '50px',
+        //paddingRight: '100px',
     },
     cell : {
         color: '#464655',
@@ -35,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
     col : {
         color: '#464655',
         fontWeight: 'bold',
+        backgroundColor :"#d1dae3"
     },
     selectEmpty: {
         marginTop: theme.spacing(2),
@@ -56,7 +58,23 @@ const useStyles = makeStyles((theme) => ({
         paddingBottom: '10px',
 
         
-    }
+    },
+    tablelabel: {
+        fontSize: 20,
+        color: 'white',
+      },
+    rightCol : {
+        topPadding: 500,
+    },
+    iTable : {
+        minWidth: 800,
+        maxHeight: 290,
+        position: 'sticky',
+    },
+    gTable : {
+        minWidth: 800,
+        maxHeight: 400,
+    },
 }));
 
 export default { useStyles };
