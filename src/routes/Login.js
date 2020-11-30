@@ -27,29 +27,23 @@ export default function Login() {
   }
 
   const loginAttempt = async () =>  {
-    console.log("I got here?");
+    console.log("Login Attempt");
     const login = "/api/users/login";
     const loginInfo = {
       "email" : email,
       "password" : password,
     }
-    const head = { "headers": {
-      "credientials": true,
-      }
-    }
-    
     await api.post(login, loginInfo, {withCredentials: true})
       .then (async function (response) {
         console.log(response)
         signin(response.data.result);
         const url = "/api/enrolled_course/get_courses_user_in";
-        
         await api.get(url, {
           params: {
             user_id: response.data.result.id
           }
         })
-        .then ( function(response) {
+        .then (function(response) {
           const courseId = response.data.result.courses.length > 0 ? response.data.result.courses[0].enrolled_user_info.course_id : 0;
           if (courseId !== 0) {
             changecourse(courseId, response.data.result.courses[0].enrolled_user_info.role)
