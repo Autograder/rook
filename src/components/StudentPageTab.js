@@ -1,13 +1,34 @@
-import React, { useState, useEffect, useContext } from 'react';
-import api from '../conf';
-import Navbar from '../components/Navbar';
-import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, InputLabel, MenuItem, FormControl, Button, Grid,
-        Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, IconButton, Select, Typography} from '@material-ui/core';
-import EditIcon from '@material-ui/icons/Edit';
+import React, { useState, useEffect } from 'react';
+import Navbar from './Navbar';
 import { ThemeProvider } from '@material-ui/styles';
 import OurTheme from '../style/Theme';
+import inverseTheme from '../style/Theme';
 import Styles from '../style/StudentPageStyle';
-import { Context } from '../context/Context';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import TextField from '@material-ui/core/TextField';
+import IconButton from '@material-ui/core/IconButton';
+import EditIcon from '@material-ui/icons/Edit';
+import api from '../conf';
+import { create } from 'domain';
+//import { useFocusEffect } from '@react-navigation/native';
+
 
 function createData( fname, lname, email, status, ucext) {
   return { fname, lname, email, status, ucext };
@@ -27,9 +48,16 @@ const rows = [
   createData('Cyanni', 'Yao', 'urmom@ucsd.edu', 'Enrolled', 'No'),
 ];
 
-export default function StudentPage() {
+const headers = [
+                     {field: 'fname', label: 'First Name'},
+                     {field: 'lname', label: 'Last Name'},
+                     {field: 'email', label: 'Email'},
+                     {field: 'status', label: 'Status'},
+                     {field: 'ucext', label: 'UC Extension'},
+                     {field: 'edit', label: 'Edit'},]
+
+export default function StudentPageTab() {
     const theme = OurTheme.theme;
-    const inverseTheme = OurTheme.inverseTheme;
     const classes = Styles.useStyles();
     const [sect, setSect] = useState('');
     const [open, setOpen] = useState(false);
@@ -38,9 +66,6 @@ export default function StudentPage() {
     const [sectID, setSectID] = useState(0);
     const [edit, setEdit] = useState(false);
     const [students, setStudents] = useState([]);
-    const { state: {userId} } = useContext(Context);
-
-    console.log('student page', userId);
     
     const handleClickOpen = () => {
         setOpen(true);
@@ -79,24 +104,43 @@ export default function StudentPage() {
     };
 
     useEffect(() => {
-        let apiBaseUrl = '/api/enroll_course/get_all_user_in_course';
-        api.get(apiBaseUrl)
+        let apiBaseUrl = '/api/enrolled_course/get_all_user_in_course';
+        let arr = []
+        api.get(apiBaseUrl, {params: {course_id: 1, roles: "STUDENT"}})
             .then((response) => {
-                setStudents(response.data.result.filter((user) => user.user_info));
+                arr = response.data.result.filter((user) => user.user_info);
+                let stu = []
+                for(var i = 0; i < arr.length; i++) {
+                    let st = arr[i];
+                    stu.push(createData(st.user_info.fname, st.user_info.lname, st.user_info.email, st.enrolled_user_info.status, "no"));
+                }
+                setStudents(stu);
             });
     }, []);
 
-    if (!userId) {
-        return <Typography> You must be logged in! </Typography>
+    const renderCells = (row) => {
+        return (
+            headers.map((header) => {
+                return (header.field === 'edit') 
+                ? (<TableCell align="center">
+                <IconButton aria-label="edit" onClick={handleEditStudent}>
+                    <EditIcon fontSize="small" />
+                </IconButton>
+            </TableCell>)
+                : (<TableCell className={classes.cell} align="left">{row[header.field]}</TableCell>)
+            })
+        )}
+
+    const getStripedStyle = (index) => {
+        return (index % 2) ? { background : "#d1dae3" }:{ background : "white" }
     }
    
     return (
         <div>
             <ThemeProvider theme={theme}>
-                <Navbar />
-                <h1 className={classes.title}>Students</h1>
+            
                 <Grid container spacing={3}>
-                    <Grid item xs={4}>
+                    <Grid item xs={3}>
                         <h2 className={classes.h2}>INFO</h2>
                         <div className={classes.dropdown}>
                             <FormControl variant="filled" className={classes.formControl}>
@@ -126,43 +170,34 @@ export default function StudentPage() {
                         <h2 className={classes.h2}>OPTIONS</h2>
                         <div className={classes.buttons}>
                             <Button color={'secondary'} variant='contained' onClick={handleClickOpen}>Add Student</Button>
-                            <Button color={'secondary'} variant='contained'>Update Roster</Button>
                             
                         </div>
+                        <div className={classes.buttons}>
+                            <Button color={'secondary'} variant='contained'>Update Roster</Button>     
+                        </div>
+                        
                     </Grid>
 
-                    <Grid item xs={8}>
+                    <Grid item xs={9}>
+                    <h2 className={classes.h2}>STUDENTS</h2>
                         <div className={classes.container}>
-                            <TableContainer component={Paper}>
-                                <Table className={classes.table} aria-label="simple table">
+                            
+                            <TableContainer className={classes.table} component={Paper}>
+                                <Table stickyHeader size="small" className={classes.table} >
                                     <TableHead>
                                         <TableRow style={{background :"#d1dae3"}}>
-                                            <TableCell className={classes.col} align="center">Edit</TableCell>
-                                            
-                                            <TableCell className={classes.col} align="right">First Name</TableCell>
-                                            <TableCell className={classes.col} align="right">Last Name</TableCell>
-                                            <TableCell className={classes.col} align="right">Email</TableCell>
-                                            <TableCell className={classes.col} align="right">Status</TableCell>
-                                            <TableCell className={classes.col} align="right">UC Extension</TableCell>
-                                            
+                                            {headers.map((header) => (header.field==='edit')? (<TableCell align="center" className={classes.col}>
+                                                                    {header.label}
+                                                                </TableCell>) :(<TableCell align="left" className={classes.col}>
+                                                                    {header.label}
+                                                                </TableCell>))}
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
-                                        {rows.map((row, index) => (
-                                            <TableRow key={row.fname} style ={ index % 2 ? { background : "#d1dae3" }:{ background : "white"}} >
-                                                <TableCell align="center">
-                                                    <IconButton aria-label="edit" onClick={handleEditStudent}>
-                                                        <EditIcon fontSize="small" />
-                                                    </IconButton>
-                                                </TableCell>
-                                                
-                                                <TableCell className={classes.cell} align="right" component="th" scope="row">
-                                                    {row.fname}
-                                                </TableCell>
-                                                <TableCell className={classes.cell} align="right">{row.lname}</TableCell>
-                                                <TableCell className={classes.cell} align="right">{row.email}</TableCell>
-                                                <TableCell className={classes.cell} align="right">{row.status}</TableCell>
-                                                <TableCell className={classes.cell} align="right">{row.ucext}</TableCell>
+                                        {students.map((row, index) => (
+                                            <TableRow style ={getStripedStyle(index)} >
+
+                                                {renderCells(row)}
                                                 
                                             </TableRow>
                                         ))}

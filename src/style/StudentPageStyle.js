@@ -3,15 +3,15 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
     title : {
         color: 'white',
-        'font-size': '60px',
-        paddingLeft: '100px',
+        'font-size': '40px',
+        //paddingLeft: '100px',
     },
     h2 : {
         color: 'white',
-        paddingLeft: '100px',
+        //paddingLeft: '100px',
     },
     dropdown : {
-        paddingLeft: '130px',
+        //paddingLeft: '130px',
         paddingBottom: '30px',
         height: '100px',
         width: '200px',
@@ -32,18 +32,20 @@ const useStyles = makeStyles((theme) => ({
         color: '#464655',
     },
     buttons: {
-        paddingLeft: '120px',
+        //paddingLeft: '120px',
         flexDirection: 'column',
         '& > *': {
         margin: theme.spacing(2),
         },
     },
     table : {
-        minWidth: 650,
+        minWidth: 850,
+        maxHeight: 700,
     },
     container : {
-        paddingLeft: '50px',
-        paddingRight: '100px',
+        //paddingTop: '50px',
+        //paddingLeft: '50px',
+        //paddingRight: '100px',
     },
     cell : {
         color: '#464655',
@@ -51,6 +53,7 @@ const useStyles = makeStyles((theme) => ({
     col : {
         color: '#464655',
         fontWeight: 'bold',
+        backgroundColor: "#d1dae3"
     },
     formControl : {
         margin: theme.spacing(1),
