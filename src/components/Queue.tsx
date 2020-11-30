@@ -142,7 +142,7 @@ export default function Queue() {
         };
         console.log(payload);
 
-        await api.post(apiBaseUrl, payload)
+        await api.post(apiBaseUrl, payload, {withCredentials: true})
         .then ((response) => {
             console.log(response.data);
             

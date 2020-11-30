@@ -42,7 +42,7 @@ export default function Login(props:any) {
       "password" : password,
     };
     
-    api.post(apiBaseUrl,payload)
+    api.post(apiBaseUrl,payload, {withCredentials: true})
       // Username and Password were a match for a user
       .then ( function (response) {
         // Direct to queue page
