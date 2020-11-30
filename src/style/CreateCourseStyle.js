@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
             },
 		},
 		display: 'inline-block',
+		paddingTop: "5%"
 	},
 	formControl: {
 		margin: theme.spacing(1),
@@ -73,7 +74,7 @@ const useStyles = makeStyles((theme) => ({
 	courseRow: {
 		[theme.breakpoints.down("xs")]: {
 			textAlign: "center"
-		}
+		},
 	}
 }));  
 

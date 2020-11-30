@@ -7,8 +7,10 @@ import OurTheme from '../style/Theme';
 import Styles from '../style/CreateCourseStyle';
 import { Context } from '../context/Context';
 import server from '../server'
+import { useHistory } from "react-router-dom";
 
 export default function CreateCourse() {
+    const history = useHistory();
     const theme = OurTheme.theme;
     const classes = Styles.useStyles();
     
@@ -30,6 +32,8 @@ export default function CreateCourse() {
                 // TODO: what do about the rosters
                 setOpen(true)
                 setTimeout(() => { setOpen(false) }, 5000)
+                // pass in response id for the course, course setting grabs the url param and queries for corresponding course!
+                history.push(`/coursesettings/${response.data.result.id}`);
             })
             .catch((err) => console.log(err))
     }
@@ -56,7 +60,6 @@ export default function CreateCourse() {
                 </div>
                 <Grid container spacing={3} className={classes.courseForm}>
                         <Grid item xs={12} className={classes.courseRow}>
-                            <Typography className={classes.white}>Class Information</Typography>
                             <form className={classes.form}>
                                 <TextField  className={classes.formControl} id="standard-basic" label="Course Title" 
                                             placeholder = "Basic Data Structures" variant="outlined" onChange = {(event) => setName(event.target.value)}/>
@@ -90,6 +93,26 @@ export default function CreateCourse() {
                                 </FormControl>
                             </form>
                         </Grid>
+                </Grid>
+
+                <div className={classes.wrapper}>
+                    <Button className={classes.submit} onClick={handleSubmit} variant="outlined" color="primary">Submit</Button>
+                </div>
+            </ThemeProvider>
+        </div>
+    );
+} 
+
+/* fix the sizing of the upload buttons and show the name */
+/* TODO: add queue locked or not */
+/* Uploading the roster stuff in another page */
+
+/* <TextField  className={classes.formControl} id="standard-basic" label="Course Roster" variant="outlined"/>
+                                    <TextField  className={classes.formControl} id="standard-basic" label="WaitList Roster" variant="outlined"/>
+                                    <TextField  className={classes.formControl} id="standard-basic" label="Staff Roster" placeholder = "Basic Data Structures" variant="outlined"/> */
+
+/*
+
                         <Grid item xs={12} className={classes.courseRow}>
                             <Typography className={classes.white}>Roster Information</Typography>
                             <form className={classes.form}>
@@ -113,20 +136,4 @@ export default function CreateCourse() {
                                 </label> 
                             </form>
                         </Grid>
-                </Grid>
-
-                <div className={classes.wrapper}>
-                    <Button className={classes.submit} onClick={handleSubmit} variant="outlined" color="primary">Submit</Button>
-                </div>
-            </ThemeProvider>
-        </div>
-    );
-} 
-
-/* fix the sizing of the upload buttons and show the name */
-/* TODO: add queue locked or not */
-/* Uploading the roster stuff in another page */
-
-/* <TextField  className={classes.formControl} id="standard-basic" label="Course Roster" variant="outlined"/>
-                                    <TextField  className={classes.formControl} id="standard-basic" label="WaitList Roster" variant="outlined"/>
-                                    <TextField  className={classes.formControl} id="standard-basic" label="Staff Roster" placeholder = "Basic Data Structures" variant="outlined"/> */
+*/
