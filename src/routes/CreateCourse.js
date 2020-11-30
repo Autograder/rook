@@ -24,11 +24,11 @@ export default function CreateCourse() {
     const handleSubmit = () => {
         // TODO: set a waiting timer button thing?
         server.createCourse(name, quarter, shortName, url, user)
-            .then(function(response: any){
+            .then(function(response){
                 setOpen(true)
                 setTimeout(() => { setOpen(false) }, 5000)
             })
-            .catch((err: any) => console.log(err))
+            .catch((err) => console.log(err))
     }
 
     const handleClose = () => {

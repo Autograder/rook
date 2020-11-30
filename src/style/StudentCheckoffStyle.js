@@ -9,7 +9,6 @@ const useStyles = makeStyles((theme) => ({
     tablediv: {
         maxWidth: '80%',
         paddingLeft: '10%',
-        paddingBottom: '5%',
     },
     table: {
         justifyContent: 'center',
@@ -18,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
     col : {
         color: 'black',
         fontWeight: 'bold',
+        backgroundColor: "#d1dae3"
     },
     cell : {
         color: 'black',

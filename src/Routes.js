@@ -7,7 +7,7 @@ import QueuePage from './routes/QueuePage';
 import CreateCourse from './routes/CreateCourse';
 import HallOfFame from './routes/HallOfFame';
 import Profile from './routes/Profile';
-import ManageCourse from './routes/ManageCourse';
+import CourseSettings from './routes/CourseSettings';
 import TutorCheckoff from './routes/TutorCheckoff';
 import StudentCheckoff from './routes/StudentCheckoff';
 
@@ -24,9 +24,9 @@ const Routes = () => {
       <Route path="/queue/:course_id" component={QueuePage} />
       <Route path="/profile" component={Profile} /> 
       <Route path='/createcourse' component={CreateCourse}/>
-      <Route path="/managecourse/:course_id" component={ManageCourse}/>
       <Route path="/checkoff/:course_id" component={TutorCheckoff}/>
       <Route path="/checkoffHistory/:course_id" component={StudentCheckoff}/>
+      <Route path="/coursesettings/:course_id" exact component={CourseSettings}/>
     </Switch>
   );
 }
