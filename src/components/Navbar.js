@@ -2,6 +2,7 @@ import api from "../conf";
 import { Context } from "../context/Context";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import Feedback from "./Feedback";
+import Grid from '@material-ui/core/Grid';
 import OurTheme from "../style/Theme";
 import Styles from "../style/NavbarStyle";
 import { ThemeProvider } from "@material-ui/styles";
@@ -15,7 +16,7 @@ export default function Navbar () {
 	const classes = Styles.useStyles();
 	const history = useHistory();
 	const { course_id } = useParams();
-	const { state:{userId}, signout } = useContext(Context);
+	const { state:{user}, signout } = useContext(Context);
 	
 	// States
 	const [classMenu, setClassMenu] = useState(null);
@@ -28,14 +29,14 @@ export default function Navbar () {
 		const getCourses = "/api/enrolled_course/get_courses_user_in";
 		api.get(getCourses, {
 			params: {
-				user_id: userId
+				user_id: user.id
 			}
 		}).then (function(response) {
-			const getCourse = "/api/course/get_course";
+			const getCourse = "/api/course/find_course_by_id";
 			(response.data.result.courses).forEach(function(item) {
 				api.get(getCourse, {
 					params: {
-						course_id: item.enrolled_user_info.course_id,
+						id: item.enrolled_user_info.course_id,
 					}
 				}).then (function(response) {
 					setClassList(classList => [...classList, {"id": response.data.result.id, "name": response.data.result.short_name, "role": item.enrolled_user_info.role}])
@@ -45,7 +46,7 @@ export default function Navbar () {
 				})
 			})
 		})
-	}, [course_id, userId])
+	}, [course_id, user])
 
 	const openMenu = (event) => {
 		setClassMenu(event.currentTarget);
