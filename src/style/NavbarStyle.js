@@ -1,17 +1,17 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
 	  flexGrow: 1,
 	},
 	appBar: {
-		background: 'transparent',
-		boxShadow:'none',
+		background: "transparent",
+		boxShadow:"none",
 		color: "#ffffff"
 	},
 	appTable: {
-		background: 'transparent',
-		boxShadow:'none',
+		background: "transparent",
+		boxShadow:"none",
 		color: "#ffffff",
 		display: "table",
 		paddingLeft: "15px",
@@ -20,7 +20,10 @@ const useStyles = makeStyles((theme) => ({
 	},
 	courseList: {
 		marginLeft: "20px",
-		padding: "0px",
+		paddingRight: "5px",
+	},
+	emptyList: {
+		marginLeft: "20px",
 	},
 	pages: {
 		fontSize: 18,
@@ -31,27 +34,21 @@ const useStyles = makeStyles((theme) => ({
 	},
 	home: {
 		fontSize: 45,
-		fontWeight: 'bold',
+		fontWeight: "bold",
 		height: "80px"
-	},
-	exitCell: {
-		display: "table-cell",
-		verticalAlign: "middle",
-		textAlign: "right",
-		width: "15px"
 	},
 	homeCell: {
 		display: "table-cell",
 		width: "150px",
 		verticalAlign: "middle"
 	},
-	leftlinks: {
+	leftnav: {
 		fontSize: 18,
 		display: "table-cell",
 		verticalAlign: "middle",
 		paddingLeft: "15px"
 	},
-	rightlinks: {
+	rightnav: {
 		fontSize: 18,
 		display: "table-cell",
 		textAlign: "right",
@@ -60,17 +57,24 @@ const useStyles = makeStyles((theme) => ({
 	link: {
 		cursor: "pointer"
 	},
+	list: {
+		width: 300,
+	},
+	listItems: {
+		color: "black",
+		textAlign: "center",
+	},
 	form: {
         // Border of Input Boxes when not clicked
-        '& .MuiOutlinedInput-root': {
-            '& fieldset': {
-                borderColor: 'black',
+        "& .MuiOutlinedInput-root": {
+            "& fieldset": {
+                borderColor: "black",
             },
         },
     },
     text: {
-		color: 'black',
-		marginBottom: '15px',
+		color: "black",
+		marginBottom: "15px",
 		marginRight: theme.spacing(2),
 	},
 	class: {

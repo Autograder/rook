@@ -27,7 +27,6 @@ export default function Login() {
   }
 
   const loginAttempt = async () =>  {
-    console.log("I got here?");
     const login = "/api/users/login";
     const loginInfo = {
       "email" : email,

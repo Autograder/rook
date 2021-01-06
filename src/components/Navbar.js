@@ -1,13 +1,24 @@
+import AddIcon from "@material-ui/icons/Add";
 import api from "../conf";
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
+import CommentIcon from "@material-ui/icons/Comment";
 import { Context } from "../context/Context";
+import Divider from "@material-ui/core/Divider";
+import DoneIcon from "@material-ui/icons/Done";
+import Drawer from "@material-ui/core/Drawer";
+import EditIcon from "@material-ui/icons/Edit";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import Feedback from "./Feedback";
-import Grid from '@material-ui/core/Grid';
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import MenuIcon from "@material-ui/icons/Menu";
 import OurTheme from "../style/Theme";
+import PersonIcon from "@material-ui/icons/Person";
 import Styles from "../style/NavbarStyle";
 import { ThemeProvider } from "@material-ui/styles";
-import { AppBar, Button, Link, Menu, MenuItem, Toolbar, Tooltip, Typography } from "@material-ui/core";
+import { AppBar, Button, Link, Menu, MenuItem, Toolbar, Typography } from "@material-ui/core";
 import React, { useContext, useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 
@@ -24,9 +35,16 @@ export default function Navbar () {
 	const [feedback, setFeedback] = useState(false);
 	const [classList, setClassList] = useState([]);
 	const [role, setRole] = useState("");
+	const [sideBar, setSideBar] = useState(false);
+	const [currCourse, setCurrCourse] = useState("");
+	const [classesExist, setExist] = useState(false);
 
 	useEffect(() =>  {
-		// Get course list and current role for course (url param)
+		if (parseInt(course_id) !== 0) {
+			setExist(true);
+		} 
+		setClassList([])
+		// Get course list and current role for course from the url
 		const getCourses = "/api/enrolled_course/get_courses_user_in";
 		api.get(getCourses, {
 			params: {
@@ -41,8 +59,9 @@ export default function Navbar () {
 					}
 				}).then (function(response) {
 					setClassList(classList => [...classList, {"id": response.data.result.id, "name": response.data.result.short_name, "role": item.enrolled_user_info.role}])
-					if (response.data.result.id === course_id) {
+					if (response.data.result.id === parseInt(course_id)) {
 						setRole(item.enrolled_user_info.role)
+						setCurrCourse(response.data.result.short_name)
 					}
 				})
 			})
@@ -52,6 +71,13 @@ export default function Navbar () {
 	const openMenu = (event) => {
 		setClassMenu(event.currentTarget);
 	};
+
+	const toggleSideBar = (open) => (event) => {
+		if (event.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) {
+			return;
+		}
+		setSideBar(open);
+	}
 
 	const changeClass = (courseId) => {
 		setClassMenu(null);
@@ -64,7 +90,7 @@ export default function Navbar () {
 	}
 
 	const goToDefaultQueue = () => {
-		const courseId = classList.length > 0 ? classList[0].id : 0;
+		const courseId = classesExist ? classList[0].id : 0;
 		history.push(`/queue/${courseId}`);
 	}
 
@@ -78,11 +104,11 @@ export default function Navbar () {
 							<Link underline="none" className={classes.link} onClick={goToDefaultQueue}>queues</Link>
 						</Typography>
 					</div>
-					<div className={classes.leftlinks}>
-						{classList.length > 0 ?
+					<div className={classes.leftnav}>
+						{classList.length > 1 ?
 						<React.Fragment>
 							<Button variant="contained" className={classes.courseList} onClick={openMenu}>
-								Courses
+								{currCourse}
 								<ArrowDropDownIcon fontSize="large"/>
 							</Button>
 							<ThemeProvider theme={inverseTheme}>
@@ -101,35 +127,86 @@ export default function Navbar () {
 									elevation={0}
 									getContentAnchorEl={null}
 									>
-									{classList.map((obj) => (
-										<MenuItem key={obj} onClick={() => changeClass(obj.id)}>{obj.name}</MenuItem>
-									))}
+									{classList.map(function(obj) {
+										if (obj.id != parseInt(course_id)) {
+											return <MenuItem key={obj} onClick={() => changeClass(obj.id)}>{obj.name}</MenuItem>
+										} else {
+											return null
+										}
+									}
+									)}
 								</Menu>
 							</ThemeProvider>
 						</React.Fragment> :
-						<React.Fragment>
-							<Tooltip title="You must enroll in a course to be able to see its queue" placement="bottom">
-								<Button className={classes.navButtons}>Classes</Button>
-							</Tooltip>
-						</React.Fragment>}		
+							classesExist ? 
+								<React.Fragment>
+									<Button variant="contained" className={classes.emptyList} disabled>
+										{currCourse}
+									</Button>
+								</React.Fragment> 
+							:
+						<></>}		
 					</div>
-					<div className={classes.rightlinks}>
-						{role === "admin" ? (
-							<React.Fragment>
-								<Button className={classes.navButtons} onClick={() => history.push("/manageCourse")}>Manage Course</Button>
-								<Button className={classes.navButtons} onClick={() => history.push("/createCourse")}>Create Course</Button>
-							</React.Fragment> ): null
-						}
-						{role === "student" ? 
-							<Button className={classes.navButtons} onClick={() => history.push(`/checkoffHistory/${course_id}`)}>Checkoffs</Button> : 
-							<Button className={classes.navButtons} onClick={() => history.push(`/checkoff/${course_id}`)}>Checkoffs</Button>}
-						<Button className={classes.navButtons} onClick={() => setFeedback(true)}>Submit Feedback</Button>
-						<Button className={classes.navButtons} onClick={() => history.push("/profile")}>Profile</Button>
-					</div>
-					<div className={classes.exitCell}>
-						<Button className={classes.navButtons} onClick={handleLogOut}>
-							<ExitToAppIcon fontSize="large"/>
+					<div className={classes.rightnav}>
+						<Button className={classes.navButtons} onClick={toggleSideBar(true)}>
+							<MenuIcon fontSize="large"/>
 						</Button>
+						<Drawer anchor="right" open={sideBar} onClose={toggleSideBar(false)}>
+							<div className={classes.list}>
+								<List>
+									{role === "ADMIN" ?
+										<React.Fragment>
+											<ListItem button onClick={() => history.push("/manageCourse")}>
+												<ListItemIcon>
+													<EditIcon fontSize="large"/>
+												</ListItemIcon>
+												<ListItemText className={classes.listItems}>Manage Course</ListItemText>
+											</ListItem>
+											<ListItem button onClick={() => history.push("/createCourse")}>
+												<ListItemIcon>
+													<AddIcon fontSize="large"/>
+												</ListItemIcon>
+												<ListItemText className={classes.listItems}>Create Course</ListItemText>
+											</ListItem>
+										</React.Fragment> : null
+									}
+									{classesExist ? 
+										role === "STUDENT" ? 
+											<ListItem button onClick={() => history.push(`/checkoffHistory/${course_id}`)}>
+												<ListItemIcon>
+													<DoneIcon fontSize="large"/>
+												</ListItemIcon>
+												<ListItemText className={classes.listItems}>Checkoffs</ListItemText>
+											</ListItem> : 
+											<ListItem button onClick={() => history.push(`/checkoff/${course_id}`)}>
+												<ListItemIcon>
+													<DoneIcon fontSize="large"/>
+												</ListItemIcon>
+												<ListItemText className={classes.listItems}>Checkoffs</ListItemText>
+											</ListItem> : null
+									}
+									<ListItem button onClick={() => setFeedback(true)}>
+										<ListItemIcon>
+											<CommentIcon fontSize="large"/>
+										</ListItemIcon>
+										<ListItemText className={classes.listItems}>Submit Feedback</ListItemText>
+									</ListItem>
+									<ListItem button onClick={() => history.push("/profile")}>
+										<ListItemIcon>
+											<PersonIcon fontSize="large"/>
+										</ListItemIcon>
+										<ListItemText className={classes.listItems}>Profile</ListItemText>
+									</ListItem>
+									<Divider/>
+									<ListItem button onClick={handleLogOut}>
+										<ListItemIcon>
+											<ExitToAppIcon fontSize="large"/>
+										</ListItemIcon>
+										<ListItemText className={classes.listItems}>Logout</ListItemText>
+									</ListItem>
+								</List>
+							</div>
+						</Drawer>
 					</div>
 				</Toolbar>
 			</AppBar>
