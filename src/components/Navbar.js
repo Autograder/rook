@@ -1,4 +1,5 @@
 import api from "../conf";
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import { Context } from "../context/Context";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import Feedback from "./Feedback";
@@ -80,7 +81,10 @@ export default function Navbar () {
 					<div className={classes.leftlinks}>
 						{classList.length > 0 ?
 						<React.Fragment>
-							<Button className={classes.navButtons} onClick={openMenu}>Classes</Button>
+							<Button variant="contained" className={classes.courseList} onClick={openMenu}>
+								Courses
+								<ArrowDropDownIcon fontSize="large"/>
+							</Button>
 							<ThemeProvider theme={inverseTheme}>
 								<Menu
 									anchorEl={classMenu}

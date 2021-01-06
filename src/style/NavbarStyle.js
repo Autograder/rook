@@ -18,6 +18,10 @@ const useStyles = makeStyles((theme) => ({
 		paddingRight: "15px",
 		width: "100%"
 	},
+	courseList: {
+		marginLeft: "20px",
+		padding: "0px",
+	},
 	pages: {
 		fontSize: 18,
 		marginRight: theme.spacing(2),
@@ -74,7 +78,7 @@ const useStyles = makeStyles((theme) => ({
 		paddingLeft: 30,
 	},
 	navButtons : {
-		marginRight: 30
+		padding: 10,
 	}
 }));  
 
