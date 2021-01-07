@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import { IconButton, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Button, Checkbox, FormControl, InputLabel, Select, FormControlLabel, AppBar, Tabs, Tab, Typography, Box } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/styles';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
@@ -131,18 +131,18 @@ export default function Queue() {
         let apiBaseUrl : string = "/api/ticket/add_ticket";
         let payload : object = {
             "student_id": userId,
-            "queue_id": queueId,
+            "queue_id": 1,
             "title": "uhh",
-            "description": description,
-            "room": room,
-            "workstation": seat,
-            "is_private": anonymous,
+            "description": "What is the runtime of BST insert?",
+            "room": "B250",
+            "workstation": 28,
+            "is_private": 0,
             "help_type": 0,
-            "tag_list": tagList
+            "tag_list": "0; 2; 4"
         };
         console.log(payload);
 
-        await api.post(apiBaseUrl, payload)
+        await api.post(apiBaseUrl, payload, {withCredentials:true})
         .then ((response) => {
             console.log(response.data);
             
@@ -191,6 +191,39 @@ export default function Queue() {
 
 
     const [questionTab, setTab] = React.useState(true);
+
+    console.log(ticketList);
+
+    const loadTickets = async () => {
+        let apiBaseUrl : string = `api/ticket/find_all_tickets?queue_id=${queueId}`;
+
+        await api.get(apiBaseUrl, {withCredentials:true})
+        .then ((response) => {
+            let data = response.data.result;
+            console.log("data: ", data);
+            let newList: any = [];
+            for (var x of data) {
+                var ticketInfo = x.ticket_info;
+                console.log("ticketInfo: ", ticketInfo);
+                newList.push([<Ticket 
+                    name={ticketInfo.ec_student_id} 
+                    room={ticketInfo.room}
+                    seat={ticketInfo.workstation}
+                    description={ticketInfo.description}
+                    time={ticketInfo.created_at}
+                    date={ticketInfo.created_at}
+                    tagArray={dummy}/>]);
+            }
+            console.log("newList: ", newList);
+            setTicketList(newList);
+            
+          })
+          // Any number of errors occurred
+          .catch((error) => {
+            console.log(error.response);
+         });
+    };
+
     const clickQuestion = () => {
         if (!questionTab) {
             setTab(true)
@@ -201,6 +234,10 @@ export default function Queue() {
             setTab(false)
         }
     }
+
+    useEffect(() => {
+        loadTickets();
+    },[]);
 
     return (
         <div>
