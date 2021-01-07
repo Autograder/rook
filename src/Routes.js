@@ -10,6 +10,7 @@ import Profile from './routes/Profile';
 import CourseSettings from './routes/CourseSettings';
 import TutorCheckoff from './routes/TutorCheckoff';
 import StudentCheckoff from './routes/StudentCheckoff';
+import Forbidden from './routes/Forbidden';
 
 const Routes = () => {
   return (
@@ -21,6 +22,7 @@ const Routes = () => {
       <Route exact path="/instructions" component={Instructions} />
       <Route exact path="/forgotpassword" component={ForgotPassword} />
       <Route exact path='/secret/halloffame' component={HallOfFame}/>
+      <Route exact path="/forbidden" component={Forbidden}/>
       <Route path="/queue/:course_id" component={QueuePage} />
       <Route path="/profile" component={Profile} /> 
       <Route path='/createcourse' component={CreateCourse}/>
