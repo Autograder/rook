@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Queue from '../components/Queue';
 import MessageWidget from '../components/MessageWidget';
@@ -11,15 +11,18 @@ import OurTheme from '../style/Theme';
 import Styles from '../style/QueuePageStyle';
 import { Context } from '../context/Context';
 import api from '../conf';
+import { useHistory } from "react-router-dom";
 
 export default function QueuePage() {
     const inverseTheme = OurTheme.inverseTheme;
     const classes = Styles.useStyles();
     const [open, setOpen] = useState(false);
-    const {state: {user} } = useContext(Context);
+    const {state: {user, courseId} } = useContext(Context);
     const [onDuty, setOnDuty] = useState(false);
     const [tutorsOnDuty, setTutorsOnDuty] = useState(0);
     const [isLoaded, setIsLoaded] = useState(false);
+    const history = useHistory();
+    let queueId = 1;
 
     const fakeList = 'Shaeli Yao, Simonne Contreras, Sravya Balasa, Tiffany Meng';
 
@@ -40,7 +43,7 @@ export default function QueuePage() {
 
     const loginGrader = async () => {
         const q_id = parseInt(queueId);
-        const u_id = parseInt(userId);
+        const u_id = parseInt(user.id);
         let apiBaseUrl = "/api/queue/login_grader";
         let payload = {
             "queue_id" : q_id,
@@ -61,7 +64,7 @@ export default function QueuePage() {
 
     const logoutGrader = async () => {
         const q_id = parseInt(queueId);
-        const u_id = parseInt(userId);
+        const u_id = parseInt(user.id);
         let apiBaseUrl = "/api/queue/logout_grader";
         let payload = {
             "queue_id" : q_id,
@@ -129,7 +132,7 @@ export default function QueuePage() {
     }; */
 
     const checkSelf = async () => {
-        let apiBaseUrl = `api/enrolled_course/get_user_in_course?user_id=${userId}&course_id=${courseId}`;
+        let apiBaseUrl = `api/enrolled_course/get_user_in_course?user_id=${user.id}&course_id=${courseId}`;
 
         await api.get(apiBaseUrl)
         .then ((response) => {
