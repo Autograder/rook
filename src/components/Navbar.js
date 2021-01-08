@@ -16,13 +16,20 @@ import ListItemText from "@material-ui/core/ListItemText";
 import MenuIcon from "@material-ui/icons/Menu";
 import OurTheme from "../style/Theme";
 import PersonIcon from "@material-ui/icons/Person";
+import PropTypes from "prop-types";
 import Styles from "../style/NavbarStyle";
 import { ThemeProvider } from "@material-ui/styles";
 import { AppBar, Button, Link, Menu, MenuItem, Toolbar, Typography } from "@material-ui/core";
 import React, { useContext, useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 
-export default function Navbar () {
+export default function Navbar(props) {
+	Navbar.propTypes = {
+		createCourse: PropTypes.bool,
+	}
+
+	const {createCourse} = props;
+
 	// Setup
 	const { theme, inverseTheme } = OurTheme;
 	const classes = Styles.useStyles();
@@ -39,7 +46,10 @@ export default function Navbar () {
 	const [currCourse, setCurrCourse] = useState("");
 	const [classesExist, setExist] = useState(false);
 
+	const [admin, setAdmin] = useState(false);
+
 	useEffect(() =>  {
+		setExist(false);
 		if (parseInt(course_id) !== 0) {
 			setExist(true);
 		} 
@@ -63,6 +73,9 @@ export default function Navbar () {
 						setRole(item.enrolled_user_info.role)
 						setCurrCourse(response.data.result.short_name)
 					}
+					if (item.enrolled_user_info.role == "ADMIN") {
+						setAdmin(true);
+					}
 				})
 			})
 		})
@@ -75,7 +88,7 @@ export default function Navbar () {
 	const toggleSideBar = (open) => (event) => {
 		if (event.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) {
 			return;
-		}
+		}  
 		setSideBar(open);
 	}
 
@@ -90,8 +103,29 @@ export default function Navbar () {
 	}
 
 	const goToDefaultQueue = () => {
-		const courseId = classesExist ? classList[0].id : 0;
-		history.push(`/queue/${courseId}`);
+		function compare(a, b) {
+			if (parseInt(a.id) > parseInt(b.id)) {
+				return 1;
+			} else {
+				return -1;
+			}
+		}
+		const sorted = classList.sort(compare);
+		const courseId = classesExist ? sorted[0].id : 0;
+		if (parseInt(courseId) === parseInt(course_id)) {
+			history.go(0);
+		} else {
+			history.push(`/queue/${courseId}`);
+		} 
+	}
+
+	const handleCreateCourse = () => {
+		if (createCourse) {
+			history.go(0);
+			//toggleSideBar(false);
+		} else {
+			history.push("/createCourse");
+		}
 	}
 
 	return (
@@ -105,47 +139,44 @@ export default function Navbar () {
 						</Typography>
 					</div>
 					<div className={classes.leftnav}>
-						{classList.length > 1 ?
-						<React.Fragment>
-							<Button variant="contained" className={classes.courseList} onClick={openMenu}>
-								{currCourse}
-								<ArrowDropDownIcon fontSize="large"/>
-							</Button>
-							<ThemeProvider theme={inverseTheme}>
-								<Menu
-									anchorEl={classMenu}
-									open={Boolean(classMenu)}
-									onClose={() => setClassMenu(null)}
-									anchorOrigin={{
-										vertical: "bottom",
-										horizontal: "center",
-									}}
-									transformOrigin={{
-										vertical: "top",
-										horizontal: "center",
-									}}
-									elevation={0}
-									getContentAnchorEl={null}
-									>
-									{classList.map(function(obj) {
-										if (obj.id != parseInt(course_id)) {
-											return <MenuItem key={obj} onClick={() => changeClass(obj.id)}>{obj.name}</MenuItem>
-										} else {
-											return null
+						{classList.length > 1  && !createCourse ?
+							<React.Fragment>
+								<Button variant="contained" className={classes.courseList} onClick={openMenu}>
+									{currCourse}
+									<ArrowDropDownIcon fontSize="large"/>
+								</Button>
+								<ThemeProvider theme={inverseTheme}>
+									<Menu
+										anchorEl={classMenu}
+										open={Boolean(classMenu)}
+										onClose={() => setClassMenu(null)}
+										anchorOrigin={{
+											vertical: "bottom",
+											horizontal: "center",
+										}}
+										transformOrigin={{
+											vertical: "top",
+											horizontal: "center",
+										}}
+										elevation={0}
+										getContentAnchorEl={null}
+										>
+										{classList.map(function(obj) {
+											if (obj.id != parseInt(course_id)) {
+												return <MenuItem key={obj} onClick={() => changeClass(obj.id)}>{obj.name}</MenuItem>
+											} else {
+												return null
+											}
 										}
-									}
-									)}
-								</Menu>
-							</ThemeProvider>
-						</React.Fragment> :
-							classesExist ? 
-								<React.Fragment>
-									<Button variant="contained" className={classes.emptyList} disabled>
-										{currCourse}
-									</Button>
-								</React.Fragment> 
-							:
-						<></>}		
+										)}
+									</Menu>
+								</ThemeProvider>
+							</React.Fragment> :
+							classesExist && !createCourse ? 
+								<Button variant="contained" className={classes.emptyList} disabled>
+									{currCourse}
+								</Button>
+							: null }		
 					</div>
 					<div className={classes.rightnav}>
 						<Button className={classes.navButtons} onClick={toggleSideBar(true)}>
@@ -154,23 +185,23 @@ export default function Navbar () {
 						<Drawer anchor="right" open={sideBar} onClose={toggleSideBar(false)}>
 							<div className={classes.list}>
 								<List>
-									{role === "ADMIN" ?
-										<React.Fragment>
-											<ListItem button onClick={() => history.push("/manageCourse")}>
-												<ListItemIcon>
-													<EditIcon fontSize="large"/>
-												</ListItemIcon>
-												<ListItemText className={classes.listItems}>Manage Course</ListItemText>
-											</ListItem>
-											<ListItem button onClick={() => history.push("/createCourse")}>
-												<ListItemIcon>
-													<AddIcon fontSize="large"/>
-												</ListItemIcon>
-												<ListItemText className={classes.listItems}>Create Course</ListItemText>
-											</ListItem>
-										</React.Fragment> : null
+									{ admin ? 
+										<ListItem button onClick={handleCreateCourse}>
+											<ListItemIcon>
+												<AddIcon fontSize="large"/>
+											</ListItemIcon>
+											<ListItemText className={classes.listItems}>Create Course</ListItemText>
+										</ListItem> : null
 									}
-									{classesExist ? 
+									{ role === "ADMIN" && !createCourse ? 
+										<ListItem button onClick={() => history.push("/manageCourse")}>
+											<ListItemIcon>
+												<EditIcon fontSize="large"/>
+											</ListItemIcon>
+											<ListItemText className={classes.listItems}>Manage Course</ListItemText>
+										</ListItem> : null
+									}
+									{classesExist && !createCourse ? 
 										role === "STUDENT" ? 
 											<ListItem button onClick={() => history.push(`/checkoffHistory/${course_id}`)}>
 												<ListItemIcon>

@@ -48,7 +48,7 @@ export default function CreateCourse() {
                         <Alert onClose={() => handleClose()} severity="success">Course successfully created.</Alert>
                     </Collapse>
                 </div>
-                <Navbar/>
+                <Navbar createCourse={true}/>
                 <div className={classes.wrappertitle}>
                     <Typography className={classes.title}>Create Course</Typography>
                 </div>
