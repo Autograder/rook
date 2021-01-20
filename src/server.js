@@ -5,6 +5,9 @@ const server = {
 		const params = {id: id}
 		return api.get("/api/users/get", {params: params})
 	},
+	getUserInCourse(user_id, course_id) {
+		return api.get(`api/enrolled_course/get_user_in_course?user_id=${user_id}&course_id=${course_id}`)
+	},
 	checkPassword(email, password) {
 		const payload = {
 			"email": email,
@@ -125,6 +128,25 @@ const server = {
 			"is_anonymous": is_anonymous
 		}
 		return api.post("api/feedback_api/add_feedback", payload)
+	},
+	loginGrader(queue_id,user_id) {
+        let payload = {
+            "queue_id" : queue_id,
+            "user_id" : user_id,
+            "action_type" : "MANUAL"
+		};
+		return api.post("/api/queue/login_grader", payload)
+	},
+	logoutGrader(queue_id,user_id) {
+        let payload = {
+            "queue_id" : queue_id,
+            "user_id" : user_id,
+            "action_type" : "MANUAL"
+		};
+		return api.post("/api/queue/logout_grader",payload)
+	},
+	getActiveTutors(queue_id) {
+		return api.get(`/api/enrolled_course/find_active_tutor_for?queue_id=${queue_id}`)
 	}
 	// TODO: comments on the ticket
 }

@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Queue from '../components/Queue';
+import NoEnrolledCourses from '../components/NoEnrolledCourses';
 import MessageWidget from '../components/MessageWidget';
 import TicketStatusWidget from '../components/TicketStatusWidget';
 import { Grid, Dialog, DialogActions, Button, TextField, DialogContent, DialogTitle, Switch, Typography } from '@material-ui/core';
@@ -12,6 +13,7 @@ import Styles from '../style/QueuePageStyle';
 import { Context } from '../context/Context';
 import api from '../conf';
 import { useHistory } from "react-router-dom";
+import server from "../server";
 
 export default function QueuePage() {
     const inverseTheme = OurTheme.inverseTheme;
@@ -23,6 +25,7 @@ export default function QueuePage() {
     const [isLoaded, setIsLoaded] = useState(false);
     const history = useHistory();
     let queueId = 1;
+    let numClasses = 0;
 
     const fakeList = 'Shaeli Yao, Simonne Contreras, Sravya Balasa, Tiffany Meng';
 
@@ -44,43 +47,31 @@ export default function QueuePage() {
     const loginGrader = async () => {
         const q_id = parseInt(queueId);
         const u_id = parseInt(user.id);
-        let apiBaseUrl = "/api/queue/login_grader";
-        let payload = {
-            "queue_id" : q_id,
-            "user_id" : u_id,
-            "action_type" : "MANUAL"
-        };
-    
-        await api.post(apiBaseUrl, payload)
-        .then ((response) => {
-            console.log("success");
-            
-          })
-          // Any number of errors occurred
-          .catch((error) => {
-            console.log(error.response);
-         });
+
+        await server.loginGrader(q_id,u_id)
+            .then ((response) => {
+                console.log("success");
+                
+            })
+            // Any number of errors occurred
+            .catch((error) => {
+                console.log(error.response);
+            });
     }
 
     const logoutGrader = async () => {
         const q_id = parseInt(queueId);
         const u_id = parseInt(user.id);
-        let apiBaseUrl = "/api/queue/logout_grader";
-        let payload = {
-            "queue_id" : q_id,
-            "user_id" : u_id,
-            "action_type" : "MANUAL"
-        };
     
-        await api.post(apiBaseUrl, payload)
-        .then ((response) => {
-            console.log("success");
-            
-          })
-          // Any number of errors occurred
-          .catch((error) => {
-            console.log(error.response);
-         });
+        await server.logoutGrader(q_id,u_id)
+            .then ((response) => {
+                console.log("success");
+                
+            })
+            // Any number of errors occurred
+            .catch((error) => {
+                console.log(error.response);
+            });
     }
 
     const handleOnDutyToggle = () => {
@@ -98,18 +89,18 @@ export default function QueuePage() {
     const getActiveTutors = async () => {
         let apiBaseUrl = `/api/enrolled_course/find_active_tutor_for?queue_id=${queueId}`;
     
-        await api.get(apiBaseUrl)
-        .then ((response) => {
-            // Direct to queue page
-            setTutorsOnDuty(response.data.result.length);
-            
-          })
-          // Any number of errors occurred
-          .catch((error) => {
-            console.log(error.response);
-         });
+        await server.getActiveTutors(queueId)
+            .then ((response) => {
+                // Direct to queue page
+                setTutorsOnDuty(response.data.result.length);
+                
+            })
+            // Any number of errors occurred
+            .catch((error) => {
+                console.log(error.response);
+            });
 
-         setIsLoaded(true);
+            setIsLoaded(true);
     }
 
     /* const nameString = () => {
@@ -132,23 +123,21 @@ export default function QueuePage() {
     }; */
 
     const checkSelf = async () => {
-        let apiBaseUrl = `api/enrolled_course/get_user_in_course?user_id=${user.id}&course_id=${courseId}`;
-
-        await api.get(apiBaseUrl)
-        .then ((response) => {
-            // Direct to queue page
-            var status = response.data.result.enrolled_course_info.status;
-            if (status === "ACTIVE"){
-                setOnDuty(true);
-            } else {
-                setOnDuty(false);
-            }
-            
-          })
-          // Any number of errors occurred
-          .catch((error) => {
-            console.log(error.response);
-         });
+        await server.getUserInCourse(user.id,courseId)
+            .then ((response) => {
+                // Direct to queue page
+                var status = response.data.result.enrolled_course_info.status;
+                if (status === "ACTIVE"){
+                    setOnDuty(true);
+                } else {
+                    setOnDuty(false);
+                }
+                
+            })
+            // Any number of errors occurred
+            .catch((error) => {
+                console.log(error.response);
+            });
     }
 
     const TutorSwitch = withStyles({
@@ -202,6 +191,9 @@ export default function QueuePage() {
                 </Dialog>
                 <Navbar/>
                 <br/>
+                {numClasses===0 ? 
+                <NoEnrolledCourses/> :
+                (
                 <Grid container>
                     <Grid container>
                         <Grid item xs={3}>
@@ -212,7 +204,7 @@ export default function QueuePage() {
                                 </div>
                             </div>
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item xs={6}> 
                             <div className={classes.container}>
                                 <div className={classes.overflow}>
                                     <Queue/> 
@@ -244,7 +236,8 @@ export default function QueuePage() {
                             </div>
                         </Grid>
                     </Grid>
-                </Grid>
+                </Grid>)
+                }
             </ThemeProvider>
         </div>
     );
