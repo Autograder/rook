@@ -9,6 +9,8 @@ import Drawer from "@material-ui/core/Drawer";
 import EditIcon from "@material-ui/icons/Edit";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import Feedback from "./Feedback";
+import FormControl from '@material-ui/core/FormControl';
+import InputBase from '@material-ui/core/InputBase';
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -17,18 +19,20 @@ import MenuIcon from "@material-ui/icons/Menu";
 import OurTheme from "../style/Theme";
 import PersonIcon from "@material-ui/icons/Person";
 import PropTypes from "prop-types";
+import Select from '@material-ui/core/Select';
 import Styles from "../style/NavbarStyle";
 import { ThemeProvider } from "@material-ui/styles";
 import { AppBar, Button, Link, Menu, MenuItem, Toolbar, Typography } from "@material-ui/core";
-import React, { useContext, useEffect, useState } from "react";
+import { makeStyles, withStyles } from '@material-ui/core/styles';
+import React, { useContext, useEffect, useLayoutEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 
 export default function Navbar(props) {
+	// Define prop types
 	Navbar.propTypes = {
 		createCourse: PropTypes.bool,
+		dropdown: PropTypes.bool,
 	}
-
-	const {createCourse} = props;
 
 	// Setup
 	const { theme, inverseTheme } = OurTheme;
@@ -36,54 +40,79 @@ export default function Navbar(props) {
 	const history = useHistory();
 	const { course_id } = useParams();
 	const { state:{user}, signout } = useContext(Context);
+	const {createCourse, dropdown} = props;
 	
 	// States
-	const [classMenu, setClassMenu] = useState(null);
 	const [feedback, setFeedback] = useState(false);
 	const [classList, setClassList] = useState([]);
-	const [role, setRole] = useState("");
 	const [sideBar, setSideBar] = useState(false);
-	const [currCourse, setCurrCourse] = useState("");
-	const [classesExist, setExist] = useState(false);
-
+	const [exist, setExist] = useState(false);
 	const [admin, setAdmin] = useState(false);
+	const [selectedCourse, setSelectedCourse] = useState('');
+	const [role, setRole] = useState('');
+
+	const menuProps = {
+		classes: {
+			paper: {
+				borderRadius: 12,
+    			marginTop: 8,
+			},
+			list: {
+				paddingTop:0,
+				paddingBottom:0,
+				background:'white',
+				"& li":{
+					fontWeight:200,
+					paddingTop:12,
+					paddingBottom:12,
+				},
+			}
+		},
+		anchorOrigin: {
+			vertical: "bottom",
+			horizontal: "left"
+		},
+		transformOrigin: {
+			vertical: "top",
+			horizontal: "left"
+		},
+		getContentAnchorEl: null
+	};
 
 	useEffect(() =>  {
-		setExist(false);
-		if (parseInt(course_id) !== 0) {
-			setExist(true);
-		} 
-		setClassList([])
-		// Get course list and current role for course from the url
+		getListOfClasses();
+	}, []);
+
+	async function getListOfClasses() {
+		let listOfClasses = [];
 		const getCourses = "/api/enrolled_course/get_courses_user_in";
-		api.get(getCourses, {
+		await api.get(getCourses, {
 			params: {
 				user_id: user.id
 			}
-		}).then (function(response) {
-			const getCourse = "/api/course/find_course_by_id";
-			(response.data.result.courses).forEach(function(item) {
-				api.get(getCourse, {
-					params: {
-						id: item.enrolled_user_info.course_id,
-					}
-				}).then (function(response) {
-					setClassList(classList => [...classList, {"id": response.data.result.id, "name": response.data.result.short_name, "role": item.enrolled_user_info.role}])
-					if (response.data.result.id === parseInt(course_id)) {
-						setRole(item.enrolled_user_info.role)
-						setCurrCourse(response.data.result.short_name)
-					}
-					if (item.enrolled_user_info.role == "ADMIN") {
-						setAdmin(true);
-					}
-				})
-			})
+		}).then (async function(response) {
+			for (const item of response.data.result.courses) {
+				listOfClasses.push({"id": item.enrolled_user_info.course_id, "name": item.enrolled_user_info.course_short_name, "role": item.enrolled_user_info.role});
+				if (item.enrolled_user_info.role === "ADMIN") {
+					setAdmin(true);
+				}
+			}
+			finalizeCourseList(listOfClasses);
 		})
-	}, [course_id, user])
+	}		
 
-	const openMenu = (event) => {
-		setClassMenu(event.currentTarget);
-	};
+	function finalizeCourseList(listOfClasses) {
+		listOfClasses.sort((a, b) => a.id > b.id ? 1 : -1);
+		const curr_course = listOfClasses.find(item => item.id === parseInt(course_id))
+		if (curr_course != undefined) {
+			setSelectedCourse(curr_course)
+			setRole(curr_course.role)
+			setClassList(listOfClasses)
+			setExist(true)
+		} else {
+			setExist(false)
+		}
+	}
 
 	const toggleSideBar = (open) => (event) => {
 		if (event.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) {
@@ -92,9 +121,9 @@ export default function Navbar(props) {
 		setSideBar(open);
 	}
 
-	const changeClass = (courseId) => {
-		setClassMenu(null);
-		history.push(`/queue/${courseId}`);
+	const changeClass = (event) => {
+		setSelectedCourse(event.target.value);
+		history.push(`/queue/${event.target.value.id}`);
 	}
 
 	const handleLogOut = () => {
@@ -103,29 +132,38 @@ export default function Navbar(props) {
 	}
 
 	const goToDefaultQueue = () => {
-		function compare(a, b) {
-			if (parseInt(a.id) > parseInt(b.id)) {
-				return 1;
-			} else {
-				return -1;
-			}
-		}
-		const sorted = classList.sort(compare);
-		const courseId = classesExist ? sorted[0].id : 0;
-		if (parseInt(courseId) === parseInt(course_id)) {
+		const target_course = exist ? classList[0]: 0;
+		if (parseInt(target_course.id) === parseInt(course_id)) {
 			history.go(0);
 		} else {
-			history.push(`/queue/${courseId}`);
+			setSelectedCourse(target_course)
+			history.push(`/queue/${target_course.id}`);
 		} 
 	}
 
 	const handleCreateCourse = () => {
-		if (createCourse) {
-			history.go(0);
-			//toggleSideBar(false);
-		} else {
-			history.push("/createCourse");
-		}
+		history.push("/createCourse");
+	}
+
+	const DropDownMenu = () => {
+		return (
+			exist ? 
+				<ThemeProvider theme={inverseTheme}>
+					<FormControl>
+						<Select
+							disableUnderline
+							value={selectedCourse}
+							onChange={changeClass}
+							MenuProps={menuProps}
+							classes={{root: classes.select}}
+							>
+							{classList.map(function(item) {
+								return <MenuItem value={item}>{item.name}</MenuItem>
+							})}
+						</Select>
+					</FormControl>
+				</ThemeProvider> : null
+		);
 	}
 
 	return (
@@ -139,44 +177,7 @@ export default function Navbar(props) {
 						</Typography>
 					</div>
 					<div className={classes.leftnav}>
-						{classList.length > 1  && !createCourse ?
-							<React.Fragment>
-								<Button variant="contained" className={classes.courseList} onClick={openMenu}>
-									{currCourse}
-									<ArrowDropDownIcon fontSize="large"/>
-								</Button>
-								<ThemeProvider theme={inverseTheme}>
-									<Menu
-										anchorEl={classMenu}
-										open={Boolean(classMenu)}
-										onClose={() => setClassMenu(null)}
-										anchorOrigin={{
-											vertical: "bottom",
-											horizontal: "center",
-										}}
-										transformOrigin={{
-											vertical: "top",
-											horizontal: "center",
-										}}
-										elevation={0}
-										getContentAnchorEl={null}
-										>
-										{classList.map(function(obj) {
-											if (obj.id != parseInt(course_id)) {
-												return <MenuItem key={obj} onClick={() => changeClass(obj.id)}>{obj.name}</MenuItem>
-											} else {
-												return null
-											}
-										}
-										)}
-									</Menu>
-								</ThemeProvider>
-							</React.Fragment> :
-							classesExist && !createCourse ? 
-								<Button variant="contained" className={classes.emptyList} disabled>
-									{currCourse}
-								</Button>
-							: null }		
+						<DropDownMenu/>
 					</div>
 					<div className={classes.rightnav}>
 						<Button className={classes.navButtons} onClick={toggleSideBar(true)}>
@@ -201,7 +202,7 @@ export default function Navbar(props) {
 											<ListItemText className={classes.listItems}>Manage Course</ListItemText>
 										</ListItem> : null
 									}
-									{classesExist && !createCourse ? 
+									{exist && !createCourse ? 
 										role === "STUDENT" ? 
 											<ListItem button onClick={() => history.push(`/checkoffHistory/${course_id}`)}>
 												<ListItemIcon>

@@ -83,6 +83,22 @@ const useStyles = makeStyles((theme) => ({
 	},
 	navButtons : {
 		padding: 10,
+	},
+	select :{
+		minWidth: 75,
+		background: 'white',
+		fontWeight:200,
+		borderStyle:'none',
+		borderWidth: 2,
+		borderRadius: 12,
+		paddingLeft: 24,
+		paddingTop: 14,
+		paddingBottom: 15,
+		boxShadow: '0px 5px 8px -3px rgba(0,0,0,0.14)',
+		"&:focus":{
+			borderRadius: 12,
+			background: 'white',
+		},
 	}
 }));  
 
