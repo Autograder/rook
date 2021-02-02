@@ -1,6 +1,5 @@
 import AddIcon from "@material-ui/icons/Add";
 import api from "../conf";
-import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import CommentIcon from "@material-ui/icons/Comment";
 import { Context } from "../context/Context";
 import Divider from "@material-ui/core/Divider";
@@ -10,7 +9,6 @@ import EditIcon from "@material-ui/icons/Edit";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import Feedback from "./Feedback";
 import FormControl from '@material-ui/core/FormControl';
-import InputBase from '@material-ui/core/InputBase';
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -22,9 +20,8 @@ import PropTypes from "prop-types";
 import Select from '@material-ui/core/Select';
 import Styles from "../style/NavbarStyle";
 import { ThemeProvider } from "@material-ui/styles";
-import { AppBar, Button, Link, Menu, MenuItem, Toolbar, Typography } from "@material-ui/core";
-import { makeStyles, withStyles } from '@material-ui/core/styles';
-import React, { useContext, useEffect, useLayoutEffect, useState } from "react";
+import { AppBar, Button, Link, MenuItem, Toolbar, Typography } from "@material-ui/core";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 
 export default function Navbar(props) {
@@ -52,22 +49,6 @@ export default function Navbar(props) {
 	const [role, setRole] = useState('');
 
 	const menuProps = {
-		classes: {
-			paper: {
-				borderRadius: 12,
-    			marginTop: 8,
-			},
-			list: {
-				paddingTop:0,
-				paddingBottom:0,
-				background:'white',
-				"& li":{
-					fontWeight:200,
-					paddingTop:12,
-					paddingBottom:12,
-				},
-			}
-		},
 		anchorOrigin: {
 			vertical: "bottom",
 			horizontal: "left"
@@ -79,18 +60,27 @@ export default function Navbar(props) {
 		getContentAnchorEl: null
 	};
 
-	useEffect(() =>  {
-		getListOfClasses();
-	}, []);
+	const finalizeCourseList = useCallback((listOfClasses) => {
+		listOfClasses.sort((a, b) => a.id > b.id ? 1 : -1);
+		const curr_course = listOfClasses.find(item => item.id === parseInt(course_id))
+		if (curr_course !== undefined) {
+			setSelectedCourse(curr_course.name)
+			setRole(curr_course.role)
+			setClassList(listOfClasses)
+			setExist(true)
+		} else {
+			setExist(false)
+		}
+	}, [course_id])
 
-	async function getListOfClasses() {
+	useEffect(() =>  {
 		let listOfClasses = [];
 		const getCourses = "/api/enrolled_course/get_courses_user_in";
-		await api.get(getCourses, {
+		api.get(getCourses, {
 			params: {
 				user_id: user.id
 			}
-		}).then (async function(response) {
+		}).then (function(response) {
 			for (const item of response.data.result.courses) {
 				listOfClasses.push({"id": item.enrolled_user_info.course_id, "name": item.enrolled_user_info.course_short_name, "role": item.enrolled_user_info.role});
 				if (item.enrolled_user_info.role === "ADMIN") {
@@ -99,20 +89,9 @@ export default function Navbar(props) {
 			}
 			finalizeCourseList(listOfClasses);
 		})
-	}		
+	}, [user.id, finalizeCourseList]);	
 
-	function finalizeCourseList(listOfClasses) {
-		listOfClasses.sort((a, b) => a.id > b.id ? 1 : -1);
-		const curr_course = listOfClasses.find(item => item.id === parseInt(course_id))
-		if (curr_course != undefined) {
-			setSelectedCourse(curr_course)
-			setRole(curr_course.role)
-			setClassList(listOfClasses)
-			setExist(true)
-		} else {
-			setExist(false)
-		}
-	}
+
 
 	const toggleSideBar = (open) => (event) => {
 		if (event.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) {
@@ -123,7 +102,8 @@ export default function Navbar(props) {
 
 	const changeClass = (event) => {
 		setSelectedCourse(event.target.value);
-		history.push(`/queue/${event.target.value.id}`);
+		const curr_course = classList.find(item => item.name === event.target.value)
+		history.push(`/queue/${curr_course.id}`);
 	}
 
 	const handleLogOut = () => {
@@ -136,7 +116,8 @@ export default function Navbar(props) {
 		if (parseInt(target_course.id) === parseInt(course_id)) {
 			history.go(0);
 		} else {
-			setSelectedCourse(target_course)
+
+			setSelectedCourse(target_course.name)
 			history.push(`/queue/${target_course.id}`);
 		} 
 	}
@@ -158,7 +139,7 @@ export default function Navbar(props) {
 							classes={{root: classes.select}}
 							>
 							{classList.map(function(item) {
-								return <MenuItem value={item}>{item.name}</MenuItem>
+								return <MenuItem value={item.name} key={item.name}>{item.name}</MenuItem>
 							})}
 						</Select>
 					</FormControl>
