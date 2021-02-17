@@ -4,8 +4,15 @@ const useStyles = makeStyles((theme) => ({
 	text: {
       color: 'white',
       textAlign: 'center',
-      marginTop: '15%'
+      fontSize: 20
     },
+    bigText: {
+      color: 'white',
+      textAlign: 'center',
+      fontSize: 35,
+      marginTop: 130,
+      fontWeight: 'bold'
+    }
     
 }));  
 

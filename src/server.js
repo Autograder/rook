@@ -3,7 +3,7 @@ import api from "./conf"
 const server = {
 	getUser(id) {
 		const params = {id: id}
-		return api.get("/api/users/get", {params: params})
+		return api.get("/api/users/get_user", {params: params})
 	},
 	getUserInCourse(user_id, course_id) {
 		return api.get(`api/enrolled_course/get_user_in_course?user_id=${user_id}&course_id=${course_id}`)

@@ -11,8 +11,7 @@ import { ThemeProvider, withStyles } from '@material-ui/styles';
 import OurTheme from '../style/Theme';
 import Styles from '../style/QueuePageStyle';
 import { Context } from '../context/Context';
-import api from '../conf';
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import server from "../server";
 
 export default function QueuePage() {
@@ -24,10 +23,7 @@ export default function QueuePage() {
     const [tutorsOnDuty, setTutorsOnDuty] = useState(0);
     const [isLoaded, setIsLoaded] = useState(false);
     const history = useHistory();
-    let queueId = 1;
-    let numClasses = 0;
-
-    const fakeList = 'Shaeli Yao, Simonne Contreras, Sravya Balasa, Tiffany Meng';
+    const { course_id } = useParams();
 
     const handleClose = () => {
         setOpen(false);
@@ -45,30 +41,25 @@ export default function QueuePage() {
     }
 
     const loginGrader = async () => {
-        const q_id = parseInt(queueId);
+        const q_id = parseInt(course_id);
         const u_id = parseInt(user.id);
 
         await server.loginGrader(q_id,u_id)
             .then ((response) => {
-                console.log("success");
-                
             })
-            // Any number of errors occurred
             .catch((error) => {
                 console.log(error.response);
             });
     }
 
     const logoutGrader = async () => {
-        const q_id = parseInt(queueId);
+        const q_id = parseInt(course_id);
         const u_id = parseInt(user.id);
     
         await server.logoutGrader(q_id,u_id)
             .then ((response) => {
-                console.log("success");
-                
             })
-            // Any number of errors occurred
+
             .catch((error) => {
                 console.log(error.response);
             });
@@ -87,11 +78,9 @@ export default function QueuePage() {
     }
 
     const getActiveTutors = async () => {
-        let apiBaseUrl = `/api/enrolled_course/find_active_tutor_for?queue_id=${queueId}`;
     
-        await server.getActiveTutors(queueId)
+        await server.getActiveTutors(course_id)
             .then ((response) => {
-                // Direct to queue page
                 setTutorsOnDuty(response.data.result.length);
                 
             })
@@ -102,25 +91,6 @@ export default function QueuePage() {
 
             setIsLoaded(true);
     }
-
-    /* const nameString = () => {
-        let tutorStr = '';
-        var i;
-
-        if(tutorsOnDuty.length === 0) {
-            return "None";
-        }
-
-        for (i = 0; i < tutorsOnDuty.length; i++) {
-            tutorStr += tutorsOnDuty[i].fname + " " + tutorsOnDuty[i].lname;
-            if( i !== tutorsOnDuty.length - 1){
-                tutorStr += ", ";
-            }
-        }
-
-        return tutorStr;
-
-    }; */
 
     const checkSelf = async () => {
         await server.getUserInCourse(user.id,courseId)
@@ -162,7 +132,7 @@ export default function QueuePage() {
         getActiveTutors();
         checkSelf();
         
-    }, [queueId]);
+    }, [courseId]);
 
     if (!user) {
         history.push('/forbidden');
@@ -191,7 +161,7 @@ export default function QueuePage() {
                 </Dialog>
                 <Navbar/>
                 <br/>
-                {numClasses===0 ? 
+                {course_id === '0' ? 
                 <NoEnrolledCourses/> :
                 (
                 <Grid container>

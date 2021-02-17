@@ -8,6 +8,7 @@ import Styles from '../style/QueueStyle';
 import PropTypes from 'prop-types';
 import { Context } from '../context/Context';
 import api from '../conf';
+import server from '../server';
 
 function getDay() {
     var tempDate = new Date();
@@ -36,13 +37,14 @@ function getTime() {
 export default function Queue() {
     const classes = Styles.useStyles();
     const inverseTheme = OurTheme.inverseTheme;
-    const {state: {userId, queueId} } = useContext(Context);
+    const {state: {user, courseId} } = useContext(Context);
     const [open, setOpen] = useState(false);
 
     // Fields for Ticket
     const [description, setDescrip] = useState("");
     const [seat, setSeat] = useState("");
     const [room, setRoom] = useState("");
+    const [helpType, setHelpType] = useState(0); // Question: 0, Checkoff = 1
     
     // Hide from classmates
     const [anonymous, setAnon] = useState(false);
@@ -79,8 +81,6 @@ export default function Queue() {
     const toggleWO = () => {setWO(!wrongOutput);}
     const toggleIL = () => {setIL(!infiniteLoop);}
     const toggleCQ = () => {setCQ(!conceptualQuestion);}
-
-    console.log("user: ", userId)
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -122,37 +122,34 @@ export default function Queue() {
         if(ret !== ""){
             return ret.substr(0,ret.length - 1);
         }
-        return ret;
+        return "1";
     }
     
     const handleSubmit = async () => {
         let tagList = createTagList();
-
         let apiBaseUrl = "/api/ticket/add_ticket";
         let payload = {
-            "student_id": userId,
-            "queue_id": 1,
-            "title": "uhh",
-            "description": "What is the runtime of BST insert?",
-            "room": "B250",
-            "workstation": 28,
-            "is_private": 0,
-            "help_type": 0,
-            "tag_list": "0; 2; 4"
+            "student_id": user.id,
+            "queue_id": courseId, // parseInt(queueId)
+            "title": "uhh", // need to get student name 
+            "description": description, // description
+            "room": room, //room
+            "workstation": seat, // seat
+            "is_private": anonymous, //anonymous
+            "help_type": helpType, 
+            "tag_list": tagList
         };
-        console.log(payload);
 
         await api.post(apiBaseUrl, payload, {withCredentials:true})
         .then ((response) => {
-            console.log(response.data);
-            
+            loadTickets();
           })
           // Any number of errors occurred
           .catch((error) => {
             console.log(error.response);
          });
 
-        const tagArray = {
+        /*const tagArray = {
             gettingStarted,
             specifications,
             algorithms,
@@ -175,46 +172,43 @@ export default function Queue() {
                 description={description}
                 time={getTime()}
                 date={getDay()}
-                tagArray={tagArray}/>]));
+                tagArray={tagArray}/>]));*/
         
         handleClose();
     };
 
     // Existing Queue for the Class
-    const [ticketList, setTicketList] = useState(
-        [<Ticket name='Sravya Balasa' seat="6" room="B250"
-        description='I need help with a bug'
-        time='12:34pm'
-        date='April 1, 2020'
-        tagArray={dummy}/>]
-    );
-
-
-    const [questionTab, setTab] = React.useState(true);
-
-    console.log(ticketList);
+    const [ticketList, setTicketList] = useState([]);
 
     const loadTickets = async () => {
-        let apiBaseUrl= `api/ticket/find_all_tickets?queue_id=${queueId}`;
-
+        let apiBaseUrl= `api/ticket/find_all_tickets?queue_id=${courseId}`;
+        let newList = [];
         await api.get(apiBaseUrl, {withCredentials:true})
-        .then ((response) => {
+        .then ( async (response) => {
             let data = response.data.result;
-            console.log("data: ", data);
-            let newList = [];
             for (var x of data) {
                 var ticketInfo = x.ticket_info;
-                console.log("ticketInfo: ", ticketInfo);
-                newList.push([<Ticket 
-                    name={ticketInfo.ec_student_id} 
-                    room={ticketInfo.room}
-                    seat={ticketInfo.workstation}
-                    description={ticketInfo.description}
-                    time={ticketInfo.created_at}
-                    date={ticketInfo.created_at}
-                    tagArray={dummy}/>]);
+                let stuName = "";
+                const getName = async (id) => {
+                    let apiBaseUrl= `api/users/get_user?user_id=${id}`;
+
+                    await api.get(apiBaseUrl, {withCredentials:true})
+                    .then((response) => {
+                        let stu =  response.data.result;
+                        stuName = stu.fname + " " + stu.lname;
+                        newList.push([<Ticket 
+                            name={stuName}
+                            room={ticketInfo.room}
+                            seat={ticketInfo.workstation}
+                            description={ticketInfo.description}
+                            time={ticketInfo.created_at.substring(17)}
+                            date={ticketInfo.created_at.substring(0,16)}
+                            helpType={ticketInfo.help_type}
+                            tagArray={dummy}/>]);
+                    });
+                }
+                await getName(ticketInfo.ec_student_id);
             }
-            console.log("newList: ", newList);
             setTicketList(newList);
             
           })
@@ -225,14 +219,10 @@ export default function Queue() {
     };
 
     const clickQuestion = () => {
-        if (!questionTab) {
-            setTab(true)
-        }
+        setHelpType(0);
     };
     const clickCheckoff = () => {
-        if (questionTab) {
-            setTab(false)
-        }
+        setHelpType(1);
     }
 
     useEffect(() => {
@@ -249,17 +239,17 @@ export default function Queue() {
                     <DialogActions>
                         <Button variant="contained" onClick={clickQuestion} className={classes.tab} disableElevation
                                 style= {{ color: "#FFFFFF",
-                                          backgroundColor : questionTab ? "#2A667B" : "#CCCCCC",
-                                          fontWeight: questionTab ? "bold" : "normal" }}>Question</Button>
+                                          backgroundColor : helpType == 0 ? "#2A667B" : "#CCCCCC",
+                                          fontWeight: helpType == 0  ? "bold" : "normal" }}>Question</Button>
                         <Button variant="contained" onClick= {clickCheckoff} className={classes.tab} disableElevation
                                 style = {{ color: "#FFFFFF",
-                                           backgroundColor : !questionTab ? "#2A667B" : "#CCCCCC",
-                                           fontWeight: !questionTab ? "bold" : "normal" }}>Checkoff</Button>
+                                           backgroundColor : helpType == 1 ? "#2A667B" : "#CCCCCC",
+                                           fontWeight: helpType == 1 ? "bold" : "normal" }}>Checkoff</Button>
                     </DialogActions>
-                    { questionTab ? (<DialogTitle className={classes.title} id="form-dialog-title">Create Question</DialogTitle>)
+                    { helpType == 0 ? (<DialogTitle className={classes.title} id="form-dialog-title">Create Question</DialogTitle>)
                                   : (<DialogTitle className={classes.title} id="form-dialog-title">Create Checkoff</DialogTitle>) }
                     <DialogContent>
-                        { questionTab ? 
+                        { helpType == 0 ? 
                         (<div>
                             <FormControlLabel
                                 className={classes.check}
@@ -313,7 +303,7 @@ export default function Queue() {
                             
                             <FormControl variant="standard" className={classes.locationfield} fullWidth>
                                 <InputLabel htmlFor="age-native-simple">Room</InputLabel>
-                                <Select native>
+                                <Select native onChange={(event) => setRoom(event.target.value)}>
                                     <option aria-label="None" value="" />
                                     <option value={"B250"}>B250</option>
                                     <option value={"B240"}>B240</option>
@@ -324,7 +314,7 @@ export default function Queue() {
 
                             <FormControl variant="standard" className={classes.locationfield} fullWidth>
                                 <InputLabel htmlFor="age-native-simple">Seat</InputLabel>
-                                <Select native >
+                                <Select native onChange={(event) => setSeat(event.target.value)}>
                                     <option aria-label="None" value="" />
                                     <option value={6}>6</option>
                                     <option value={7}>7</option>

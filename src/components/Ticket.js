@@ -20,6 +20,7 @@ export default function Ticket(props) {
     const [seat, setSeat]= useState(props.seat);
 	const [description, setDescrip] = useState(props.description);
 	const [tags, setTags] = useState(props.tags);
+    const [helpType, setHelpType] = useState(props.helpType);
 
     const [tempRoom, setTempRoom] = useState(props.room);
     const [tempSeat, setTempSeat]= useState(props.seat);
@@ -82,14 +83,14 @@ export default function Ticket(props) {
     
     // DUMMY VARIABLE --> Would be "help type" from the database
     // Submit for edit is different based on help type
-    const isTicket = false 
+    //const isTicket = false 
 
 	return (
 		<div className={classes.container}>
 			<ThemeProvider theme={theme}>
 				<ExpansionPanel square={false} className={classes.root}>
                     <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>} aria-controls="panel1bh-content" id="panel1bh-header">
-                    { isTicket ? (<ConfirmationNumberIcon className={classes.ticketIcon}/>) : (<CheckBoxIcon className={classes.ticketIcon}/>)}
+                    { helpType == 0 ? (<ConfirmationNumberIcon className={classes.ticketIcon}/>) : (<CheckBoxIcon className={classes.ticketIcon}/>)}
                         <div className={classes.table}>
                             <div className={classes.tableRow}>
                                 <div className={classes.tableLeft}>
@@ -106,7 +107,7 @@ export default function Ticket(props) {
 						<Typography><b>Time: </b>{props.time}</Typography>
 						<Typography><b>Location: </b>{room}-{seat}</Typography>
 						<Typography><b>Description: </b>{description}</Typography>
-                        { isTicket && <Typography><b>Tags: </b>{tags}</Typography> }
+                        { helpType == 0 && <Typography><b>Tags: </b>{tags}</Typography> }
 						<div className={classes.buttonDiv}>
 							<Button variant="contained" startIcon={<EditIcon/>} className={classes.button} onClick={() => handleClickOpen()} >Edit</Button>
 						</div>
@@ -116,10 +117,10 @@ export default function Ticket(props) {
 			
 			<ThemeProvider theme={inverseTheme}>
 				<Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-                    {isTicket ? (<DialogTitle id="form-dialog-title" className={classes.dialog}>Edit Question</DialogTitle>)
+                    {helpType == 0 ? (<DialogTitle id="form-dialog-title" className={classes.dialog}>Edit Question</DialogTitle>)
                               : (<DialogTitle id="form-dialog-title" className={classes.dialog}>Edit Checkoff</DialogTitle>)}
                     <DialogContent className={classes.dialog}>
-                        { isTicket &&
+                        { helpType == 0 &&
                         <div>
                             <FormControlLabel
                                 className={classes.check}
