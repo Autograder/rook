@@ -14,6 +14,7 @@ import TableRow from '@material-ui/core/TableRow';
 import { Typography } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
 import api from '../conf';
+import { useParams } from "react-router-dom";
 
 const headers = [
     {field: 'name', label: 'Name'},
@@ -26,7 +27,8 @@ export default function StudentCheckoff() {
     const theme = OurTheme.inverseTheme;
     const classes = Styles.useStyles();
     const [checkoffs, setCheckoffs] = useState([]);
-    const { state: {userId} } = useContext(Context);
+    const { state: {user} } = useContext(Context);
+    const { course_id } = useParams();
 
     function createData(name, due, completed, grader, score) {
         return {name, due, completed, grader, score};
@@ -64,14 +66,15 @@ export default function StudentCheckoff() {
     
     const getStripedStyle = (index) => {
         return (index % 2) ? { background : "#d1dae3" }:{ background : "white" }}
-        
-    if (!userId) {
+    
+    
+    if (!user) {
         return <Typography> You must be logged in! </Typography>
     }
 
     return (
         <div className={classes.background}>
-            <Navbar/>
+            <Navbar dropdown={true} course_id={parseInt(course_id)} page="STUDENTCHECKOFF"/>
             <ThemeProvider theme={theme}>
             
             <h1 className={classes.header}>My Grades</h1>

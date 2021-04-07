@@ -35,7 +35,8 @@ const useStyles = makeStyles((theme) => ({
 	home: {
 		fontSize: 45,
 		fontWeight: "bold",
-		height: "80px"
+		height: "80px",
+		textTransform: "lowercase",
 	},
 	homeCell: {
 		display: "table-cell",
@@ -57,12 +58,9 @@ const useStyles = makeStyles((theme) => ({
 	link: {
 		cursor: "pointer"
 	},
-	list: {
-		width: 300,
-	},
 	listItems: {
 		color: "black",
-		textAlign: "center",
+		textAlign: "left",
 	},
 	form: {
         // Border of Input Boxes when not clicked
@@ -81,24 +79,35 @@ const useStyles = makeStyles((theme) => ({
 		paddingRight: 30,
 		paddingLeft: 30,
 	},
+	dropdown: {
+		paddingBottom: 25,
+	},
 	navButtons : {
 		padding: 10,
 	},
 	select :{
 		minWidth: 75,
-		background: 'white',
+		background: "white",
 		fontWeight:200,
-		borderStyle:'none',
+		borderStyle:"none",
 		borderWidth: 2,
 		borderRadius: 12,
 		paddingLeft: 24,
 		paddingTop: 14,
 		paddingBottom: 15,
-		boxShadow: '0px 5px 8px -3px rgba(0,0,0,0.14)',
+		boxShadow: "0px 5px 8px -3px rgba(0,0,0,0.14)",
 		"&:focus":{
 			borderRadius: 12,
-			background: 'white',
+			background: "white",
 		},
+	},
+	list: {
+		width: 300,
+	},
+	bottom: {
+		position: "fixed",
+		bottom: 0,
+		width: 300
 	}
 }));  
 

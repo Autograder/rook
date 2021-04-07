@@ -2,51 +2,44 @@ import AddIcon from "@material-ui/icons/Add";
 import api from "../conf";
 import CommentIcon from "@material-ui/icons/Comment";
 import { Context } from "../context/Context";
-import Divider from "@material-ui/core/Divider";
 import DoneIcon from "@material-ui/icons/Done";
-import Drawer from "@material-ui/core/Drawer";
 import EditIcon from "@material-ui/icons/Edit";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import Feedback from "./Feedback";
-import FormControl from '@material-ui/core/FormControl';
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
 import MenuIcon from "@material-ui/icons/Menu";
 import OurTheme from "../style/Theme";
 import PersonIcon from "@material-ui/icons/Person";
 import PropTypes from "prop-types";
-import Select from '@material-ui/core/Select';
 import Styles from "../style/NavbarStyle";
 import { ThemeProvider } from "@material-ui/styles";
-import { AppBar, Button, Link, MenuItem, Toolbar, Typography } from "@material-ui/core";
+import ViewAgendaIcon from "@material-ui/icons/ViewAgenda";
+import { AppBar, Button, Divider, Drawer, FormControl, List, ListItem, ListItemIcon, ListItemText, 
+			MenuItem, Select, Toolbar, Tooltip, Typography } from "@material-ui/core";
 import React, { useCallback, useContext, useEffect, useState } from "react";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 export default function Navbar(props) {
-	// Define prop types
 	Navbar.propTypes = {
-		createCourse: PropTypes.bool,
+		course_id: PropTypes.number,
 		dropdown: PropTypes.bool,
+		page: PropTypes.string
 	}
 
-	// Setup
 	const { theme, inverseTheme } = OurTheme;
 	const classes = Styles.useStyles();
 	const history = useHistory();
-	const { course_id } = useParams();
+	const location = useLocation();
 	const { state:{user}, signout } = useContext(Context);
-	const {createCourse, dropdown} = props;
+	const { course_id, dropdown, page } = props;
 	
-	// States
 	const [feedback, setFeedback] = useState(false);
-	const [classList, setClassList] = useState([]);
+	const [fullClassList, setFullClassList] = useState([]);
+	const [manageClassList, setManageClassList] = useState([]);
 	const [sideBar, setSideBar] = useState(false);
 	const [exist, setExist] = useState(false);
 	const [admin, setAdmin] = useState(false);
-	const [selectedCourse, setSelectedCourse] = useState('');
-	const [role, setRole] = useState('');
+	const [course_name, setName] = useState(null);
+	const [course_role, setRole] = useState(null);
 
 	const menuProps = {
 		anchorOrigin: {
@@ -62,16 +55,19 @@ export default function Navbar(props) {
 
 	const finalizeCourseList = useCallback((listOfClasses) => {
 		listOfClasses.sort((a, b) => a.id > b.id ? 1 : -1);
-		const curr_course = listOfClasses.find(item => item.id === parseInt(course_id))
-		if (curr_course !== undefined) {
-			setSelectedCourse(curr_course.name)
-			setRole(curr_course.role)
-			setClassList(listOfClasses)
-			setExist(true)
-		} else {
-			setExist(false)
+		setFullClassList(listOfClasses)
+		setManageClassList(listOfClasses.filter(course => (course.role === "ADMIN" || course.role === "INSTRUCTOR")));
+		if (dropdown) {
+			const curr_course = listOfClasses.find(item => item.id === course_id)
+			if (curr_course !== undefined) {
+				setName(curr_course.name)
+				setRole(curr_course.role)
+			} 
 		}
-	}, [course_id])
+		if (listOfClasses.length > 0) {
+			setExist(true);
+		}
+	}, [course_id, dropdown])
 
 	useEffect(() =>  {
 		let listOfClasses = [];
@@ -81,6 +77,7 @@ export default function Navbar(props) {
 				user_id: user.id
 			}
 		}).then (function(response) {
+			console.log(response);
 			for (const item of response.data.result.courses) {
 				listOfClasses.push({"id": item.enrolled_user_info.course_id, "name": item.enrolled_user_info.course_short_name, "role": item.enrolled_user_info.role});
 				if (item.enrolled_user_info.role === "ADMIN") {
@@ -91,8 +88,6 @@ export default function Navbar(props) {
 		})
 	}, [user.id, finalizeCourseList]);	
 
-
-
 	const toggleSideBar = (open) => (event) => {
 		if (event.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) {
 			return;
@@ -101,9 +96,11 @@ export default function Navbar(props) {
 	}
 
 	const changeClass = (event) => {
-		setSelectedCourse(event.target.value);
-		const curr_course = classList.find(item => item.name === event.target.value)
-		history.push(`/queue/${curr_course.id}`);
+		const target_course = fullClassList.find(item => item.id === event.target.value);
+		setName(target_course.name);
+		setRole(target_course.role);
+		const newurl = location.pathname.replace(/\/\d+$/, `/${target_course.id}`);
+		history.push(newurl);
 	}
 
 	const handleLogOut = () => {
@@ -111,40 +108,109 @@ export default function Navbar(props) {
 		history.push("/login");
 	}
 
-	const goToDefaultQueue = () => {
-		const target_course = exist ? classList[0]: 0;
-		if (parseInt(target_course.id) === parseInt(course_id)) {
+	const handleDefaultHome = () => {
+		if (!user) {
+			history.push("/");
+		} else {
+			const target_course = exist ? course_id : 0;
+			if (course_role === "ADMIN") {
+				if (page === "COURSESETTINGS") {
+					history.go(0);
+				} else {
+					setName(fullClassList.find(item => item.id === target_course).name)
+					history.push(`/coursesettings/${target_course}`);
+				}
+			} else {
+				if (page === "QUEUE") {
+					history.go(0);
+				} else {
+					setName(fullClassList.find(item => item.id === target_course).name)
+					history.push(`/queue/${target_course}`);
+				}
+			}
+		}
+	}
+
+	const handleProfile = () => {
+		if (page === "PROFILE") {
 			history.go(0);
 		} else {
-
-			setSelectedCourse(target_course.name)
-			history.push(`/queue/${target_course.id}`);
-		} 
+			history.push("/profile")
+		}
 	}
 
 	const handleCreateCourse = () => {
-		history.push("/createCourse");
+		if (page === "CREATECOURSE") {
+			history.go(0);
+		} else {
+			history.push("/createCourse");
+		}
 	}
 
-	const DropDownMenu = () => {
-		return (
-			exist ? 
+	const handleQueues = () => {
+		if (page === "QUEUE") {
+			history.go(0);
+		} else {
+			history.push(`/queue/${course_id}`);
+		} 
+	}
+
+	const handleCourseSettings = () => {
+		if (page === "COURSESETTINGS") {
+			history.go(0);
+		} else {
+			history.push(`/coursesettings/${course_id}`);
+		} 
+	}
+
+	const handleCheckOff = () => {
+		if (page === "STUDENTCHECKOFF" || page === "TUTORCHECKOFF") {
+			history.go(0);
+		} else {
+			history.push(`/checkoff/${course_id}`)
+		}
+	}
+
+	const DropDown = () => {
+		if (page === "COURSESETTINGS") {
+			return (
 				<ThemeProvider theme={inverseTheme}>
 					<FormControl>
 						<Select
 							disableUnderline
-							value={selectedCourse}
+							disabled={!exist}
+							value={course_id}
 							onChange={changeClass}
 							MenuProps={menuProps}
 							classes={{root: classes.select}}
 							>
-							{classList.map(function(item) {
-								return <MenuItem value={item.name} key={item.name}>{item.name}</MenuItem>
+							{manageClassList.map(function(item) {
+								return <MenuItem value={item.id} key={item.id}>{item.name}</MenuItem>
 							})}
 						</Select>
 					</FormControl>
-				</ThemeProvider> : null
-		);
+				</ThemeProvider>
+			)
+		} else {
+			return (
+				<ThemeProvider theme={inverseTheme}>
+					<FormControl>
+						<Select
+							disableUnderline
+							disabled={!exist}
+							value={course_id}
+							onChange={changeClass}
+							MenuProps={menuProps}
+							classes={{root: classes.select}}
+							>
+							{fullClassList.map(function(item) {
+								return <MenuItem value={item.id} key={item.id}>{item.name}</MenuItem>
+							})}
+						</Select>
+					</FormControl>
+				</ThemeProvider>
+			)
+		}
 	}
 
 	return (
@@ -153,74 +219,148 @@ export default function Navbar(props) {
 			<AppBar position="static" className={classes.appTable}>
 				<Toolbar className={classes.appRow}>
 					<div className={classes.homeCell}>
-						<Typography className={classes.home}>
-							<Link underline="none" className={classes.link} onClick={goToDefaultQueue}>queues</Link>
-						</Typography>
+						<Button className={classes.link} onClick={handleDefaultHome}>
+							<Typography className={classes.home}>queues</Typography>
+						</Button>
 					</div>
 					<div className={classes.leftnav}>
-						<DropDownMenu/>
+						{dropdown && page != "HALLFAME" ? 
+							exist ? 
+								<DropDown/> :
+								<Tooltip title="No active classes" arrow>
+									<span className={classes.dropdown}>
+										<DropDown/>
+									</span>
+								</Tooltip> : 
+							null
+						}
 					</div>
-					<div className={classes.rightnav}>
-						<Button className={classes.navButtons} onClick={toggleSideBar(true)}>
-							<MenuIcon fontSize="large"/>
-						</Button>
-						<Drawer anchor="right" open={sideBar} onClose={toggleSideBar(false)}>
-							<div className={classes.list}>
-								<List>
-									{ admin ? 
-										<ListItem button onClick={handleCreateCourse}>
+					{ page != "HALLFAME" ?
+						<div className={classes.rightnav}>
+							<Button className={classes.navButtons} onClick={toggleSideBar(true)}>
+								<MenuIcon fontSize="large"/>
+							</Button>
+							<Drawer anchor="right" open={sideBar} onClose={toggleSideBar(false)}>
+								<div className={classes.list}>
+									<List>
+										{ !exist ?
+											!admin ? 
+												<React.Fragment>
+													<ListItem>
+														<ListItemText primaryTypographyProps={{ style: {color: "black", textAlign: "center", fontWeight: 500, fontSize: 20}}}>
+															Please contact your instructor if you believe you should be enrolled in a course that you cannot see here. 
+														</ListItemText>
+													</ListItem>
+												</React.Fragment> :
+												null :
+											<React.Fragment>
+												<ListItem>
+													<ListItemText primaryTypographyProps={{ style: {color: "black", textAlign: "center", fontWeight: 800, fontSize: 30}}}>
+														{course_name}
+													</ListItemText>
+												</ListItem>
+												<Divider/>
+											</React.Fragment> 
+										}
+										{ exist ?
+											admin ?  
+												<React.Fragment>
+													<ListItem button onClick={handleCourseSettings}>
+														<ListItemIcon>
+															<EditIcon fontSize="large"/>
+														</ListItemIcon>
+														<ListItemText className={classes.listItems}>Course Settings</ListItemText>
+													</ListItem>
+													<Divider/>
+												</React.Fragment> :
+												<React.Fragment>
+													<ListItem button onClick={handleQueues}>
+														<ListItemIcon>
+															<ViewAgendaIcon fontSize="large"/>
+														</ListItemIcon>
+														<ListItemText className={classes.listItems}>Queues</ListItemText>
+													</ListItem>
+													<Divider/>
+												</React.Fragment> :
+											null	
+										}
+										{ exist && admin ? 
+											<React.Fragment>
+												<ListItem button onClick={handleQueues}>
+													<ListItemIcon>
+														<ViewAgendaIcon fontSize="large"/>
+													</ListItemIcon>
+													<ListItemText className={classes.listItems}>Queues</ListItemText>
+												</ListItem>
+												<Divider/>
+											</React.Fragment> : 
+											null
+										}
+										{ course_role === "INSTRUCTOR" ? 
+											<React.Fragment>
+												<ListItem button onClick={handleCourseSettings}>
+													<ListItemIcon>
+														<EditIcon fontSize="large"/>
+													</ListItemIcon>
+													<ListItemText className={classes.listItems}>Course Settings</ListItemText>
+												</ListItem>
+												<Divider/>
+											</React.Fragment> :
+											null
+										}
+										{ exist ?
+											<React.Fragment>
+												<ListItem button onClick={handleCheckOff}>
+													<ListItemIcon>
+														<DoneIcon fontSize="large"/>
+													</ListItemIcon>
+													<ListItemText className={classes.listItems}>Checkoffs</ListItemText>
+												</ListItem>
+												<Divider/>
+											</React.Fragment> : 
+											null
+										}
+										{ admin ? 
+											<React.Fragment>
+												<ListItem button onClick={handleCreateCourse}>
+													<ListItemIcon>
+														<AddIcon fontSize="large"/>
+													</ListItemIcon>
+													<ListItemText className={classes.listItems}>Create Course</ListItemText>
+												</ListItem> 
+												<Divider/>
+											</React.Fragment>: 
+											null
+										}
+									</List>
+								</div>
+								<div className={classes.bottom}>
+									<List>
+										<Divider/>
+										<ListItem button onClick={() => setFeedback(true)}>
 											<ListItemIcon>
-												<AddIcon fontSize="large"/>
+												<CommentIcon fontSize="large"/>
 											</ListItemIcon>
-											<ListItemText className={classes.listItems}>Create Course</ListItemText>
-										</ListItem> : null
-									}
-									{ role === "ADMIN" && !createCourse ? 
-										<ListItem button onClick={() => history.push("/manageCourse")}>
+											<ListItemText className={classes.listItems}>Submit Feedback</ListItemText>
+										</ListItem>
+										<Divider/>
+										<ListItem button onClick={handleProfile}>
 											<ListItemIcon>
-												<EditIcon fontSize="large"/>
+												<PersonIcon fontSize="large"/>
 											</ListItemIcon>
-											<ListItemText className={classes.listItems}>Manage Course</ListItemText>
-										</ListItem> : null
-									}
-									{exist && !createCourse ? 
-										role === "STUDENT" ? 
-											<ListItem button onClick={() => history.push(`/checkoffHistory/${course_id}`)}>
-												<ListItemIcon>
-													<DoneIcon fontSize="large"/>
-												</ListItemIcon>
-												<ListItemText className={classes.listItems}>Checkoffs</ListItemText>
-											</ListItem> : 
-											<ListItem button onClick={() => history.push(`/checkoff/${course_id}`)}>
-												<ListItemIcon>
-													<DoneIcon fontSize="large"/>
-												</ListItemIcon>
-												<ListItemText className={classes.listItems}>Checkoffs</ListItemText>
-											</ListItem> : null
-									}
-									<ListItem button onClick={() => setFeedback(true)}>
-										<ListItemIcon>
-											<CommentIcon fontSize="large"/>
-										</ListItemIcon>
-										<ListItemText className={classes.listItems}>Submit Feedback</ListItemText>
-									</ListItem>
-									<ListItem button onClick={() => history.push("/profile")}>
-										<ListItemIcon>
-											<PersonIcon fontSize="large"/>
-										</ListItemIcon>
-										<ListItemText className={classes.listItems}>Profile</ListItemText>
-									</ListItem>
-									<Divider/>
-									<ListItem button onClick={handleLogOut}>
-										<ListItemIcon>
-											<ExitToAppIcon fontSize="large"/>
-										</ListItemIcon>
-										<ListItemText className={classes.listItems}>Logout</ListItemText>
-									</ListItem>
-								</List>
-							</div>
-						</Drawer>
-					</div>
+											<ListItemText className={classes.listItems}>Profile</ListItemText>
+										</ListItem>
+										<Divider/>
+										<ListItem button onClick={handleLogOut}>
+											<ListItemIcon>
+												<ExitToAppIcon fontSize="large"/>
+											</ListItemIcon>
+											<ListItemText className={classes.listItems}>Logout</ListItemText>
+										</ListItem>
+									</List>
+								</div>
+							</Drawer>
+						</div> : null }
 				</Toolbar>
 			</AppBar>
 		</ThemeProvider>

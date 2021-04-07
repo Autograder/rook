@@ -10,6 +10,7 @@ import { ThemeProvider, withStyles } from '@material-ui/styles';
 import OurTheme from '../style/Theme';
 import Styles from '../style/QueuePageStyle';
 import { Context } from '../context/Context';
+import { useParams } from "react-router-dom";
 
 export default function QueuePage() {
     const inverseTheme = OurTheme.inverseTheme;
@@ -17,7 +18,8 @@ export default function QueuePage() {
     const [open, setOpen] = useState(false);
     const {state: {user} } = useContext(Context);
     const [onDuty, setOnDuty] = useState(false);
-
+    const { course_id } = useParams();
+    
     const fakeList = 'Shaeli Yao, Simonne Contreras, Sravya Balasa, Tiffany Meng';
 
     const handleClose = () => {
@@ -85,7 +87,7 @@ export default function QueuePage() {
                         <Button className={classes.form} onClick={handleSubmit} color="primary">Send</Button>
                     </DialogActions>
                 </Dialog>
-                <Navbar/>
+                <Navbar dropdown={true} course_id={parseInt(course_id)} page="QUEUE"/>
                 <br/>
                 <Grid container>
                     <Grid container>

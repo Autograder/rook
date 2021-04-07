@@ -1,6 +1,6 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   body: {
     marginLeft: "10%",
     marginRight: "10%"
@@ -9,10 +9,10 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center"
   },
   text: {
-    marginTop: "60px"
+    marginTop: "30px"
   },
   button: {
-    marginTop: "10px"
+    marginTop: "25px"
   },
 	title: {
 		color: "white",

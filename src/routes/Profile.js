@@ -72,6 +72,7 @@ export default function Profile() {
 	return (
     <div>
         <ThemeProvider theme={theme}>
+          <Navbar dropdown={false}/>
           <div className={classes.alert}>
             <Collapse in={open}>
                 <Alert onClose={() => handleClose()} severity={alertColor}>{message}</Alert>

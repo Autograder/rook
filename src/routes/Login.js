@@ -47,7 +47,13 @@ export default function Login() {
           if (courseId !== 0) {
             changecourse(courseId, response.data.result.courses[0].enrolled_user_info.role)
           }
-          history.push(`/queue/${courseId}`);
+          const adminCourse = response.data.result.courses.find(item => item.enrolled_user_info.role === "ADMIN");
+          if (adminCourse !== undefined) {
+            console.log(adminCourse)
+            history.push(`/coursesettings/${adminCourse.enrolled_user_info.course_id}`)
+          } else {
+            history.push(`/queue/${courseId}`);
+          }
         })
       })
       .catch(function (error) {

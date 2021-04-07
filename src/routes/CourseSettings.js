@@ -7,11 +7,13 @@ import { ThemeProvider } from '@material-ui/styles';
 import OurTheme from '../style/Theme';
 import Styles from '../style/CourseSettingsStyle';
 import { Tabs, Tab, Box, Typography } from '@material-ui/core';
+import { useParams } from "react-router-dom";
 
 export default function CourseSettings() {
     const theme = OurTheme.theme;
     const classes = Styles.useStyles();
     const [value, setValue] = React.useState(0);
+    const { course_id } = useParams();
 
     const handleChange = (event, newValue) => {
         setValue(newValue)
@@ -45,7 +47,7 @@ export default function CourseSettings() {
 
     return (
         <div>
-            <Navbar />
+            <Navbar dropdown={true} page="COURSESETTINGS" course_id={parseInt(course_id)}/>
             <div className={classes.root}>
                 <ThemeProvider theme={theme}>
                     <h2 className={classes.title}>Course Settings</h2>
