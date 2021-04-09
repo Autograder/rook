@@ -10,7 +10,7 @@ const serverURL = 'http://localhost:1337';
 
 // create the axios object used to interact with the API
 const api = axios.create({
-  baseURL: serverURLs
+  baseURL: serverURL
 });
 
 export default api;
