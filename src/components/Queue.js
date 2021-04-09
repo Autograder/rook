@@ -191,7 +191,6 @@ export default function Queue() {
                 let stuName = "";
                 const getName = async (id) => {
                     let apiBaseUrl= `api/users/get_user?user_id=${id}`;
-
                     await api.get(apiBaseUrl, {withCredentials:true})
                     .then((response) => {
                         let stu =  response.data.result;

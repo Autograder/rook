@@ -146,7 +146,7 @@ const server = {
 		return api.post("/api/queue/logout_grader",payload)
 	},
 	getActiveTutors(queue_id) {
-		return api.get(`/api/enrolled_course/find_active_tutor_for?queue_id=${queue_id}`)
+		return api.get(`/api/enrolled_course/find_active_tutor_for?queue_id=${queue_id}`, {withCredentials: true})
 	}
 	// TODO: comments on the ticket
 }

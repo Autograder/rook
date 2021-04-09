@@ -35,6 +35,7 @@ export default function Login() {
     }
     await api.post(login, loginInfo)
       .then (async function (response) {
+        console.log(response)
         signin(response.data.result);
         const url = "/api/enrolled_course/get_courses_user_in";
         
