@@ -1,4 +1,3 @@
-import React, {useState} from "react";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import ConfirmationNumberIcon from "@material-ui/icons/ConfirmationNumber";
 import EditIcon from "@material-ui/icons/Edit";
@@ -12,6 +11,7 @@ import { ThemeProvider } from "@material-ui/styles";
 import {Button, Checkbox,  FormControl, FormControlLabel, InputLabel, Select, TextField, Typography } from "@material-ui/core";
 import {Dialog, DialogActions, DialogContent, DialogTitle} from "@material-ui/core";
 import {ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary} from "@material-ui/core";
+import React, {useState} from "react";
 
 // Need post request to send checkbox data to database
 export default function Ticket(props) {
