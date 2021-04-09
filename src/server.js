@@ -69,6 +69,14 @@ const server = {
 		const params = {course_id: course_id}
 		return api.get("/api/queue/find_queue_for_course", {params: params})		
 	},
+	/* QUEUE */
+	getUserRoleInCourse(user_id, course_id) {
+		const params = {
+			"course_id": course_id,
+			"user_id": user_id
+		}
+		return api.get("/api/enrolled_course/get_user_in_course",{params: params})
+	},
 	/* TICKET */
 	addTicket(queue_id, student_id, title, 
 				description, room, workstation, is_private,

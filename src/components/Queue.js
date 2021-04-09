@@ -1,10 +1,13 @@
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import OurTheme from "../style/Theme";
 import Styles from "../style/QueueStyle";
+import { Context } from "../context/Context";
 import { ThemeProvider } from "@material-ui/styles";
 import Ticket from "./Ticket";
 import { Button, Checkbox, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, FormControlLabel, IconButton, InputLabel, Select, TextField } from "@material-ui/core";
-import React, {useState} from "react";
+import React, {useEffect, useState, useContext} from "react";
+import server from '../server';
+import PropTypes from "prop-types";
 
 function getDay() {
     var tempDate = new Date();
@@ -30,9 +33,16 @@ function getTime() {
 
 }
 
-export default function Queue() {
+export default function Queue(props) {
+    Queue.propTypes = {
+        course_id: PropTypes.number,
+    };
+
     const classes = Styles.useStyles();
     const inverseTheme = OurTheme.inverseTheme;
+    const { state:{user}} = useContext(Context);
+    const [role, setRole] = useState("");
+
     const [open, setOpen] = useState(false);
 
     // Fields for Ticket
@@ -118,16 +128,6 @@ export default function Queue() {
             conceptualQuestion : conceptualQuestion,
         };
 
-        setTicketList(
-            ticketList.concat([
-                <Ticket name={"John Doe"} 
-                room={room}
-                seat={seat}
-                description={description}
-                time={getTime()}
-                date={getDay()}
-                tagArray={tagArray}/>]));
-        
         handleClose();
     };
 
@@ -137,9 +137,9 @@ export default function Queue() {
         description='I need help with a bug'
         time='12:34pm'
         date='April 1, 2020'
-        tagArray={dummy}/>]
+        tagArray={dummy}
+        role={role}/>]
     );
-
 
     const [questionTab, setTab] = React.useState(true);
     const clickQuestion = () => {
@@ -147,11 +147,19 @@ export default function Queue() {
             setTab(true)
         }
     };
+
     const clickCheckoff = () => {
         if (questionTab) {
             setTab(false)
         }
     }
+
+    useEffect(() => {
+        server.getUserRoleInCourse(user.id,props.course_id)
+            .then(function(response) {
+                setRole(response.data.result.enrolled_course_info.role)
+            })
+    })
     
     return (
         <div>
@@ -306,7 +314,12 @@ export default function Queue() {
                     </DialogActions>
                 </Dialog>
             </ThemeProvider>
-            {ticketList}  
+            <Ticket name='Sravya Balasa' seat="6" room="B250"
+                description='I need help with a bug'
+                time='12:34pm'
+                date='April 1, 2020'
+                tagArray={dummy}
+                role={role}/>
         </div>
     );
 } 

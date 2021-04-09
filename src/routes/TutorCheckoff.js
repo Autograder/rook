@@ -3,12 +3,12 @@ import { Context } from '../context/Context';
 import { Typography } from '@material-ui/core';
 
 export default function TutorCheckoff() {
-    const { state: {userId} } = useContext(Context);
+    const { state: {user} } = useContext(Context);
 
-    if (!userId) {
+    if (!user) {
         return <Typography> You must be logged in! </Typography>
     }
-    
+
     return (
         <div></div>
     );

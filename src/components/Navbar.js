@@ -32,11 +32,11 @@ export default function Navbar () {
 				user_id: user.id
 			}
 		}).then (function(response) {
-			const getCourse = "/api/course/get_course";
+			const getCourse = "/api/course/find_course_by_id";
 			(response.data.result.courses).forEach(function(item) {
 				api.get(getCourse, {
 					params: {
-						course_id: item.enrolled_user_info.course_id,
+						id: item.enrolled_user_info.course_id,
 					}
 				}).then (function(response) {
 					setClassList(classList => [...classList, {"id": response.data.result.id, "name": response.data.result.short_name, "role": item.enrolled_user_info.role}])
