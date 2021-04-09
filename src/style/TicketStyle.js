@@ -76,6 +76,14 @@ const useStyles = makeStyles((theme) => ({
 		"&:hover": {
 			backgroundColor: "#615659"
 		},
+		marginRight: "10px"
+	},
+	chatButton: {
+		backgroundColor: "#1E385C",
+		color: "#ffffff",
+		"&:hover": {
+			backgroundColor: "#2D548B"
+		},
 	},
 	dialog: {
 		color: "black"

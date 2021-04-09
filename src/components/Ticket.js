@@ -1,8 +1,10 @@
+import React, {useState} from "react";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import ConfirmationNumberIcon from "@material-ui/icons/ConfirmationNumber";
 import EditIcon from "@material-ui/icons/Edit";
 import CallMadeIcon from '@material-ui/icons/CallMade';
 import CancelIcon from '@material-ui/icons/Cancel';
+import ChatIcon from '@material-ui/icons/Chat';
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import OurTheme from "../style/Theme";
 import Styles from "../style/TicketStyle";
@@ -10,8 +12,6 @@ import { ThemeProvider } from "@material-ui/styles";
 import {Button, Checkbox,  FormControl, FormControlLabel, InputLabel, Select, TextField, Typography } from "@material-ui/core";
 import {Dialog, DialogActions, DialogContent, DialogTitle} from "@material-ui/core";
 import {ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary} from "@material-ui/core";
-import React, {useState, useEffect} from "react";
-import PropTypes from "prop-types";
 
 // Need post request to send checkbox data to database
 export default function Ticket(props) {
@@ -82,7 +82,20 @@ export default function Ticket(props) {
         setDescrip(description);
 		handleClose();
     }
-    
+
+    const buttonActionsForUserRole  = () => {
+        let editButton = <Button variant="contained" startIcon={<EditIcon/>} className={classes.editButton} onClick={() => handleClickOpen()} >Edit</Button>
+        let acceptButton =  <Button variant="contained" startIcon={<CallMadeIcon/>} className={classes.acceptButton} onClick={() => {}} >Accept</Button>
+        let cancelButton = <Button variant="contained" startIcon={<CancelIcon/>} className={classes.cancelButton} onClick={() => {}} >Cancel</Button>
+        let chatButton = <Button variant="contained" startIcon={<ChatIcon/>} className={classes.chatButton} onClick={() => {}}>Comment</Button>
+        if (props.role === "STUDENT" /* and it is their own ticket */ ) {
+            return [editButton, chatButton]
+        } else if (props.role !== "STUDENT") {
+            // TODO: different buttons when a ticket is accepted vs not accepted
+            return [acceptButton, cancelButton, chatButton]
+        }
+    }
+
     // DUMMY VARIABLE --> Would be "help type" from the database
     // Submit for edit is different based on help type
     const isTicket = false
@@ -111,12 +124,7 @@ export default function Ticket(props) {
 						<Typography><b>Description: </b>{description}</Typography>
                         { isTicket && <Typography><b>Tags: </b>{tags}</Typography> }
 						<div className={classes.buttonDiv}>
-                            { props.role === "STUDENT"
-                             ? <Button variant="contained" startIcon={<EditIcon/>} className={classes.editButton} onClick={() => handleClickOpen()} >Edit</Button>
-                             : <>
-                                    <Button variant="contained" startIcon={<CallMadeIcon/>} className={classes.acceptButton} onClick={() => {}} >Accept</Button>
-                                    <Button variant="contained" startIcon={<CancelIcon/>} className={classes.cancelButton} onClick={() => {}} >Cancel</Button>
-                               </> }
+                            {buttonActionsForUserRole()}
 						</div>
                     </ExpansionPanelDetails>
                 </ExpansionPanel>
