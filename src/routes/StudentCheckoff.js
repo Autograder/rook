@@ -26,7 +26,7 @@ export default function StudentCheckoff() {
     const theme = OurTheme.inverseTheme;
     const classes = Styles.useStyles();
     const [checkoffs, setCheckoffs] = useState([]);
-    const { state: {userId} } = useContext(Context);
+    const { state: {user} } = useContext(Context);
 
     function createData(name, due, completed, grader, score) {
         return {name, due, completed, grader, score};
@@ -65,7 +65,7 @@ export default function StudentCheckoff() {
     const getStripedStyle = (index) => {
         return (index % 2) ? { background : "#d1dae3" }:{ background : "white" }}
         
-    if (!userId) {
+    if (!user) {
         return <Typography> You must be logged in! </Typography>
     }
 

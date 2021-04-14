@@ -1,6 +1,9 @@
 import api from "./conf"
 
 const server = {
+	logoutUser() {
+		return api.post("/api/users/logout");
+	},
 	getUser(id) {
 		const params = {id: id}
 		return api.get("/api/users/get", {params: params})
@@ -42,7 +45,9 @@ const server = {
 			"url": url,
 			"user": user.id,
 		}
-		return api.post("/api/queue/create_course", payload)
+		console.log(payload)
+		api.withCredentials = true
+		return api.post("/api/course/create_course", payload, {withCredentials: true})
 	},
 	autoOpenQueue(id, user_id, action_type) {
 		const payload = {
@@ -63,6 +68,14 @@ const server = {
 	findQueueforCourse(course_id) {
 		const params = {course_id: course_id}
 		return api.get("/api/queue/find_queue_for_course", {params: params})		
+	},
+	/* QUEUE */
+	getUserRoleInCourse(user_id, course_id) {
+		const params = {
+			"course_id": course_id,
+			"user_id": user_id
+		}
+		return api.get("/api/enrolled_course/get_user_in_course",{params: params})
 	},
 	/* TICKET */
 	addTicket(queue_id, student_id, title, 

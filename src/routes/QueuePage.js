@@ -1,4 +1,5 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext, useState } from 'react';
+import { useParams } from "react-router-dom";
 import Navbar from '../components/Navbar';
 import Queue from '../components/Queue';
 import MessageWidget from '../components/MessageWidget';
@@ -17,6 +18,7 @@ export default function QueuePage() {
     const [open, setOpen] = useState(false);
     const {state: {user} } = useContext(Context);
     const [onDuty, setOnDuty] = useState(false);
+	const { course_id } = useParams();
 
     const fakeList = 'Shaeli Yao, Simonne Contreras, Sravya Balasa, Tiffany Meng';
 
@@ -100,7 +102,7 @@ export default function QueuePage() {
                         <Grid item xs={6}>
                             <div className={classes.container}>
                                 <div className={classes.overflow}>
-                                    <Queue/> 
+                                    <Queue course_id={course_id}/>
                                 </div>
                             </div>
                         </Grid>

@@ -54,13 +54,36 @@ const useStyles = makeStyles((theme) => ({
 	buttonDiv: {
 		marginTop: "5%",
 	},
-	button: {
+	editButton: {
 		backgroundColor: "#2A667B",
 		color: "#ffffff",
-
 		"&:hover": {
 			backgroundColor: "#357f9a"
-		}
+		},
+		marginRight: "10px"
+	},
+	acceptButton: {
+		backgroundColor: "#003D32",
+		color: "#ffffff",
+		"&:hover": {
+			backgroundColor: "#006653"
+		},
+		marginRight: "10px"
+	},
+	cancelButton: {
+		backgroundColor: "#3A3335",
+		color: "#ffffff",
+		"&:hover": {
+			backgroundColor: "#615659"
+		},
+		marginRight: "10px"
+	},
+	chatButton: {
+		backgroundColor: "#1E385C",
+		color: "#ffffff",
+		"&:hover": {
+			backgroundColor: "#2D548B"
+		},
 	},
 	dialog: {
 		color: "black"
