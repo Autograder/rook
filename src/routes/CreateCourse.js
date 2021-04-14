@@ -25,7 +25,7 @@ export default function CreateCourse() {
 
     const handleSubmit = () => {
         // TODO: set a waiting timer button thing?
-        
+
         console.log(name, quarter, year, shortName, url)
         server.createCourse(name, quarter, shortName, url, user)
             .then(function(response){
@@ -64,7 +64,7 @@ export default function CreateCourse() {
                                 <TextField  className={classes.formControl} id="standard-basic" label="Course Title" 
                                             placeholder = "Basic Data Structures" variant="outlined" onChange = {(event) => setName(event.target.value)}/>
                                 <TextField  className={classes.formControl} id="standard-basic" label="Course Code" 
-                                            placeholder="CSE12" variant="outlined" onChange = {(event) => setShortName(event.target.value)}/>
+                                            placeholder="CSE 12" variant="outlined" onChange = {(event) => setShortName(event.target.value)}/>
                                 <TextField className={classes.formControl} id="standard-basic" label="Course URL" 
                                            placeholder="ieng6.ucsd.edu" variant="outlined" onChange = {(event) => setURL(event.target.value)}/>
                                 <FormControl variant="standard" className={classes.formControl}>
